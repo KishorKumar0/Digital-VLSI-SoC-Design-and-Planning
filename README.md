@@ -9,7 +9,7 @@ Welcome to the OpenLane workshop! In this workshop, we will delve into the proce
 **VSDSquadron** is a cutting-edge development board based on the RISC-V architecture that is fully open-source.This board presents an exceptional opportunity for individuals to learn about RISC-V and VLSI chip design utilizing only open-source tools, starting from the RTL and extending all the way to the GDSII. The possibilities for learning and advancement with this technology are limitless.RISC-V chips on these boards should be open for VLSI chip design learning, allowing you to explore Place&Route (PNR), standard cells, and layout design. The Caravel IC is a microprocessor chip that interfaces with other components on the board. The design of this chip, from the abstract level down to fabrication, is accomplished through the RTL-to-GDSII flow. The VSDsquadron consists of both a physical programmable circuit board (often referred to as a microcontroller) and software, or an IDE (Integrated Development Environment), that runs on a computer and is used to write and upload code to the physical board.
 ![vsdsquadron](Day1/vsdsquadron.jpg)
 ### Introduction to IC Design components
-![vsdsquadron](Day1/vsdsquadron.jpg)
+![vsdsquadron](Day1/IC_Component1.png)
 1. **Die:**
     - The die is the actual silicon wafer where all the components of the IC are fabricated.
     - It serves as the substrate that houses the functional blocks (e.g., processor cores, memory, peripherals) interconnected by metal layers.
@@ -25,7 +25,7 @@ Welcome to the OpenLane workshop! In this workshop, we will delve into the proce
     - The core is the central area of the die, where the main functional logic is implemented.
     - It contains all the key circuits, including the processor core, memory, and other peripherals.
     - Signals from the core are routed to the pads for communication with external devices.
-![vsdsquadron](Day1/vsdsquadron.jpg)
+![vsdsquadron](Day1/IC_Component2.png)
 1. **Macros:**
     - Macros are reusable, pre-designed blocks of functionality integrated into the chip.
     - These include:
