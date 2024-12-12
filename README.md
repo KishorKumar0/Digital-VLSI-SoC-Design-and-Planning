@@ -15,26 +15,27 @@ Welcome to the OpenLane workshop! In this workshop, we will delve into the proce
     - It serves as the substrate that houses the functional blocks (e.g., processor cores, memory, peripherals) interconnected by metal layers.
 2. **Pads:**
     - Pads are metal contact points placed along the perimeter of the die.
-    - Purpose:
-      - Provide connections for power (vdd3v3, vdd1v8, vss) to ensure the IC operates correctly.
-      - Enable communication of signals between the IC and external components through input/output pins (gpio, ser_tx, ser_rx, etc.).
-    - Types of Pads:
-      - Power Pads: Supply voltage levels (vdd1v8, vdd3v3) and ground connections (vss).
-      - Signal Pads: Interface for general-purpose inputs/outputs (gpio), analog signals (adc_in, analog_out), and serial communication (ser_tx, ser_rx).
+    - **Purpose:**
+      - Provide connections for power (`vdd3v3`, `vdd1v8`, `vss`) to ensure the IC operates correctly.
+      - Enable communication of signals between the IC and external components through input/output pins (`gpio`, `ser_tx`, `ser_rx`, etc.).
+    - **Types of Pads:**
+      - **Power Pads:** Supply voltage levels (`vdd1v8`, `vdd3v3`) and ground connections (`vss`).
+      - **Signal Pads:** Interface for general-purpose inputs/outputs (`gpio`), analog signals (`adc_in`, `analog_out`), and serial communication (`ser_tx`, `ser_rx`).
 3. **Core:**
     - The core is the central area of the die, where the main functional logic is implemented.
     - It contains all the key circuits, including the processor core, memory, and other peripherals.
     - Signals from the core are routed to the pads for communication with external devices.
+
 ![vsdsquadron](Day1/IC_Component2.png)
 1. **Macros:**
     - Macros are reusable, pre-designed blocks of functionality integrated into the chip.
     - These include:
-      - RISC-V SoC: A RISC-V-based System-on-Chip (SoC) that serves as the primary computational engine of the IC.
-      - GPIO Bank: A collection of General-Purpose Input/Output pins, used for interfacing with external peripherals like LEDs, buttons, and sensors.
-      - SPI (Serial Peripheral Interface): A high-speed serial communication protocol used to connect the IC with external devices like flash memory or sensors.
+      - **RISC-V SoC:** A RISC-V-based System-on-Chip (SoC) that serves as the primary computational engine of the IC.
+      - **GPIO Bank:** A collection of General-Purpose Input/Output pins, used for interfacing with external peripherals like LEDs, buttons, and sensors.
+      - **SPI (Serial Peripheral Interface):** A high-speed serial communication protocol used to connect the IC with external devices like flash memory or sensors.
 2. **Foundry IPs:**
     - Foundry IPs are pre-designed, verified modules provided by the semiconductor foundry (the manufacturer of the chip).
     - These blocks ensure compatibility with the fabrication process and provide critical functionalities like:
-      - SRAM: Static Random-Access Memory for storing data or instructions.
-      - ADC (Analog-to-Digital Converter): Converts analog signals into digital values for processing.
-      - DAC (Digital-to-Analog Converter): Converts digital data into analog signals for output.
+      - **SRAM:** Static Random-Access Memory for storing data or instructions.
+      - **ADC (Analog-to-Digital Converter):** Converts analog signals into digital values for processing.
+      - **DAC (Digital-to-Analog Converter):** Converts digital data into analog signals for output.
