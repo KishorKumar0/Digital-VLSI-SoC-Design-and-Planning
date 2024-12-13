@@ -45,7 +45,7 @@ RISC-V is an open-standard instruction set architecture (ISA) developed at the U
 
 The ISA is versatile, with a 32-bit fixed-length base instruction set and variable-length extensions allowing instructions to be in 16-bit increments. It supports 32-bit, 64-bit, and experimental 128-bit address space variants, though the 128-bit variant remains unfrozen due to limited practical use. Chips are connected to packages via bond wires.
 
-![vsdsquadron](Day1/RISC-V_intro.jpg)
+![vsdsquadron](Day1/RISC-V_intro.png)
 This diagram demonstrates how a simple C program is executed on a RISC-V architecture by translating it into assembly code, mapping the binary representation of the assembly code, and running it on the RISC-V layout.
 
 1 **Writing a C Program:**
