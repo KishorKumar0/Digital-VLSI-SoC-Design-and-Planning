@@ -39,3 +39,77 @@ Welcome to the OpenLane workshop! In this workshop, we will delve into the proce
       - **SRAM:** Static Random-Access Memory for storing data or instructions.
       - **ADC (Analog-to-Digital Converter):** Converts analog signals into digital values for processing.
       - **DAC (Digital-to-Analog Converter):** Converts digital data into analog signals for output.
+      - 
+### Overview RISC-V
+This diagram demonstrates how a simple C program is executed on a RISC-V architecture by translating it into assembly code, mapping the binary representation of the assembly code, and running it on the RISC-V layout.
+
+1 **Writing a C Program:**
+- A simple C program is written to perform a specific operation (e.g., swapping two variables in memory).
+  
+2.**Converting to Assembly Code:**
+- The C code is compiled using the RISC-V GCC toolchain to generate assembly and binary machine code.
+  
+3.**Executing on RISC-V Layout:**
+- The binary instructions are sent to the RISC-V processor core, where the processor executes them by decoding the instructions and interacting with the hardware.
+    
+#### Step-by-Step Explanation
+**Step 1: Writing a C Program**
+A simple C program is written to demonstrate the operation. For example, the program to swap two variables is as follows:
+```
+c
+
+void swap(int* myl, int* mys) {
+    int temp = myl[0];
+    myl[0] = mys[0];
+    mys[0] = temp;
+}
+```
+This code uses basic memory operations to swap values between two arrays.
+
+**Step 2: Compiling to RISC-V Assembly Code**
+- The C program is compiled using the RISC-V GCC toolchain:
+```
+bash
+
+riscv64-unknown-elf-gcc -o swap.o swap.c
+```
+The compiled binary (`swap.o`) is disassembled to generate the RISC-V assembly instructions:
+```
+bash
+
+riscv64-unknown-elf-objdump -d swap.o
+```
+The disassembled output shows the equivalent RISC-V instructions:
+```
+assembly
+
+addi  a5, sp, 48
+sw    a5, 0(a0)
+ld    a5, 8(a0)
+...
+```
+
+This step converts the high-level C code into machine-level instructions that the RISC-V processor can understand.
+
+**Step 3: Executing on RISC-V Processor**
+- The binary representation of the assembly instructions is sent to the picorv32 RISC-V processor core for execution.
+- The processor core decodes and executes the instructions:
+    - Registers are initialized, and memory operations (load/store) are performed as per the instructions.
+    - The `always` block in the Verilog implementation of `picorv32` handles the instruction decoding and execution cycle:
+```
+verilog
+
+always @(posedge clk) begin
+    is_lui <= instr_lui;
+    is_add <= instr_add;
+    if (mem_done) begin
+        instr_latched <= mem_rdata[6:0] == 7'b0110011;
+    end
+end
+```
+**Step 4: Mapping to Physical Layout**
+- The Verilog design of the RISC-V core (picorv32) is synthesized into a physical layout using the qflow toolchain.
+- The layout includes:
+    - **Standard cells:** The building blocks of the processor.
+    - **Interconnections:** Signal routing between different cells.
+This layout represents the physical implementation of the RISC-V processor, where binary instructions are processed to execute the program.
