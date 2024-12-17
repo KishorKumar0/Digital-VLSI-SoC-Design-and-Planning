@@ -137,7 +137,7 @@ This diagram explains the flow of how **application software** interacts with th
 ### 2. System Software
 System Software acts as a bridge between **Application Software** and the **Hardware**. It comprises three main components:
 
-#### **a) Operating System (OS)**
+##### **a) Operating System (OS)**
 - Handles core tasks such as:
   - Managing Input/Output (I/O) devices,  
   - Allocating memory, and  
