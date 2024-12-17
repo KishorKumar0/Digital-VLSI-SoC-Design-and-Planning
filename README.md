@@ -127,14 +127,14 @@ This diagram explains the flow of how **application software** interacts with th
 
 ---
 
-## Step-by-Step Execution Flow
+### Step-by-Step Execution Flow
 
-### 1. Application Software
+#### 1. Application Software
 - Application software includes programs such as:
   - **Mozilla Firefox**, **Microsoft Word**, **Acrobat Reader**, etc.
 - These are user-level programs designed to perform specific tasks.
 
-### 2. System Software
+#### 2. System Software
 System Software acts as a bridge between **Application Software** and the **Hardware**. It comprises three main components:
 
 ##### **a) Operating System (OS)**
@@ -144,7 +144,7 @@ System Software acts as a bridge between **Application Software** and the **Hard
   - Performing low-level system operations.  
 - Converts the application software into **high-level code** (e.g., written in **C**, **C++**, **Java**, or **VB**).
 
-#### **b) Compiler**
+##### **b) Compiler**
 - The **compiler** translates the high-level programming code into instructions compatible with the **Instruction Set Architecture (ISA)** of the hardware.  
 - The resulting output is stored as an **.exe** file.  
 - **ISA** acts as an **abstract interface** between:
@@ -152,14 +152,14 @@ System Software acts as a bridge between **Application Software** and the **Hard
   - **Hardware (processor/chip)**.  
 - In this case, the **RISC-V ISA** is used.
 
-#### **c) Assembler**
+##### **c) Assembler**
 - The assembler takes the compiled **.exe file** and converts it into **machine-level binary code**.  
 - Binary code consists of **1s and 0s** that the hardware can understand:  
   - Example: `01000110101`, `01010010010`.
 
 ---
 
-### 3. Hardware
+#### 3. Hardware
 - The binary instructions are sent to the **hardware** for execution.  
 - The hardware (chip layout) consists of:
   - Routing paths,  
@@ -170,7 +170,7 @@ System Software acts as a bridge between **Application Software** and the **Hard
 
 ---
 
-## Key Concepts
+### Key Concepts
 
 1. **Application Software → System Software → Hardware**
    - Application software is converted into binary form and executed on hardware.
