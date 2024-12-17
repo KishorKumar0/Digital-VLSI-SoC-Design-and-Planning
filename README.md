@@ -7,7 +7,11 @@ Welcome to the OpenLane workshop! In this workshop, we will delve into the proce
 ## Inception of open-source EDA, OpenLANE and sky130 PDK
 ### Overview of QFN-48 Chip, Pads, Core, Die, and IPs
 **VSDSquadron** is a cutting-edge development board based on the RISC-V architecture that is fully open-source.This board presents an exceptional opportunity for individuals to learn about RISC-V and VLSI chip design utilizing only open-source tools, starting from the RTL and extending all the way to the GDSII. The possibilities for learning and advancement with this technology are limitless.RISC-V chips on these boards should be open for VLSI chip design learning, allowing you to explore Place&Route (PNR), standard cells, and layout design. The Caravel IC is a microprocessor chip that interfaces with other components on the board. The design of this chip, from the abstract level down to fabrication, is accomplished through the RTL-to-GDSII flow. The VSDsquadron consists of both a physical programmable circuit board (often referred to as a microcontroller) and software, or an IDE (Integrated Development Environment), that runs on a computer and is used to write and upload code to the physical board.
+
 ![vsdsquadron](Day1/vsdsquadron.jpg)
+
+---
+
 ### Introduction to IC Design components
 ![vsdsquadron](Day1/IC_Component1.png)
 1. **Die:**
@@ -39,7 +43,9 @@ Welcome to the OpenLane workshop! In this workshop, we will delve into the proce
       - **SRAM:** Static Random-Access Memory for storing data or instructions.
       - **ADC (Analog-to-Digital Converter):** Converts analog signals into digital values for processing.
       - **DAC (Digital-to-Analog Converter):** Converts digital data into analog signals for output.
-      - 
+
+---
+
 ### Introduction to RISC-V
 RISC-V is an open-standard instruction set architecture (ISA) developed at the University of California, Berkeley, representing the fifth generation of RISC architecture. It is open source, fee-free, and based on established RISC principles. RISC-V supports a variety of hardware platforms and is integrated into many open-source operating systems and popular software toolchains.
 
@@ -119,6 +125,8 @@ end
     - **Interconnections:** Signal routing between different cells.
 This layout represents the physical implementation of the RISC-V processor, where binary instructions are processed to execute the program.
 
+--
+
 ## How Application Software Runs on a Laptop or Computer Package (Chip)
 
 ![Application Software to Hardware](Day1/Application_Software_to_Hardware1.png)
@@ -156,8 +164,6 @@ System Software acts as a bridge between **Application Software** and the **Hard
 - The assembler takes the compiled **.exe file** and converts it into **machine-level binary code**.  
 - Binary code consists of **1s and 0s** that the hardware can understand:  
   - Example: `01000110101`, `01010010010`.
-
----
 
 #### 3. Hardware
 - The binary instructions are sent to the **hardware** for execution.  
