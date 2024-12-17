@@ -122,6 +122,7 @@ This layout represents the physical implementation of the RISC-V processor, wher
 # How Application Software Runs on a Laptop or Computer Package (Chip)
 
 ![Application Software to Hardware](Day1/Application_Software_to_Hardware1.png)
+
 This diagram explains the flow of how **application software** interacts with the **hardware** of a computer or laptop, using system software to convert the program into machine-executable instructions. The entire process involves **Operating System (OS), Compiler, Assembler, and Hardware**.
 
 ---
