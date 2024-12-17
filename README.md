@@ -191,3 +191,71 @@ System Software acts as a bridge between **Application Software** and the **Hard
 
 4. **Instruction Set Architecture (ISA)**:
    - ISA serves as the bridge between **software instructions** and **hardware execution**.
+  
+---
+
+![Application Software to Hardware](Day1/Application_Software_to_Hardware2.png)
+
+This diagram shows that After the instruction and assembler stages, there is another interface before the hardware: the Register Transfer Level (RTL) description written in a Hardware Description Language (HDL). This RTL is used to convert instructions into machine code, which is then synthesized into a netlist containing gates and flip-flops.
+
+#### 1. Instruction Set Architecture (ISA)
+The ISA provides an abstract interface between software and hardware. It defines operations like arithmetic, logic, and control instructions.
+- **Example Instruction:**
+ ```
+  assembly
+
+  add x6, x10, x6
+
+ ```
+This means:
+- Add the contents of register `x10` to register `x6` and store the result back in `x6`.
+
+#### 2. Assembler
+The Assembler translates ISA instructions into binary machine code. This binary code is the input to the hardware.
+- **Machine Code:**
+ ```
+ mechine code
+
+ 01000110101  
+ 0101001010  
+ ```
+The binary code corresponds to the operation, source registers, and destination register
+
+#### 3. Register Transfer Level (RTL)
+The RTL is written in Hardware Description Language (HDL) like Verilog or VHDL. It describes how the hardware interprets and executes the instructions.
+- **Example RTL Snippet (Verilog):**
+ ```
+ verilog
+
+ module picorv32 #( 
+     parameter [0:0] ENABLE_COUNTERS = 1, 
+     parameter [0:0] ENABLE_REGS = 1
+ );
+
+always @(posedge clk) begin
+    if (instr_valid) begin
+        if (instr == "ADD") begin
+            regfile[instr_rd] <= regfile[instr_rs1] + regfile[instr_rs2];
+        end
+    end
+end
+```
+
+- **Key Highlights:**
+  - The RTL code performs the ADD operation.
+  - Registers instr_rs1 and instr_rs2 are read and summed.
+  - The result is stored back in the destination register instr_rd.
+
+#### Netlist Generation
+The RTL code is synthesized into a netlist, which describes the hardware implementation using logic gates and flip-flops.
+- **Netlist Example (Simplified View):**
+ ```
+
+ Copy code
+ 0000000000110101001000011000011
+ ```
+The netlist maps the operations to actual digital components like AND gates, flip-flops, and multiplexers.
+
+- **Diagram Representation (from the image):**
+  This synthesized design connects combinational logic and sequential logic (flip-flops) to implement the ADD instruction.
+
