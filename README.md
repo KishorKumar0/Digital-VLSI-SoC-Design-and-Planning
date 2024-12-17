@@ -119,7 +119,7 @@ end
     - **Interconnections:** Signal routing between different cells.
 This layout represents the physical implementation of the RISC-V processor, where binary instructions are processed to execute the program.
 
-# How Application Software Runs on a Laptop or Computer Package (Chip)
+## How Application Software Runs on a Laptop or Computer Package (Chip)
 
 ![Application Software to Hardware](Day1/Application_Software_to_Hardware1.png)
 
