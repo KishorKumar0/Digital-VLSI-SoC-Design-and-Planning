@@ -118,3 +118,69 @@ end
     - **Standard cells:** The building blocks of the processor.
     - **Interconnections:** Signal routing between different cells.
 This layout represents the physical implementation of the RISC-V processor, where binary instructions are processed to execute the program.
+
+# How Application Software Runs on a Laptop or Computer Package (Chip)
+
+![vsdsquadron](Day1/IC_Component2.png)
+This diagram explains the flow of how **application software** interacts with the **hardware** of a computer or laptop, using system software to convert the program into machine-executable instructions. The entire process involves **Operating System (OS), Compiler, Assembler, and Hardware**.
+
+---
+
+## Step-by-Step Execution Flow
+
+### 1. Application Software
+- Application software includes programs such as:
+  - **Mozilla Firefox**, **Microsoft Word**, **Acrobat Reader**, etc.
+- These are user-level programs designed to perform specific tasks.
+
+### 2. System Software
+System Software acts as a bridge between **Application Software** and the **Hardware**. It comprises three main components:
+
+#### **a) Operating System (OS)**
+- Handles core tasks such as:
+  - Managing Input/Output (I/O) devices,  
+  - Allocating memory, and  
+  - Performing low-level system operations.  
+- Converts the application software into **high-level code** (e.g., written in **C**, **C++**, **Java**, or **VB**).
+
+#### **b) Compiler**
+- The **compiler** translates the high-level programming code into instructions compatible with the **Instruction Set Architecture (ISA)** of the hardware.  
+- The resulting output is stored as an **.exe** file.  
+- **ISA** acts as an **abstract interface** between:
+  - **Software (instructions)**, and  
+  - **Hardware (processor/chip)**.  
+- In this case, the **RISC-V ISA** is used.
+
+#### **c) Assembler**
+- The assembler takes the compiled **.exe file** and converts it into **machine-level binary code**.  
+- Binary code consists of **1s and 0s** that the hardware can understand:  
+  - Example: `01000110101`, `01010010010`.
+
+---
+
+### 3. Hardware
+- The binary instructions are sent to the **hardware** for execution.  
+- The hardware (chip layout) consists of:
+  - Routing paths,  
+  - Data output pins (e.g., Dout1, Dout2),  
+  - Clock signals (e.g., Clk Out), and  
+  - Components like **DECAP1**, **DECAP2**, and more.  
+- The hardware executes the instructions to **run the application software**.
+
+---
+
+## Key Concepts
+
+1. **Application Software → System Software → Hardware**
+   - Application software is converted into binary form and executed on hardware.
+
+2. **RISC-V Architecture**
+   - The **RISC-V ISA** determines how instructions are encoded and executed on the hardware.
+
+3. **System Software Components**:
+   - **Operating System**: Manages system-level tasks.  
+   - **Compiler**: Translates high-level code to hardware-specific instructions.  
+   - **Assembler**: Converts instructions into binary machine code.
+
+4. **Instruction Set Architecture (ISA)**:
+   - ISA serves as the bridge between **software instructions** and **hardware execution**.
