@@ -259,3 +259,39 @@ The netlist maps the operations to actual digital components like AND gates, fli
 - **Diagram Representation (from the image):**
   This synthesized design connects combinational logic and sequential logic (flip-flops) to implement the ADD instruction.
 
+----
+
+## Soc design and OpenLANE
+### Introduction to all components of open-source digital asic design
+1. **Digital Asic Design**
+   Designing **Application-Specific Integrated Circuits (ASICs)** in an automated way involves several essential components. These elements work together to ensure a smooth and efficient design process.
+   1. **RTL IP's (Register Transfer Level Intellectual Property):** RTL IPs are pre-designed modules or blocks that describe the behavior and structure of digital circuits at the RTL level. They are crucial for reusability and accelerating the design process.
+
+    2. **EDA Tools (Electronic Design Automation Tools)**:
+EDA tools provide software solutions for designing, verifying, and implementing ASICs. These tools handle various design stages, including synthesis, simulation, place-and-route, and timing analysis.
+
+    3. **PDK DATA (Process Design Kit Data)**
+PDKs contain all the process-specific information, including libraries, models, and layout rules, required to design ASICs for a particular semiconductor technology node. They ensure compatibility with the fabrication process.
+
+2. **Open Source Digital ASIC Design**
+   Designing an **Application-Specific Integrated Circuit (ASIC)** has traditionally been a costly and complex process, making it inaccessible for many. However, with advancements in **open-source tools** and resources, the dream of creating a fully functional ASIC has now become a reality.
+
+    #### 1. RTL Designs:
+    - RTL (Register Transfer Level) designs define the digital logic functionality of the ASIC.
+    - Open-source platforms like:
+      - librecores.org
+      - opencores.org
+      - github.com
+      provide readily available RTL IPs for various applications.
+
+    #### 2. EDA Tools (Electronic Design Automation Tools):
+   - Open-source EDA tools help automate the ASIC design process, including synthesis, place-and-route, and timing analysis.
+    - Popular tools include:
+      - QFlow
+      - OpenROAD
+      - OpenLANE
+
+    #### 3. PDK Data (Process Design Kit Data):
+   - PDKs contain the process-specific libraries, layout rules, and models required for ASIC fabrication.
+    - An example is the SkyWater 130nm PDK made available in collaboration with Google.
+      - SkyWater PDK GitHub Repository
