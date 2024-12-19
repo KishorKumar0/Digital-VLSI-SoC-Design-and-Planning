@@ -267,6 +267,8 @@ The netlist maps the operations to actual digital components like AND gates, fli
    Designing **Application-Specific Integrated Circuits (ASICs)** in an automated way involves several essential components. These elements work together to ensure a smooth and efficient design process.
    1. **RTL IP's (Register Transfer Level Intellectual Property):** RTL IPs are pre-designed modules or blocks that describe the behavior and structure of digital circuits at the RTL level. They are crucial for reusability and accelerating the design process.
 
+![asiccomponent](Day1/asiccomponent.png)
+
     2. **EDA Tools (Electronic Design Automation Tools)**:
 EDA tools provide software solutions for designing, verifying, and implementing ASICs. These tools handle various design stages, including synthesis, simulation, place-and-route, and timing analysis.
 
@@ -275,6 +277,8 @@ PDKs contain all the process-specific information, including libraries, models, 
 
 2. **Open Source Digital ASIC Design**
    Designing an **Application-Specific Integrated Circuit (ASIC)** has traditionally been a costly and complex process, making it inaccessible for many. However, with advancements in **open-source tools** and resources, the dream of creating a fully functional ASIC has now become a reality.
+
+![asicelement](Day1/asicelement.png)
 
     #### 1. RTL Designs:
     - RTL (Register Transfer Level) designs define the digital logic functionality of the ASIC.
