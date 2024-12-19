@@ -305,7 +305,7 @@ PDKs contain all the process-specific information, including libraries, models, 
 
 The RTL to GDSII flow is a step-by-step process used in the semiconductor industry to transform a Register Transfer Level (RTL) design into a final GDSII layout, which can be used for chip manufacturing. 
 
-    ![SimplifiedRTLtoGDSIIFlow](Day1/SimplifiedRTLtoGDSIIFlow.png)
+![SimplifiedRTLtoGDSIIFlow](Day1/SimplifiedRTLtoGDSIIFlow.png)
     
 #### Flow Steps
 1. **Synthesis (Synth)**
