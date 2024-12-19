@@ -300,3 +300,35 @@ PDKs contain all the process-specific information, including libraries, models, 
    - PDKs contain the process-specific libraries, layout rules, and models required for ASIC fabrication.
     - An example is the SkyWater 130nm PDK made available in collaboration with Google.
       - SkyWater PDK GitHub Repository
+
+### Simplified RTL to GDSII Flow
+
+The RTL to GDSII flow is a step-by-step process used in the semiconductor industry to transform a Register Transfer Level (RTL) design into a final GDSII layout, which can be used for chip manufacturing. 
+
+    ![SimplifiedRTLtoGDSIIFlow](Day1/SimplifiedRTLtoGDSIIFlow.png)
+    
+#### Flow Steps
+1. **Synthesis (Synth)**
+The RTL design is converted into a gate-level netlist using a synthesis tool. This step maps the design to a specific technology library, ensuring it meets the desired timing, area, and power constraints.
+
+2. **Floorplanning and Power Planning (FP+PP)**
+The chip layout is defined at a high level. Key areas, such as cores and blocks, are positioned, and power distribution is planned to ensure reliable operation.
+
+3. **Placement (Place)**
+Standard cells are placed in the predefined floorplan locations. The placement tool optimizes the design for timing and minimizes wirelength.
+
+4. **Clock Tree Synthesis (CTS)**
+A clock distribution network is created to deliver a synchronized clock signal across the entire design while minimizing skew and ensuring proper timing.
+
+5. **Routing (Route)**
+The interconnections between cells and blocks are routed. This step ensures all signals are correctly connected and meets the timing, power, and design rule constraints.
+
+6. **Sign-Off**
+The final design is verified against manufacturing and performance requirements. Checks include timing analysis, design rule checking (DRC), and layout versus schematic (LVS) comparison.
+
+#### Inputs and Outputs
+- **Inputs:**
+    - **RTL:** The design description in a high-level hardware description language (HDL), such as Verilog or VHDL.
+    - **PDK:** The Process Design Kit containing the technology-specific information required for the design.
+- **Outputs:**
+  - **GDSII:** The final layout format used for fabrication.
