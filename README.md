@@ -426,3 +426,68 @@ The final design is verified against manufacturing and performance requirements.
       ```
 **Note:** At this point, the design preparation step is successfully completed, and the environment is ready for further steps in the OpenLane design flow.
 
+7. **Run Synthesis**
+    - After preparing the design, execute the synthesis step using the run_synthesis command in the OpenLane interactive shell:
+   ```
+    tcl
+
+    run_synthesis
+   ```
+   
+8. **Output Messages During Synthesis**
+    - During the synthesis process, OpenLane performs several tasks and provides the following output:
+    - **Chip Area Report:**
+        - OpenLane calculates the chip area for the module. Example output:
+       ```
+        arduino
+
+        Chip area for module '\picorv32a': 147712.918480
+       ```
+    - **Verilog Backend Execution:**
+        - The synthesis step generates the synthesized Verilog netlist (*.synthesis.v file) in the specified results directory.
+      ```
+        arduino
+
+        Dumping module '\picorv32a'.
+      ```
+    - **Tool Logs:**
+        - The synthesis process uses the Yosys synthesis tool and provides detailed logs for executed commands:
+      ```
+        scss
+
+        Yosys 0.9+3621 (git sha1 84ef9ac7, gcc 8.3.1 -fPIC -Os)
+      ```
+        - Warnings and messages related to design constraints and libraries are displayed during the synthesis.
+    - **Timing Analysis:**
+        - OpenSTA (Open Source Static Timing Analysis) is used for analyzing timing and setting up constraints.
+      ```
+        markdown
+      
+        Copy code
+        [INFO]: Running Static Timing Analysis...
+        OpenSTA 2.3.
+      ```
+    - **Environment Variables Setup:**
+        - Environment variables like clock period (CLOCK_PERIOD) and capacitance load are configured for timing analysis.
+      ```
+        markdown
+
+        [INFO]: Setting up delay values...
+      ```
+    - **Final Synthesis Status:**
+    - After the synthesis is completed, OpenLane confirms success:
+   ```
+    markdown
+
+   [INFO]: Synthesis was successful
+   ``
+   
+9. **Synthesized Outputs**
+    - The synthesized outputs, including the Verilog netlist and timing reports, are stored in the results directory:
+   ```
+    bash
+
+    /OpenLane_flow/designs/picorv32a/runs/19-12_06-09/results/synthesis/picorv32a.synthesis.v
+   ```
+   - You can review these files for further verification or debugging.
+
