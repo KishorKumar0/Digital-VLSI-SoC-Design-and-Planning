@@ -373,7 +373,7 @@ The final design is verified against manufacturing and performance requirements.
    ```
     You are now in the OpenLane interactive shell, ready to execute design flows.
    
-![packagesdownload](Day1/packagesdownload.png)
+![packages](Day1/packages.png)
 
 6. **Prepare the Design**
     - After entering the OpenLane interactive shell, prepare your design by using the prep command. For example:
@@ -429,7 +429,7 @@ The final design is verified against manufacturing and performance requirements.
       ```
 **Note:** At this point, the design preparation step is successfully completed, and the environment is ready for further steps in the OpenLane design flow.
 
-![sythesis](Day1/sythesis.png)
+![synthesis](Day1/synthesis.png)
 
 7. **Run Synthesis**
     - After preparing the design, execute the synthesis step using the run_synthesis command in the OpenLane interactive shell:
