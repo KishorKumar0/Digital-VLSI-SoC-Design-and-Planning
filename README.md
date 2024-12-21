@@ -332,3 +332,97 @@ The final design is verified against manufacturing and performance requirements.
     - **PDK:** The Process Design Kit containing the technology-specific information required for the design.
 - **Outputs:**
   - **GDSII:** The final layout format used for fabrication.
+ 
+---
+
+1. **Navigate to the OpenLane Directory**
+    - Open a terminal.
+    - Use the cd command to navigate to the directory where OpenLane is installed. For example:
+   ```
+    bash
+   
+    cd ~/Desktop/work/tools/openlane_working_dir/openlane
+   ```
+   
+2. **List the Directory Contents**
+    - Run the following command to display the files and directories in the OpenLane folder:
+   ```
+    bash
+
+    ls -ltr
+    ```
+
+3. **Run Docker to Start OpenLane**
+    - Ensure Docker is installed and running on your system.
+    - Start OpenLane interactively by executing the flow.tcl script in interactive mode:
+   ```
+    bash
+
+    ./flow.tcl -interactive
+   ```
+   This command initializes OpenLane and launches the interactive shell.
+   
+4. **Verify OpenLane Version**
+    - After running the above command, OpenLane displays its version and initialization messages:
+   ```
+    markdown
+
+    [INFO]: Version: v0.21
+    [INFO]: Running interactively
+   ```
+    You are now in the OpenLane interactive shell, ready to execute design flows.
+
+5. **Prepare the Design**
+    - After entering the OpenLane interactive shell, prepare your design by using the prep command. For example:
+   ```
+   tcl
+
+   prep -design picorv32a
+   ```
+   Copy codeommand prepares the specified design (picorv32a in this case) for the flow by setting up the design configuration and loading necessary files.
+   
+6. **Output Messages During Preparation**
+   During preparation, the following steps and information will be displayed:
+   - **Configuration Loading:**
+       - OpenLane loads the design configuration from config.tcl.
+       - Example:
+     ```
+        markdown
+        [INFO]: Using design configuration at /OpenLane_flow/designs/picorv32a/config.tcl
+     ```
+    - **Setting up PDK (Process Design Kit):**
+        - The PDK used for the process is specified. In this case, it is sky130A.
+        - Example:
+      ```
+        markdown
+        [INFO]: PDKs root directory: /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks
+        [INFO]: Setting PDKPATH to /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A
+      ```
+    - **Standard Cell Library:**
+        - The standard cell library used is sky130_fd_sc_hd.
+      ```
+        markdown
+
+        [INFO]: Standard Cell Library: sky130_fd_sc_hd
+      ```
+    - **LEF Files Preparation:**
+        - OpenLane processes and merges LEF files (Library Exchange Format), which describe the layout information.
+      ```
+        markdown
+
+        [INFO]: Preparing LEF Files...
+        [INFO]: sky130_fd_sc_hd__fill_12.lef: SITES matched found: 0
+        ...
+        [INFO]: Merging LEFs complete
+      ```
+    - **Final Configuration:**
+        - OpenLane generates an exclude list and stores configurations in config.tcl.
+      ```
+        markdown
+
+        [INFO]: Generating Exclude List...
+        [INFO]: Storing configs into config.tcl ...
+        [INFO]: Preparation complete
+      ```
+**Note:** At this point, the design preparation step is successfully completed, and the environment is ready for further steps in the OpenLane design flow.
+
