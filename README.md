@@ -334,6 +334,7 @@ The final design is verified against manufacturing and performance requirements.
   - **GDSII:** The final layout format used for fabrication.
  
 ---
+![openlane](Day1/openlane.png)
 
 1. **Navigate to the OpenLane Directory**
     - Open a terminal.
@@ -371,8 +372,10 @@ The final design is verified against manufacturing and performance requirements.
     [INFO]: Running interactively
    ```
     You are now in the OpenLane interactive shell, ready to execute design flows.
+   
+![packagesdownload](Day1/packagesdownload.png)
 
-5. **Prepare the Design**
+6. **Prepare the Design**
     - After entering the OpenLane interactive shell, prepare your design by using the prep command. For example:
    ```
    tcl
@@ -381,7 +384,7 @@ The final design is verified against manufacturing and performance requirements.
    ```
    Copy codeommand prepares the specified design (picorv32a in this case) for the flow by setting up the design configuration and loading necessary files.
    
-6. **Output Messages During Preparation**
+7. **Output Messages During Preparation**
    During preparation, the following steps and information will be displayed:
    - **Configuration Loading:**
        - OpenLane loads the design configuration from config.tcl.
@@ -425,6 +428,8 @@ The final design is verified against manufacturing and performance requirements.
         [INFO]: Preparation complete
       ```
 **Note:** At this point, the design preparation step is successfully completed, and the environment is ready for further steps in the OpenLane design flow.
+
+![sythesis](Day1/sythesis.png)
 
 7. **Run Synthesis**
     - After preparing the design, execute the synthesis step using the run_synthesis command in the OpenLane interactive shell:
