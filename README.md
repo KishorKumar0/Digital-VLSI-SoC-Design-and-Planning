@@ -334,6 +334,15 @@ The final design is verified against manufacturing and performance requirements.
   - **GDSII:** The final layout format used for fabrication.
  
 ---
+### Introduction to OpenLANE and Strive chipsets
+
+With the release of the open-source PDK at eFabless, it will drive the creation of its own reference open-source ASIC implementation methodology called **OpenLane**. 
+
+#### Open Source ASIC Flow Challenges 
+
+Using open-source EDA tools for ASIC design presents unique challenges compared to commercial solutions. The key issues include **tools qualification**, where open-source tools may lack formal validation for production use, **tools calibration**, which requires manual tuning to match process node specifications, and **missing tools**, as some essential features like advanced DRC, LVS, or power analysis may not be fully available. While OpenLane is a promising step forward, addressing these challenges is crucial to achieving industry-grade reliability and efficiency.
+
+---
 ![openlane](Day1/openlane.png)
 
 1. **Navigate to the OpenLane Directory**
