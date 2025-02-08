@@ -348,7 +348,7 @@ Using open-source EDA tools for ASIC design presents unique challenges compared 
 
 Additionally, **striVe** is a family of **open-everything SoCs**, built entirely on **open PDKs, open EDA tools, and open RTL designs**. This initiative demonstrates the feasibility of a fully open-source semiconductor design ecosystem.  
 
-![striVe_block_diagram](Day1/striVe_block_diagram.pdf)
+![striVe_block_diagram](Day1/striVe_block_diagram.jpg)
 
 The image illustrates a **striVe SoC block diagram**, detailing its components such as the **RISC-V core, SRAM, SPI interface, PLL, and GPIOs**, along with a **GDSII layout representation** of the finalized ASIC. This showcases the **practical application of OpenLane in real silicon tape-outs**.
 
