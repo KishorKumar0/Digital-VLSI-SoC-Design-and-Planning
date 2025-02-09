@@ -528,7 +528,7 @@ Regression testing ensures the OpenLane flow remains stable and produces consist
 
 Design for Test (DFT) is a methodology used in digital circuit design to enhance testability, ensuring defects can be detected efficiently during manufacturing.  
 
-A **Key DFT Techniques**  
+A. **Key DFT Techniques**  
 1. **Scan Insertion**  
    - Converts flip-flops into scan-enabled flip-flops, forming a scan chain.  
    - Facilitates controlled testing by shifting test patterns in and out.  
@@ -549,7 +549,7 @@ A **Key DFT Techniques**
    - Simulates circuit behavior with faults to validate the effectiveness of test patterns.  
    - Helps assess how well the design can be tested in real-world scenarios.  
 
-B **DFT Block Diagram Explanation**  
+B. **DFT Block Diagram Explanation**  
 The diagram illustrates a **scan-based DFT architecture**, where:  
 - **Flip-flops** are connected in a scan chain to enable shift operations.  
 - **Combinational Logic** is tested by applying and capturing test patterns.  
