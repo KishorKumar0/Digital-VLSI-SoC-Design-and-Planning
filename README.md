@@ -526,6 +526,8 @@ Regression testing ensures the OpenLane flow remains stable and produces consist
 
 #### **Design for Test (DFT)**  
 
+![Design For Test](Day1/DFT.png)  
+
 Design for Test (DFT) is a methodology used in digital circuit design to enhance testability, ensuring defects can be detected efficiently during manufacturing.  
 
 A. **Key DFT Techniques**  
