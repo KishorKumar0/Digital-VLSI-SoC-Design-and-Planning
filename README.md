@@ -436,7 +436,7 @@ To ensure a smooth and reproducible experience, OpenLANE is **containerized**, m
         1. **Autonomous Mode** 🛠️  
            - Runs automatically using **default settings** and pre-configured design flows.  
            - Ideal for **quick prototyping** or users who prefer an automated workflow.  
-        2. **Interactive Mode** 🎛️  
+        2. **Interactive Mode**
            - Allows users to **manually adjust** settings at different stages of the ASIC design process.  
            - Useful for **fine-tuning designs** based on specific constraints like power, performance, or area (PPA).  
 
