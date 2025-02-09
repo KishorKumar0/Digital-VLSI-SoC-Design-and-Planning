@@ -353,6 +353,33 @@ Additionally, **striVe** is a family of **open-everything SoCs**, built entirely
 </p>
 The image illustrates a **striVe SoC block diagram**, detailing its components such as the **RISC-V core, SRAM, SPI interface, PLL, and GPIOs**, along with a **GDSII layout representation** of the finalized ASIC. This showcases the **practical application of OpenLane in real silicon tape-outs**.
 
+#### striVe SoC Family
+
+The **striVe SoC family** is a set of **open-source System-on-Chip (SoC) designs** created using **OpenLane** and the **SkyWater 130nm PDK**. These designs serve as **reference implementations** for open-source ASIC development.  
+
+1. **Key Highlights**  
+- Developed as **open-source SoCs** for research, prototyping, and education.  
+- Uses **OpenLane**, an open-source ASIC flow, for RTL-to-GDSII implementation.  
+- Built on the **SkyWater 130nm process**, supported by Google and eFabless.  
+- Demonstrates **different memory architectures**, including synthesized SRAM and OpenRAM.  
+- Aims to **make ASIC design accessible** to the wider hardware community.  
+
+2. **striVe SoC Variants and Features**  
+
+| **SoC Variant** | **Technology Node** | **Memory Architecture** | **Special Features** |  
+|---------------|-----------------|---------------------|----------------|  
+| **striVe**   | Sky130 SCL       | Synthesized 1 KByte SRAM | Baseline variant |  
+| **striVe 2** | Sky130 SCL       | 1 KByte OpenRAM block | Uses OpenRAM instead of synthesized SRAM |  
+| **striVe 2a** | Sky130 SCL       | Same as striVe 2 | Single-chip core module |  
+| **striVe 3** | OSU SCL          | Synthesized 1 KByte SRAM | Uses OSU Standard Cell Library |  
+| **striVe 5** | Sky130 SCL       | 8 × 1 KByte OpenRAM banks | Higher memory capacity |  
+| **striVe 6** | Sky130 SCL       | Same as striVe 2 | Includes Design for Testability (DFT) |  
+
+3. **Supported by Open-Source Silicon Community**  
+- **SkyWater** – Provides open-source **PDK**.  
+- **Google** – Supports open ASIC initiatives.  
+- **OpenROAD** – Contributes open EDA tools.  
+- **eFabless** – Enables open-source chip manufacturing.
 ---
 ![openlane](Day1/openlane.png)
 
