@@ -458,7 +458,7 @@ OpenLane is an open-source toolchain for **ASIC physical design automation** (RT
 
 The following diagram illustrates the **OpenLane Flow**, which converts an RTL description into a **manufacturable layout**:  
 
-![OpenLane Flow](openlane-flow.png)  
+![OpenLane Flow](Day1/openlane-flow.png)  
 
 #### OpenLane Flow Explanation  
 
