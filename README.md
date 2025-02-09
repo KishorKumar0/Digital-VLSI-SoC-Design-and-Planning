@@ -644,4 +644,39 @@ To further mitigate antenna violations, a preventive design strategy is followed
     - **Replacement of Fake Diodes:** If the checker detects a violation, the fake diode is replaced with a real antenna diode cell.
       ![Fake antenna diode cell](Day1/fake_Antenna_diode_cell.png)  
 
+#### Static Timing Analysis (STA)
 
+1. **Overview**
+Static Timing Analysis (STA) is a method used to verify the timing of a digital circuit without requiring simulation. It ensures that all timing constraints are met by analyzing the delay of paths in the design.
+
+2. **Tools Used**
+    - **RC Extraction:** `DEF2SPEF` is used to extract resistance and capacitance values from the design.
+    - **STA:** `OpenSTA` (part of the OpenROAD project) is used for performing static timing analysis.
+
+3. **Example Timing Report**
+The image shows an example timing analysis report generated using OpenSTA. The report includes:
+    - **Startpoint & Endpoint:** Defines the beginning and end of the timing path.
+    - **Path Type:** Specifies whether it's a setup or hold timing check.
+    - **Delay Breakdown:** Displays individual delays at different stages of the path.
+    - **Slack Calculation:** Computes the slack value, which determines if the design meets timing requirements. A positive slack indicates timing is met (MET), while a negative slack indicates a violation.
+
+Here's a README section describing the content of the image:
+
+#### Physical Verification: DRC & LVS
+
+1. **Overview**
+Physical verification ensures that the designed layout follows manufacturing rules and matches the intended circuit functionality. This process includes **Design Rule Checking (DRC)** and **Layout vs. Schematic (LVS) verification**.
+
+2. **Tools Used**
+    - **Magic**: A VLSI layout tool used for:
+      - **Design Rule Checking (DRC)** to ensure the layout meets fabrication constraints.
+      - **SPICE extraction** from the layout for circuit simulations.
+    - **Netgen**: A tool used for **Layout vs. Schematic (LVS) verification** by comparing:
+      - The **SPICE netlist extracted by Magic** from the layout.
+      - The **Verilog netlist** to ensure both representations match.
+
+3. **Importance of Physical Verification**
+    - **DRC ensures manufacturability**, preventing layout errors that violate fabrication constraints.
+    - **LVS ensures correctness**, verifying that the physical layout corresponds to the intended circuit design.
+
+By using **Magic** and **Netgen**, designers can validate their layouts before fabrication, reducing errors and ensuring correct functionality.
