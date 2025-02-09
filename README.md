@@ -406,8 +406,6 @@ OpenLANE is primarily **tuned for the SkyWater 130nm Open PDK** but also support
 To ensure a smooth and reproducible experience, OpenLANE is **containerized**, meaning:
     - It works **out of the box** without requiring complex dependencies.
     - Instructions for building and running it natively will be provided.
-  
-Here's an expanded version of the **Features** section for your GitHub README with more detailed explanations:
 
 5. **Features**  
 
