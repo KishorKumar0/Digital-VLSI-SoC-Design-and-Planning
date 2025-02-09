@@ -557,3 +557,33 @@ The diagram illustrates a **scan-based DFT architecture**, where:
 - **Combinational Logic** is tested by applying and capturing test patterns.  
 - **sin (scan-in) & sout (scan-out)** are used to load and read test patterns.  
 - **Clock & TCK (Test Clock)** control the scan shifting process.  
+
+
+#### **Physical Implementation (PnR)**  
+
+**Physical Implementation** is the process of converting a synthesized netlist into a fully placed and routed layout that meets design constraints. It is also referred to as **Place and Route (PnR)** and is an automated process handled by tools like **OpenROAD**.  
+
+A. **Key Steps in Physical Implementation**  
+1. **Floor & Power Planning**  
+   - Defines chip dimensions and block placements.  
+   - Allocates power rails to ensure proper power distribution.  
+
+2. **Decoupling Capacitor & Tap Cell Insertion**  
+   - **Decoupling Capacitors:** Help reduce noise and voltage fluctuations.  
+   - **Tap Cells:** Ensure well connections to prevent latch-up issues.  
+
+3. **Placement (Global & Detailed)**  
+   - **Global Placement:** Determines approximate locations of cells.  
+   - **Detailed Placement:** Optimizes locations considering legal placement rules.  
+
+4. **Post-Placement Optimization**  
+   - Refines placement to improve **timing, power, and area (PPA)**.  
+   - Resolves congestion issues.  
+
+5. **Clock Tree Synthesis (CTS)**  
+   - Ensures balanced clock distribution across the design.  
+   - Minimizes **clock skew and insertion delay**.  
+
+6. **Routing (Global & Detailed)**  
+   - **Global Routing:** Plans routing paths without specific layer assignments.  
+   - **Detailed Routing:** Assigns specific metal layers and ensures **Design Rule Check (DRC)** compliance.  
