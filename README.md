@@ -381,10 +381,6 @@ The **striVe SoC family** is a set of **open-source System-on-Chip (SoC) designs
 - **OpenROAD** – Contributes open EDA tools.  
 - **eFabless** – Enables open-source chip manufacturing.
 
-Here's how you can document these images in your GitHub README file:
-
----
-
 #### OpenLANE ASIC Flow
 
 1. **Goal**
@@ -450,6 +446,7 @@ To ensure a smooth and reproducible experience, OpenLANE is **containerized**, m
         - OpenLANE includes **43 pre-verified design examples**, each showcasing different capabilities and best practices.  
         - These examples help new users **learn faster** by providing ready-to-use test cases.  
         - **More designs will be added soon**, expanding the available resources for learning and experimentation.  
+---
 
 ### Introduction to OpenLANE detailed ASIC design flow
 
@@ -497,8 +494,7 @@ The final output of the OpenLane flow includes:
 - **GDSII File:** Standard format for sending designs to **fabrication**.  
 - **LEF File:** Layout Exchange Format file used for integration into **larger designs**.  
 
-Here's a structured explanation of the terms shown in the images, which you can use in your GitHub README file:  
-
+#### OpenLane Design Exploration and Regression Testing
 
 1. **Synthesis Exploration**  
 Synthesis exploration involves analyzing different synthesis strategies to optimize area, power, and timing of digital designs.  
@@ -527,3 +523,35 @@ Regression testing ensures the OpenLane flow remains stable and produces consist
   - **Cell Count**: The number of logic cells in the design.  
   - **TR Vios (Timing Violations)**: Ideally, should be zero, indicating no violations.  
   - Green shading indicates successful designs with zero violations.  
+
+#### **Design for Test (DFT)**  
+
+Design for Test (DFT) is a methodology used in digital circuit design to enhance testability, ensuring defects can be detected efficiently during manufacturing.  
+
+A **Key DFT Techniques**  
+1. **Scan Insertion**  
+   - Converts flip-flops into scan-enabled flip-flops, forming a scan chain.  
+   - Facilitates controlled testing by shifting test patterns in and out.  
+
+2. **Automatic Test Pattern Generation (ATPG)**  
+   - Generates test vectors to maximize fault detection.  
+   - Reduces the need for manual test pattern creation.  
+
+3. **Test Patterns Compaction**  
+   - Reduces the number of test vectors while maintaining fault coverage.  
+   - Optimizes test time and memory usage.  
+
+4. **Fault Coverage**  
+   - Measures how many faults can be detected using a given test pattern.  
+   - Higher fault coverage ensures better defect detection.  
+
+5. **Fault Simulation**  
+   - Simulates circuit behavior with faults to validate the effectiveness of test patterns.  
+   - Helps assess how well the design can be tested in real-world scenarios.  
+
+B **DFT Block Diagram Explanation**  
+The diagram illustrates a **scan-based DFT architecture**, where:  
+- **Flip-flops** are connected in a scan chain to enable shift operations.  
+- **Combinational Logic** is tested by applying and capturing test patterns.  
+- **sin (scan-in) & sout (scan-out)** are used to load and read test patterns.  
+- **Clock & TCK (Test Clock)** control the scan shifting process.  
