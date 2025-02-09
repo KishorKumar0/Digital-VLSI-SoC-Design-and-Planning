@@ -388,7 +388,8 @@ Here's how you can document these images in your GitHub README file:
 #### OpenLANE ASIC Flow
 
 1. **Goal**
-The main objective of OpenLANE is to **produce a clean GDSII file with no human intervention** (also known as **no-human-in-the-loop** automation). This means that the generated layout should meet all verification requirements without manual fixes.
+
+    The main objective of OpenLANE is to **produce a clean GDSII file with no human intervention** (also known as **no-human-in-the-loop** automation). This means that the generated layout should meet all verification requirements without manual fixes.
 
 2. **Clean GDSII Requirements:**
     - **No LVS (Layout vs. Schematic) Violations**
@@ -449,3 +450,51 @@ To ensure a smooth and reproducible experience, OpenLANE is **containerized**, m
         - OpenLANE includes **43 pre-verified design examples**, each showcasing different capabilities and best practices.  
         - These examples help new users **learn faster** by providing ready-to-use test cases.  
         - **More designs will be added soon**, expanding the available resources for learning and experimentation.  
+
+### Introduction to OpenLANE detailed ASIC design flow
+
+#### Overview  
+OpenLane is an open-source toolchain for **ASIC physical design automation** (RTL-to-GDSII) targeting **open PDKs** like **SkyWater 130nm**. It integrates multiple open-source tools for synthesis, placement, routing, and verification.  
+
+The following diagram illustrates the **OpenLane Flow**, which converts an RTL description into a **manufacturable layout**:  
+
+![OpenLane Flow](openlane-flow.png)  
+
+#### OpenLane Flow Explanation  
+
+A. **RTL Synthesis and Static Timing Analysis (STA)**
+1. **RTL Synthesis** (using **Yosys + ABC**) converts the Verilog RTL design into a **gate-level netlist**.  
+2. **Static Timing Analysis (STA)** (using **OpenSTA**) checks the timing constraints of the generated netlist.  
+3. **Synthesis Exploration** is an optional feature that evaluates different synthesis strategies:  
+    - OpenLane provides **four default synthesis strategies** to explore different **area-delay trade-offs**.  
+    - Users can also define their **own custom synthesis strategies**.  
+4. STA results are **visualized graphically** on an **HTML dashboard** for further analysis.  
+
+B. **Insertion of Design-for-Testability (DFT) Structures**
+- The **Fault** tool can optionally **insert scan chains** and **test IO ports** into the synthesized netlist.  
+- This step ensures that the fabricated chip can be **tested effectively** after manufacturing.  
+- A variant of **strIve chips** includes DFT structures for better OpenLane integration.  
+
+C. **Physical Implementation**
+- **Floorplanning & Placement:** The design undergoes **floorplanning** (defining chip layout), **placement**, and **clock tree synthesis (CTS)** using **OpenROAD**.  
+- **Optimization:** Post-placement optimization is performed using **OpenPhySyn**.  
+- **Diode Insertion:** To prevent **antenna effects**, **custom scripts** insert diodes in the layout.  
+- **Logic Equivalence Check (LEC)** (using **Yosys**) verifies that **post-optimization netlists** are functionally equivalent to the original synthesized netlist.  
+- **I/O Pin Placement Modes:**  
+   - **Default Mode:** Uses **OpenROAD** for automatic pin placement.  
+   - **Custom Mode:** Allows manual pin placement for **full control over pin locations**.  
+   - **Contextualized Mode:** Automatically optimizes I/O placement **based on SoC integration requirements**.  
+- The final output of this stage is a **routed DEF** (Design Exchange Format file), ready for evaluation.  
+
+D. **Post-Routing Evaluation & Verification**
+- **Design Rule Check (DRC)** and **Layout-vs-Schematic (LVS)** verification are performed using **magic** and **netgen**.  
+- **Antenna Rule Check (ARC)** is conducted using either **OpenROAD’s ARC tool** or **magic**.  
+- **RC Extraction:** Extraction of **parasitic resistances and capacitances** using **SPEF EXTRACTOR**.  
+- **Final STA Analysis:** Another round of **static timing analysis** is performed to generate **accurate timing reports** for the **physical layout**.  
+
+**Final Output: GDSII and LEF Files**
+The final output of the OpenLane flow includes:  
+- **GDSII File:** Standard format for sending designs to **fabrication**.  
+- **LEF File:** Layout Exchange Format file used for integration into **larger designs**.  
+
+---
