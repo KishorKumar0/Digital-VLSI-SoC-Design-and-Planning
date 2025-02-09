@@ -380,166 +380,74 @@ The **striVe SoC family** is a set of **open-source System-on-Chip (SoC) designs
 - **Google** – Supports open ASIC initiatives.  
 - **OpenROAD** – Contributes open EDA tools.  
 - **eFabless** – Enables open-source chip manufacturing.
+
+Here's how you can document these images in your GitHub README file:
+
 ---
-![openlane](Day1/openlane.png)
 
-1. **Navigate to the OpenLane Directory**
-    - Open a terminal.
-    - Use the cd command to navigate to the directory where OpenLane is installed. For example:
-   ```
-    bash
-   
-    cd ~/Desktop/work/tools/openlane_working_dir/openlane
-   ```
-   
-2. **List the Directory Contents**
-    - Run the following command to display the files and directories in the OpenLane folder:
-   ```
-    bash
+#### OpenLANE ASIC Flow
 
-    ls -ltr
-    ```
+1. **Goal**
+The main objective of OpenLANE is to **produce a clean GDSII file with no human intervention** (also known as **no-human-in-the-loop** automation). This means that the generated layout should meet all verification requirements without manual fixes.
 
-3. **Run Docker to Start OpenLane**
-    - Ensure Docker is installed and running on your system.
-    - Start OpenLane interactively by executing the flow.tcl script in interactive mode:
-   ```
-    bash
+2. **Clean GDSII Requirements:**
+    - **No LVS (Layout vs. Schematic) Violations**
+    - **No DRC (Design Rule Check) Violations**
+    - **Timing Violations**: Work in progress (WIP)
 
-    ./flow.tcl -interactive
-   ```
-   This command initializes OpenLane and launches the interactive shell.
-   
-4. **Verify OpenLane Version**
-    - After running the above command, OpenLane displays its version and initialization messages:
-   ```
-    markdown
+3. **PDK Support**
+OpenLANE is primarily **tuned for the SkyWater 130nm Open PDK** but also supports other process design kits:
+    - **SkyWater 130nm Open PDK**
+    - **XFAB180**
+    - **GF130G**
 
-    [INFO]: Version: v0.21
-    [INFO]: Running interactively
-   ```
-    You are now in the OpenLane interactive shell, ready to execute design flows.
-   
-![packages](Day1/packages.png)
 
-6. **Prepare the Design**
-    - After entering the OpenLane interactive shell, prepare your design by using the prep command. For example:
-   ```
-   tcl
+4. **Containerized Flow**
+To ensure a smooth and reproducible experience, OpenLANE is **containerized**, meaning:
+    - It works **out of the box** without requiring complex dependencies.
+    - Instructions for building and running it natively will be provided.
+  
+Here's an expanded version of the **Features** section for your GitHub README with more detailed explanations:
 
-   prep -design picorv32a
-   ```
-   Copy codeommand prepares the specified design (picorv32a in this case) for the flow by setting up the design configuration and loading necessary files.
-   
-7. **Output Messages During Preparation**
-   During preparation, the following steps and information will be displayed:
-   - **Configuration Loading:**
-       - OpenLane loads the design configuration from config.tcl.
-       - Example:
-     ```
-        markdown
-        [INFO]: Using design configuration at /OpenLane_flow/designs/picorv32a/config.tcl
-     ```
-    - **Setting up PDK (Process Design Kit):**
-        - The PDK used for the process is specified. In this case, it is sky130A.
-        - Example:
-      ```
-        markdown
-        [INFO]: PDKs root directory: /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks
-        [INFO]: Setting PDKPATH to /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A
-      ```
-    - **Standard Cell Library:**
-        - The standard cell library used is sky130_fd_sc_hd.
-      ```
-        markdown
+5. **Features**  
 
-        [INFO]: Standard Cell Library: sky130_fd_sc_hd
-      ```
-    - **LEF Files Preparation:**
-        - OpenLane processes and merges LEF files (Library Exchange Format), which describe the layout information.
-      ```
-        markdown
+    1. **Tuned for SkyWater 130nm Open PDK**  
+        - OpenLANE is optimized for the **SkyWater 130nm** open-source **Process Design Kit (PDK)**.  
+        - This means that the toolchain is specifically set up to generate designs that can be **fabricated using SkyWater’s 130nm technology node**.  
+        - The 130nm process is widely used in research and open-source silicon projects due to its balance of performance, power, and cost-effectiveness.  
 
-        [INFO]: Preparing LEF Files...
-        [INFO]: sky130_fd_sc_hd__fill_12.lef: SITES matched found: 0
-        ...
-        [INFO]: Merging LEFs complete
-      ```
-    - **Final Configuration:**
-        - OpenLane generates an exclude list and stores configurations in config.tcl.
-      ```
-        markdown
+    2. **Support for Multiple PDKs**  
+    - In addition to **SkyWater 130nm**, OpenLANE also supports:  
+      - **XFAB180** – An **180nm** PDK, often used for mixed-signal and analog ICs.  
+      - **GF130G** – A **130nm** PDK from **GlobalFoundries**, providing an alternative fabrication option.  
+    - The ability to work with multiple PDKs gives designers more flexibility when choosing a manufacturing process.  
 
-        [INFO]: Generating Exclude List...
-        [INFO]: Storing configs into config.tcl ...
-        [INFO]: Preparation complete
-      ```
-**Note:** At this point, the design preparation step is successfully completed, and the environment is ready for further steps in the OpenLane design flow.
+    3. **Containerized Implementation**  
+        - OpenLANE is packaged as a **Docker container**, which allows for **quick and easy deployment** across different systems.  
+        - Benefits of using a containerized approach:  
+          - **No manual installation hassles** – The entire toolchain is bundled and pre-configured.  
+          - **Cross-platform support** – Works on **Linux, macOS, and Windows** with minimal setup.  
+          - **Consistent Environment** – Ensures the same configurations and dependencies across different users.  
+        - In the future, **instructions for native (non-containerized) builds** will be provided for users who prefer to install the tools directly.  
 
-![synthesis](Day1/synthesis.png)
+    4. **Can Be Used to Harden Macros and Chips**  
+        - **Hardening** refers to converting a **soft macro** (a high-level digital design in Verilog) into a **physical layout** that can be fabricated.  
+        - OpenLANE supports hardening **both individual IP blocks (macros) and complete chips**, making it useful for various design scales.  
 
-7. **Run Synthesis**
-    - After preparing the design, execute the synthesis step using the run_synthesis command in the OpenLane interactive shell:
-   ```
-    tcl
+    5. **Two Modes of Operation**  
+        1. **Autonomous Mode** 🛠️  
+           - Runs automatically using **default settings** and pre-configured design flows.  
+           - Ideal for **quick prototyping** or users who prefer an automated workflow.  
+        2. **Interactive Mode** 🎛️  
+           - Allows users to **manually adjust** settings at different stages of the ASIC design process.  
+           - Useful for **fine-tuning designs** based on specific constraints like power, performance, or area (PPA).  
 
-    run_synthesis
-   ```
-   
-8. **Output Messages During Synthesis**
-    - During the synthesis process, OpenLane performs several tasks and provides the following output:
-    - **Chip Area Report:**
-        - OpenLane calculates the chip area for the module. Example output:
-       ```
-        arduino
+    6. **Design Space Exploration (DSE)**  
+        - **DSE helps find the best set of tool configurations** to optimize the design.  
+        - It systematically explores different options to **improve power, performance, and area (PPA)**.  
+        - This is especially useful for achieving the best trade-offs when working with different design constraints.  
 
-        Chip area for module '\picorv32a': 147712.918480
-       ```
-    - **Verilog Backend Execution:**
-        - The synthesis step generates the synthesized Verilog netlist (*.synthesis.v file) in the specified results directory.
-      ```
-        arduino
-
-        Dumping module '\picorv32a'.
-      ```
-    - **Tool Logs:**
-        - The synthesis process uses the Yosys synthesis tool and provides detailed logs for executed commands:
-      ```
-        scss
-
-        Yosys 0.9+3621 (git sha1 84ef9ac7, gcc 8.3.1 -fPIC -Os)
-      ```
-        - Warnings and messages related to design constraints and libraries are displayed during the synthesis.
-    - **Timing Analysis:**
-        - OpenSTA (Open Source Static Timing Analysis) is used for analyzing timing and setting up constraints.
-      ```
-        markdown
-      
-        Copy code
-        [INFO]: Running Static Timing Analysis...
-        OpenSTA 2.3.
-      ```
-    - **Environment Variables Setup:**
-        - Environment variables like clock period (CLOCK_PERIOD) and capacitance load are configured for timing analysis.
-      ```
-        markdown
-
-        [INFO]: Setting up delay values...
-      ```
-    - **Final Synthesis Status:**
-    - After the synthesis is completed, OpenLane confirms success:
-   ```
-    markdown
-
-   [INFO]: Synthesis was successful
-   ``
-   
-9. **Synthesized Outputs**
-    - The synthesized outputs, including the Verilog netlist and timing reports, are stored in the results directory:
-   ```
-    bash
-
-    /OpenLane_flow/designs/picorv32a/runs/19-12_06-09/results/synthesis/picorv32a.synthesis.v
-   ```
-   - You can review these files for further verification or debugging.
-
+    7. **Large Number of Design Examples**  
+        - OpenLANE includes **43 pre-verified design examples**, each showcasing different capabilities and best practices.  
+        - These examples help new users **learn faster** by providing ready-to-use test cases.  
+        - **More designs will be added soon**, expanding the available resources for learning and experimentation.  
