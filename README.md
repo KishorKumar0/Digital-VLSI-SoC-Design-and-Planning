@@ -497,4 +497,33 @@ The final output of the OpenLane flow includes:
 - **GDSII File:** Standard format for sending designs to **fabrication**.  
 - **LEF File:** Layout Exchange Format file used for integration into **larger designs**.  
 
----
+Here's a structured explanation of the terms shown in the images, which you can use in your GitHub README file:  
+
+
+1. **Synthesis Exploration**  
+Synthesis exploration involves analyzing different synthesis strategies to optimize area, power, and timing of digital designs.  
+- The scatter plot displays the trade-off between **area** (measured in μm²) and **delay** (measured in ps).  
+- Each point represents a synthesis strategy (S1 to S8), where:  
+  - **Lower area** is preferred for cost reduction.  
+  - **Lower delay** is preferred for better performance.  
+  - The ideal synthesis strategy minimizes both area and delay.  
+
+2. **Design Exploration**  
+Design exploration is used to compare different placement and routing strategies to find the best configuration for the design.  
+- The table presents various design configurations, including:  
+  - **Design Name**: The name of the circuit being synthesized (e.g., AES, CORDIC).  
+  - **Runtime**: Total execution time for the flow.  
+  - **Cell Count**: Number of standard cells in the design.  
+  - **TR Vios (Timing Rule Violations)**: Indicates how many timing constraints were violated.  
+  - **FP_CORE_UTIL**: Floorplan core utilization percentage.  
+  - **Routing Strategy**: The approach used for routing.  
+  - **GLB_RT_ADJUSTMENT**: A global routing parameter affecting congestion and optimization.  
+
+3. **OpenLane Regression Testing**  
+Regression testing ensures the OpenLane flow remains stable and produces consistent results across multiple designs.  
+- The table lists results for ~70 designs, comparing current runs to previously known best runs.  
+  - **JPEG Encoder, AES, TEA, CPU, etc.**: These are benchmark designs tested in OpenLane.  
+  - **Runtime**: How long each design takes to complete the OpenLane flow.  
+  - **Cell Count**: The number of logic cells in the design.  
+  - **TR Vios (Timing Violations)**: Ideally, should be zero, indicating no violations.  
+  - Green shading indicates successful designs with zero violations.  
