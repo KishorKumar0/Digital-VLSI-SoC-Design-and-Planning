@@ -459,70 +459,70 @@ The following diagram illustrates the **OpenLane Flow**, which converts an RTL d
 
 #### OpenLane Flow Explanation  
 
-A. **RTL Synthesis and Static Timing Analysis (STA)**
-1. **RTL Synthesis** (using **Yosys + ABC**) converts the Verilog RTL design into a **gate-level netlist**.  
-2. **Static Timing Analysis (STA)** (using **OpenSTA**) checks the timing constraints of the generated netlist.  
-3. **Synthesis Exploration** is an optional feature that evaluates different synthesis strategies:  
+1. **RTL Synthesis and Static Timing Analysis (STA)**
+    1. **RTL Synthesis** (using **Yosys + ABC**) converts the Verilog RTL design into a **gate-level netlist**.  
+    2. **Static Timing Analysis (STA)** (using **OpenSTA**) checks the timing constraints of the generated netlist.  
+    3. **Synthesis Exploration** is an optional feature that evaluates different synthesis strategies:  
     - OpenLane provides **four default synthesis strategies** to explore different **area-delay trade-offs**.  
     - Users can also define their **own custom synthesis strategies**.  
-4. STA results are **visualized graphically** on an **HTML dashboard** for further analysis.  
+    4. STA results are **visualized graphically** on an **HTML dashboard** for further analysis.  
 
-B. **Insertion of Design-for-Testability (DFT) Structures**
-- The **Fault** tool can optionally **insert scan chains** and **test IO ports** into the synthesized netlist.  
-- This step ensures that the fabricated chip can be **tested effectively** after manufacturing.  
-- A variant of **strIve chips** includes DFT structures for better OpenLane integration.  
+2. **Insertion of Design-for-Testability (DFT) Structures**
+    - The **Fault** tool can optionally **insert scan chains** and **test IO ports** into the synthesized netlist.  
+    - This step ensures that the fabricated chip can be **tested effectively** after manufacturing.  
+    - A variant of **strIve chips** includes DFT structures for better OpenLane integration.  
 
-C. **Physical Implementation**
-- **Floorplanning & Placement:** The design undergoes **floorplanning** (defining chip layout), **placement**, and **clock tree synthesis (CTS)** using **OpenROAD**.  
-- **Optimization:** Post-placement optimization is performed using **OpenPhySyn**.  
-- **Diode Insertion:** To prevent **antenna effects**, **custom scripts** insert diodes in the layout.  
-- **Logic Equivalence Check (LEC)** (using **Yosys**) verifies that **post-optimization netlists** are functionally equivalent to the original synthesized netlist.  
-- **I/O Pin Placement Modes:**  
-   - **Default Mode:** Uses **OpenROAD** for automatic pin placement.  
-   - **Custom Mode:** Allows manual pin placement for **full control over pin locations**.  
-   - **Contextualized Mode:** Automatically optimizes I/O placement **based on SoC integration requirements**.  
-- The final output of this stage is a **routed DEF** (Design Exchange Format file), ready for evaluation.  
+3. **Physical Implementation**
+    - **Floorplanning & Placement:** The design undergoes **floorplanning** (defining chip layout), **placement**, and **clock tree synthesis (CTS)** using **OpenROAD**.  
+    - **Optimization:** Post-placement optimization is performed using **OpenPhySyn**.  
+    - **Diode Insertion:** To prevent **antenna effects**, **custom scripts** insert diodes in the layout.  
+    - **Logic Equivalence Check (LEC)** (using **Yosys**) verifies that **post-optimization netlists** are functionally equivalent to the original synthesized netlist.  
+    - **I/O Pin Placement Modes:**  
+       - **Default Mode:** Uses **OpenROAD** for automatic pin placement.  
+       - **Custom Mode:** Allows manual pin placement for **full control over pin locations**.  
+       - **Contextualized Mode:** Automatically optimizes I/O placement **based on SoC integration requirements**.  
+    - The final output of this stage is a **routed DEF** (Design Exchange Format file), ready for evaluation.  
 
-D. **Post-Routing Evaluation & Verification**
-- **Design Rule Check (DRC)** and **Layout-vs-Schematic (LVS)** verification are performed using **magic** and **netgen**.  
-- **Antenna Rule Check (ARC)** is conducted using either **OpenROAD’s ARC tool** or **magic**.  
-- **RC Extraction:** Extraction of **parasitic resistances and capacitances** using **SPEF EXTRACTOR**.  
-- **Final STA Analysis:** Another round of **static timing analysis** is performed to generate **accurate timing reports** for the **physical layout**.  
+4. **Post-Routing Evaluation & Verification**
+    - **Design Rule Check (DRC)** and **Layout-vs-Schematic (LVS)** verification are performed using **magic** and **netgen**.  
+    - **Antenna Rule Check (ARC)** is conducted using either **OpenROAD’s ARC tool** or **magic**.  
+    - **RC Extraction:** Extraction of **parasitic resistances and capacitances** using **SPEF EXTRACTOR**.  
+    - **Final STA Analysis:** Another round of **static timing analysis** is performed to generate **accurate timing reports** for the **physical layout**.  
 
 **Final Output: GDSII and LEF Files**
 The final output of the OpenLane flow includes:  
-- **GDSII File:** Standard format for sending designs to **fabrication**.  
-- **LEF File:** Layout Exchange Format file used for integration into **larger designs**.  
+    - **GDSII File:** Standard format for sending designs to **fabrication**.  
+    - **LEF File:** Layout Exchange Format file used for integration into **larger designs**.  
 
 #### OpenLane Design Exploration and Regression Testing
 
 1. **Synthesis Exploration**  
 Synthesis exploration involves analyzing different synthesis strategies to optimize area, power, and timing of digital designs.  
-- The scatter plot displays the trade-off between **area** (measured in μm²) and **delay** (measured in ps).  
-- Each point represents a synthesis strategy (S1 to S8), where:  
-  - **Lower area** is preferred for cost reduction.  
-  - **Lower delay** is preferred for better performance.  
-  - The ideal synthesis strategy minimizes both area and delay.  
+    - The scatter plot displays the trade-off between **area** (measured in μm²) and **delay** (measured in ps).  
+    - Each point represents a synthesis strategy (S1 to S8), where:  
+      - **Lower area** is preferred for cost reduction.  
+      - **Lower delay** is preferred for better performance.  
+      - The ideal synthesis strategy minimizes both area and delay.  
 
 2. **Design Exploration**  
 Design exploration is used to compare different placement and routing strategies to find the best configuration for the design.  
-- The table presents various design configurations, including:  
-  - **Design Name**: The name of the circuit being synthesized (e.g., AES, CORDIC).  
-  - **Runtime**: Total execution time for the flow.  
-  - **Cell Count**: Number of standard cells in the design.  
-  - **TR Vios (Timing Rule Violations)**: Indicates how many timing constraints were violated.  
-  - **FP_CORE_UTIL**: Floorplan core utilization percentage.  
-  - **Routing Strategy**: The approach used for routing.  
-  - **GLB_RT_ADJUSTMENT**: A global routing parameter affecting congestion and optimization.  
+    - The table presents various design configurations, including:  
+      - **Design Name**: The name of the circuit being synthesized (e.g., AES, CORDIC).  
+      - **Runtime**: Total execution time for the flow.  
+      - **Cell Count**: Number of standard cells in the design.  
+      - **TR Vios (Timing Rule Violations)**: Indicates how many timing constraints were violated.  
+      - **FP_CORE_UTIL**: Floorplan core utilization percentage.  
+      - **Routing Strategy**: The approach used for routing.  
+      - **GLB_RT_ADJUSTMENT**: A global routing parameter affecting congestion and optimization.  
 
 3. **OpenLane Regression Testing**  
 Regression testing ensures the OpenLane flow remains stable and produces consistent results across multiple designs.  
-- The table lists results for ~70 designs, comparing current runs to previously known best runs.  
-  - **JPEG Encoder, AES, TEA, CPU, etc.**: These are benchmark designs tested in OpenLane.  
-  - **Runtime**: How long each design takes to complete the OpenLane flow.  
-  - **Cell Count**: The number of logic cells in the design.  
-  - **TR Vios (Timing Violations)**: Ideally, should be zero, indicating no violations.  
-  - Green shading indicates successful designs with zero violations.  
+    - The table lists results for ~70 designs, comparing current runs to previously known best runs.  
+      - **JPEG Encoder, AES, TEA, CPU, etc.**: These are benchmark designs tested in OpenLane.  
+      - **Runtime**: How long each design takes to complete the OpenLane flow.  
+      - **Cell Count**: The number of logic cells in the design.  
+      - **TR Vios (Timing Violations)**: Ideally, should be zero, indicating no violations.  
+      - Green shading indicates successful designs with zero violations.  
 
 #### **Design for Test (DFT)**  
 
@@ -530,60 +530,84 @@ Regression testing ensures the OpenLane flow remains stable and produces consist
 
 Design for Test (DFT) is a methodology used in digital circuit design to enhance testability, ensuring defects can be detected efficiently during manufacturing.  
 
-A. **Key DFT Techniques**  
-1. **Scan Insertion**  
-   - Converts flip-flops into scan-enabled flip-flops, forming a scan chain.  
-   - Facilitates controlled testing by shifting test patterns in and out.  
+1. **Key DFT Techniques**  
+    1. **Scan Insertion**  
+       - Converts flip-flops into scan-enabled flip-flops, forming a scan chain.  
+       - Facilitates controlled testing by shifting test patterns in and out.  
 
-2. **Automatic Test Pattern Generation (ATPG)**  
-   - Generates test vectors to maximize fault detection.  
-   - Reduces the need for manual test pattern creation.  
+    2. **Automatic Test Pattern Generation (ATPG)**  
+       - Generates test vectors to maximize fault detection.  
+       - Reduces the need for manual test pattern creation.  
 
-3. **Test Patterns Compaction**  
-   - Reduces the number of test vectors while maintaining fault coverage.  
-   - Optimizes test time and memory usage.  
+    3. **Test Patterns Compaction**  
+       - Reduces the number of test vectors while maintaining fault coverage.  
+       - Optimizes test time and memory usage.  
 
-4. **Fault Coverage**  
-   - Measures how many faults can be detected using a given test pattern.  
-   - Higher fault coverage ensures better defect detection.  
+    4. **Fault Coverage**  
+       - Measures how many faults can be detected using a given test pattern.  
+       - Higher fault coverage ensures better defect detection.  
 
-5. **Fault Simulation**  
-   - Simulates circuit behavior with faults to validate the effectiveness of test patterns.  
-   - Helps assess how well the design can be tested in real-world scenarios.  
+    5. **Fault Simulation**  
+       - Simulates circuit behavior with faults to validate the effectiveness of test patterns.  
+       - Helps assess how well the design can be tested in real-world scenarios.  
 
-B. **DFT Block Diagram Explanation**  
+2. **DFT Block Diagram Explanation**  
 The diagram illustrates a **scan-based DFT architecture**, where:  
-- **Flip-flops** are connected in a scan chain to enable shift operations.  
-- **Combinational Logic** is tested by applying and capturing test patterns.  
-- **sin (scan-in) & sout (scan-out)** are used to load and read test patterns.  
-- **Clock & TCK (Test Clock)** control the scan shifting process.  
+    - **Flip-flops** are connected in a scan chain to enable shift operations.  
+    - **Combinational Logic** is tested by applying and capturing test patterns.  
+    - **sin (scan-in) & sout (scan-out)** are used to load and read test patterns.  
+    - **Clock & TCK (Test Clock)** control the scan shifting process.  
 
 
 #### **Physical Implementation (PnR)**  
 
 **Physical Implementation** is the process of converting a synthesized netlist into a fully placed and routed layout that meets design constraints. It is also referred to as **Place and Route (PnR)** and is an automated process handled by tools like **OpenROAD**.  
 
-A. **Key Steps in Physical Implementation**  
-1. **Floor & Power Planning**  
-   - Defines chip dimensions and block placements.  
-   - Allocates power rails to ensure proper power distribution.  
+1. **Key Steps in Physical Implementation**  
+    1. **Floor & Power Planning**  
+       - Defines chip dimensions and block placements.  
+       - Allocates power rails to ensure proper power distribution.  
 
-2. **Decoupling Capacitor & Tap Cell Insertion**  
-   - **Decoupling Capacitors:** Help reduce noise and voltage fluctuations.  
-   - **Tap Cells:** Ensure well connections to prevent latch-up issues.  
+    2. **Decoupling Capacitor & Tap Cell Insertion**  
+       - **Decoupling Capacitors:** Help reduce noise and voltage fluctuations.  
+       - **Tap Cells:** Ensure well connections to prevent latch-up issues.  
 
 3. **Placement (Global & Detailed)**  
-   - **Global Placement:** Determines approximate locations of cells.  
-   - **Detailed Placement:** Optimizes locations considering legal placement rules.  
+       - **Global Placement:** Determines approximate locations of cells.  
+       - **Detailed Placement:** Optimizes locations considering legal placement rules.  
 
 4. **Post-Placement Optimization**  
-   - Refines placement to improve **timing, power, and area (PPA)**.  
-   - Resolves congestion issues.  
+       - Refines placement to improve **timing, power, and area (PPA)**.  
+       - Resolves congestion issues.  
 
 5. **Clock Tree Synthesis (CTS)**  
-   - Ensures balanced clock distribution across the design.  
-   - Minimizes **clock skew and insertion delay**.  
+       - Ensures balanced clock distribution across the design.  
+       - Minimizes **clock skew and insertion delay**.  
 
 6. **Routing (Global & Detailed)**  
-   - **Global Routing:** Plans routing paths without specific layer assignments.  
-   - **Detailed Routing:** Assigns specific metal layers and ensures **Design Rule Check (DRC)** compliance.  
+       - **Global Routing:** Plans routing paths without specific layer assignments.  
+       - **Detailed Routing:** Assigns specific metal layers and ensures **Design Rule Check (DRC)** compliance.
+
+#### **Logic Equivalence Check (LEC)**  
+
+**Logic Equivalence Check (LEC)** is a formal verification process used to ensure that modifications to a netlist do not alter its intended functionality.  
+
+1. **Why LEC is Required?**  
+During the **physical implementation** phase, certain modifications occur:  
+    - **Clock Tree Synthesis (CTS):** Adjusts the netlist to balance clock distribution.  
+    - **Post-Placement Optimization:** Further modifies the netlist to improve **timing, area, and power**.  
+
+These changes can potentially introduce functional mismatches. LEC verifies that the logical behavior remains **unchanged**.  
+
+2. **How LEC Works?**  
+    1. **Compares Pre- and Post-Modified Netlists:**  
+       - Takes the original synthesized netlist as a reference.  
+       - Compares it against the netlist after **CTS or placement optimizations**.  
+    2. **Formal Verification:**  
+       - Uses mathematical proofs to confirm **functional equivalence**.  
+       - Ensures that optimizations did not introduce unintended logic changes.  
+
+3. **LEC Tools**  
+- **Yosys** (Open-source tool for logic synthesis and verification).  
+- Industry-standard tools like **Conformal LEC** (Cadence) and **FormalPro** (Siemens EDA).  
+
