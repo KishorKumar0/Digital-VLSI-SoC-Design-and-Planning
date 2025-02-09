@@ -611,3 +611,37 @@ These changes can potentially introduce functional mismatches. LEC verifies that
 - **Yosys** (Open-source tool for logic synthesis and verification).  
 - Industry-standard tools like **Conformal LEC** (Cadence) and **FormalPro** (Siemens EDA).  
 
+#### Dealing with Antenna Rules Violations
+
+1. **Overview**
+During the fabrication of integrated circuits, metal wire segments can act as antennas, accumulating charge due to reactive ion etching. This accumulated charge can lead to transistor gate damage. To mitigate this issue, certain design rules and solutions are implemented.
+
+2. **Causes of Antenna Violations**
+    - When a metal wire segment is fabricated, it can function as an antenna.
+    - Reactive ion etching causes charge to accumulate on the wire.
+    - If not properly handled, this charge can lead to damage in transistor gates during fabrication.
+      ![Antenna rule violation](Day1/antenna_rule_violation.png)  
+
+3. **Solutions to Antenna Violations**
+Two primary methods are used to address antenna rule violations:
+
+    1. **Bridging**
+       - Attaches a higher-layer intermediary to distribute charge buildup.
+       - Requires router awareness (not fully automated in all tools yet).
+
+         ![Bridging](Day1/bridging.png) 
+
+    2. **Antenna Diode Cells**
+       - Special diodes are added to leak away excess charge.
+       - Provided by the standard cell library (SCL) to prevent damage.
+      
+         ![Antenna diode cell](Day1/antenna_diode_cell.png)  
+
+4. **Preventive Approach**
+To further mitigate antenna violations, a preventive design strategy is followed:
+    - **Fake Antenna Diode Placement:** A fake antenna diode is placed next to every cell input after placement.
+    - **Antenna Checker (Magic) Execution:** The design layout is analyzed for potential violations.
+    - **Replacement of Fake Diodes:** If the checker detects a violation, the fake diode is replaced with a real antenna diode cell.
+      ![Fake antenna diode cell](Day1/fake_diode_antenna_cell.png)  
+
+
