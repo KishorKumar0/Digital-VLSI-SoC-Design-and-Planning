@@ -642,6 +642,6 @@ To further mitigate antenna violations, a preventive design strategy is followed
     - **Fake Antenna Diode Placement:** A fake antenna diode is placed next to every cell input after placement.
     - **Antenna Checker (Magic) Execution:** The design layout is analyzed for potential violations.
     - **Replacement of Fake Diodes:** If the checker detects a violation, the fake diode is replaced with a real antenna diode cell.
-      ![Fake antenna diode cell](Day1/fake_diode_antenna_cell.png)  
+      ![Fake antenna diode cell](Day1/fake_diode_Antenna_cell.png)  
 
 
