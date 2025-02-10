@@ -729,6 +729,12 @@ Here's a section you can add to your GitHub README file:
 
 Once the preparation process is complete, a new directory will be automatically generated within the `runs` folder. This directory will be named based on the current date and will contain all the necessary subdirectories for storing various results, reports, and intermediate files.  
 
+<p align="left">
+    <img src="Day1/created_folders.png" width="450" />
+    <img src="Day1/created_files.png" width="500" />
+</p>
+
+
 1. **Example Directory Structure**
 
 ```
