@@ -693,7 +693,7 @@ By using **Magic** and **Netgen**, designers can validate their layouts before f
 #### Initial Setup
 
 <p align="left">
-    <img src="Day1/file_config.png" width="500" />
+    <img src="Day1/file_config.png" width="270" />
     <img src="Day1/preparation.png" width="500" />
 </p>
 
