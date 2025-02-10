@@ -693,8 +693,8 @@ By using **Magic** and **Netgen**, designers can validate their layouts before f
 #### Initial Setup
 
 <p align="left">
-    <img src="Day1/striVe_block_diagram.jpg" width="600" />
-    <img src="Day1/striVe_GDSII.png" width="350" />
+    <img src="Day1/file_config.png" width="500" />
+    <img src="Day1/preparation.png" width="500" />
 </p>
 
 1. **Configure `config.tcl`**
