@@ -769,7 +769,7 @@ This document describes the synthesis process in OpenLANE, which involves conver
     1. **Running Synthesis**
     To perform synthesis, we provide the following files:
         - **Liberty files**: Defines the standard cell library characteristics.
-            - **Verilog files**: The design files that need to be synthesized.
+        - **Verilog files**: The design files that need to be synthesized.
         - **SDC files**: Constraints such as clock period and timing requirements.
 
     In OpenLANE, once these files are specified in the configuration script, we initiate synthesis using the command:
@@ -804,8 +804,9 @@ This document describes the synthesis process in OpenLANE, which involves conver
     ![Timing Report](Day1/timing_report.png)
 
     The report includes:
-        - **Clock network delay**
-        - **Path delays**
-        - **Setup and hold timing violations**
+    - **Clock network delay**
+    - **Path delays**
+    - **Setup and hold timing violations**
+
 
 
