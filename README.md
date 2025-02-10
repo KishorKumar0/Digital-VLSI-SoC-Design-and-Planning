@@ -723,4 +723,32 @@ prep -design picorv32a
 ```
 This step ensures the setup of necessary files and directories before proceeding with further ASIC flow steps.
 
+Here's a section you can add to your GitHub README file:  
 
+#### Review files after design prep and run synthesis
+
+Once the preparation process is complete, a new directory will be automatically generated within the `runs` folder. This directory will be named based on the current date and will contain all the necessary subdirectories for storing various results, reports, and intermediate files.  
+
+1. **Example Directory Structure**
+
+```
+runs/
+  ├── 10-02_10-21/      # Auto-generated folder (based on date)
+      ├── results/      # Contains synthesis, placement, routing, etc.
+      ├── reports/      # Stores detailed reports on each stage
+      ├── tmp/          # Temporary files used during execution
+      ├── PDK_SOURCES/  # Process design kit sources
+      ├── config.tcl    # Configuration file for the run
+      ├── cmds.log      # Logs of executed commands
+```
+
+2. **Explanation**
+
+- **`results/`**: Contains the outputs from synthesis, placement, routing, and other stages.  
+- **`reports/`**: Stores textual reports detailing each design step.  
+- **`tmp/`**: Holds temporary files created during the run.  
+- **`PDK_SOURCES/`**: Includes references to the process design kit used.  
+- **`config.tcl`**: The configuration file used for the execution.  
+- **`cmds.log`**: A log file that records all executed commands.  
+
+This structure ensures that each run is well-organized, making it easier to debug and track design progress.
