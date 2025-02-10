@@ -680,3 +680,47 @@ Physical verification ensures that the designed layout follows manufacturing rul
     - **LVS ensures correctness**, verifying that the physical layout corresponds to the intended circuit design.
 
 By using **Magic** and **Netgen**, designers can validate their layouts before fabrication, reducing errors and ensuring correct functionality.
+
+---
+
+### Design Preparation Step
+
+#### Prerequisites
+- Docker installed and configured
+- OpenLANE repository cloned
+- Required PDKs (e.g., Sky130) available
+
+#### Initial Setup
+
+<p align="left">
+    <img src="Day1/striVe_block_diagram.jpg" width="600" />
+    <img src="Day1/striVe_GDSII.png" width="350" />
+</p>
+
+1. **Configure `config.tcl`**
+Before running the OpenLANE flow, ensure the `config.tcl` script is correctly set up with:
+- Verilog source file locations
+- Library (.lib) files for standard cells
+- Layout Exchange Format (.lef) files for physical design
+
+These files are essential for synthesis, placement, and routing.
+
+2. **Start OpenLANE in Interactive Mode**
+Run the following command from the OpenLANE directory:
+```sh
+./flow.tcl -interactive
+ ```
+This will launch OpenLANE in interactive mode, setting up all required tools with default configurations.
+
+3. **Prepare the Design Environment**
+Once inside the interactive session, configure the design name and database folder where results, logs, and error reports will be stored for the current run.
+```sh
+prep -design <design_name>
+```
+Example:
+```sh
+prep -design picorv32a
+```
+This step ensures the setup of necessary files and directories before proceeding with further ASIC flow steps.
+
+
