@@ -757,4 +757,55 @@ runs/
 - **`config.tcl`**: The configuration file used for the execution.  
 - **`cmds.log`**: A log file that records all executed commands.  
 
-This structure ensures that each run is well-organized, making it easier to debug and track design progress.
+#### OpenLANE Synthesis Process
+
+1. **Overview**
+This document describes the synthesis process in OpenLANE, which involves converting a high-level Verilog design into a gate-level netlist mapped to a standard cell library. The synthesis is performed using tools like `yosys` for logic synthesis, `abc` for technology mapping and optimization, and `OpenSTA` for static timing analysis.
+
+
+
+2. **Steps in the Synthesis Process**
+
+    1. **Running Synthesis**
+    To perform synthesis, we provide the following files:
+        - **Liberty files**: Defines the standard cell library characteristics.
+            - **Verilog files**: The design files that need to be synthesized.
+        - **SDC files**: Constraints such as clock period and timing requirements.
+
+    In OpenLANE, once these files are specified in the configuration script, we initiate synthesis using the command:
+    ```bash
+    run_synthesis
+    ```
+    ![Synthesis Process](Day1/synthesis.png)
+
+    2. **Gate Mapping and Optimization**
+    After synthesis, the `abc` tool maps the logic to available standard cells in the library and optimizes the generated netlist. The process includes:
+        - Mapping logic to gates.
+        - Optimizing for area and performance.
+        - Reducing redundant logic.
+
+    3. **Flip-Flop Ratio Calculation**
+    One of the key metrics in synthesis is the **flip-flop ratio**, which is calculated as:
+    ```math
+    Flop Ratio = (Number of D Flip-Flops) / (Total Number of Cells)
+    ```
+    The flop ratio is useful for analyzing sequential-to-combinational logic balance. The calculation is illustrated below:
+
+    ![Flop Ratio Calculation](Day1/flop_ratio.png)
+
+    In this example:
+        - **Number of D Flip-Flops** = 1613
+        - **Total Number of Cells** = 14876
+        - **Flop Ratio** = 10.84%
+
+    4. **Timing Analysis**
+    Once synthesis is completed, OpenSTA (Open Static Timing Analyzer) is invoked to perform static timing analysis (STA). This step ensures that the design meets the         required timing constraints, as shown in the timing report:
+
+    ![Timing Report](Day1/timing_report.png)
+
+    The report includes:
+        - **Clock network delay**
+        - **Path delays**
+        - **Setup and hold timing violations**
+
+
