@@ -807,6 +807,52 @@ This document describes the synthesis process in OpenLANE, which involves conver
     - **Clock network delay**
     - **Path delays**
     - **Setup and hold timing violations**
+   
+---
+## Good floorplan vs bad floorplan and introduction to library cells
+### Chip Floor planning considerations
+#### Floorplanning in ASIC Flow
+1. **Overview**
+Floorplanning is a crucial step in the ASIC design flow, determining the placement of various components on the chip. It ensures optimal area utilization, efficient power distribution, and proper connectivity.
+
+2. **Key Aspects of Floorplanning**
+    1. **Die and Core Utilization Ratios, Aspect Ratio**
+        - **Die Area:** The total area available on the silicon wafer.
+        - **Core Area:** The part of the die where standard cells and macros are placed.
+        - **Utilization Ratio:** The percentage of the core area occupied by standard cells and macros.
+        - **Aspect Ratio:** Defines the shape of the die (square or rectangular).
+
+    2. **Pin Placement**
+        - IO pins (input and output pins) are placed along the periphery of the die.
+        - Proper pin placement affects routing complexity and timing performance.
+
+    3. **Power Planning**
+        - Power stripes and rings are added to distribute power efficiently across the chip.
+        - Ensures that all cells receive stable power and reduces IR drop issues.
+
+    4. **Placement of Physical Cells**
+        - Physical cells like decoupling capacitors, well taps, and fillers are placed to ensure correct power and signal integrity.
+
+    5. **Placing of Blockages**
+        - Blockages prevent certain areas from being occupied by standard cells.
+        - Useful for ensuring clearances for macros, power distribution, and congestion reduction.
+
+3. **Floorplanning in OpenLANE Flow**
+
+    ![Floor Planning](Day2/floorplan.png)
+   
+    - OpenLANE automates much of the floorplanning process.
+    - **Die and core utilization ratios, aspect ratio** are set in the `configs` file.
+    - The `run_floorplan` command is used to execute the floorplanning step.
+    - **IO pins, physical cells, and blockages** are placed automatically.
 
 
+4. **Explanation of Die Area (DEF File)**
+
+    ![Floor Planning](Day2/die_area.png)
+   
+    - The `DIEAREA` statement in the DEF (Design Exchange Format) file specifies the total area available for design.
+    - **Rows (`ROW_0, ROW_1, etc.`)** represent the placement sites where standard cells will be placed.
+    - The values in the rows define the starting coordinates, orientation (`FS` - flipped standard), and step size.
+    - This setup ensures efficient cell placement while maintaining design constraints.
 
