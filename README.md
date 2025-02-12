@@ -891,14 +891,18 @@ Floorplanning is a crucial step in the ASIC design flow, determining the placeme
 #### Review floorplan layout in Magic
 The layout images illustrate how the standard cells, power rails, and decoupling capacitor (Decap) cells are arranged in a systematic manner.
 
-1. **Standard Cell**
-The standard cell layout follows a structured approach:
+1. **Latout Structure** The layout follows a structured approach:
+
+   ![Layout](Day2/layout2.png)
+   
 - Input and output pins are placed equidistantly.
 - Metal layers are used for interconnections.
 - Decap cells are arranged along the side rows for better power integrity.
 
-2. **Pin Placement and Metal Layer Identification**
-To check the location of any pin and determine on which metal layer it is available:
+2. **Pin Placement and Metal Layer Identification** To check the location of any pin and determine on which metal layer it is available:
+
+   ![TKCon](Day2/tkcon.png)
+   
     1. Select the object by clicking on it and pressing `s`.
     2. To zoom in, click on the object and press `z`. To zoom out, press `Shift + z`.
     3. Open the `tkcon` window and type `what`. This command will display details about the selected pin.
@@ -908,11 +912,16 @@ To check the location of any pin and determine on which metal layer it is availa
         - Horizontal pins are identified to be on **Metal 3**.
         - Vertical pins are located on **Metal 2**.
 
-4. **Decap Cell Arrangement**
-
+3. **Decap Cell Arrangement**
+   
+    ![Metal Pins](Day2/pin.png)
+   
     Decap cells are strategically placed along the borders of the standard cell rows. These cells help in maintaining stable power distribution and reducing noise due to transient switching.
 
-5. **Breakdown of Standard Cells**
+4. **Breakdown of Standard Cells**
+
+    ![Tandard Cell](Day2/stdcell.png)
+
 - The first standard cell in the block corresponds to **Buffer 1**.
 - Similarly, subsequent cells correspond to **Buffer 2, AND gates, and other logic gates**.
 - The complete block of standard cells forms the **4:1 MUX**.
