@@ -847,12 +847,42 @@ Floorplanning is a crucial step in the ASIC design flow, determining the placeme
     - **IO pins, physical cells, and blockages** are placed automatically.
 
 
-4. **Explanation of Die Area (DEF File)**
+4. **Understanding the DEF File:**
 
     ![Floor Planning](Day2/die_area.png)
    
-    - The `DIEAREA` statement in the DEF (Design Exchange Format) file specifies the total area available for design.
-    - **Rows (`ROW_0, ROW_1, etc.`)** represent the placement sites where standard cells will be placed.
-    - The values in the rows define the starting coordinates, orientation (`FS` - flipped standard), and step size.
-    - This setup ensures efficient cell placement while maintaining design constraints.
+    1. **VERSION 5.8:**  
+       - Indicates the DEF file version used.
 
+    2. **DIVIDERCHAR "/" & BUSBITCHARS "[]"**  
+       - Specifies the characters used to separate hierarchical design elements and define bus structures.
+
+    3. **DESIGN picorv32a:**  
+       - The name of the design, in this case, `picorv32a`.
+
+    4. **UNITS DISTANCE MICRONS 1000:**  
+       - The unit of measurement for placement coordinates, meaning 1 unit = 1 micron.
+
+    5. **DIEAREA ( 0 0 ) ( 660685 671405 ):**  
+       - Defines the **physical boundary** of the die.  
+       - The lower-left corner of the die is at `(0,0)`, and the upper-right corner is at `(660685,671405)` (in microns).
+
+5 **Standard Cell Rows:**
+- The **ROWS** define the placement grid for standard cells. Each row follows this format:  
+
+  ```
+  ROW <name> <site> <x-coordinate> <y-coordinate> <orientation> DO <repeat-count> BY <row-height> STEP <spacing-x> <spacing-y>;
+  ```
+
+- **Example Analysis:**
+  ```
+  ROW ROW_0 unithd 5520 10880 FS DO 1412 BY 1 STEP 460 0 ;
+  ```
+  - **ROW_0** → Name of the row.  
+  - **unithd** → Type of the row (standard-cell row using "unithd" site).  
+  - **5520, 10880** → X and Y start coordinates of the row.  
+  - **FS** → Flip state (Flipped Standard orientation).  
+  - **DO 1412 BY 1** → Number of standard cells in this row (1412 cells in 1 row).  
+  - **STEP 460 0** → The cell spacing along X-axis (460 microns per step).  
+
+- This pattern repeats for multiple rows (`ROW_0` to `ROW_42`), showing how standard cells are arranged in the core area.
