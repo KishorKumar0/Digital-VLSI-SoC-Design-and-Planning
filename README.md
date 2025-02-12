@@ -948,16 +948,16 @@ Placement in the ASIC flow is done in multiple stages to ensure an optimized lay
 
 In OpenLANE, placement is executed using the `run_placement` command. It follows a similar two-stage approach:
 
-![Placement Overview](placement.png)
+![Placement Overview](Day2/placement.png)
     
 - **Global Placement**: The main objective is to reduce wire length and distribute cells efficiently. At this stage, legalization is not enforced.
 - **Detailed Placement & Optimization**: After global placement, legalization is applied, ensuring all standard cells are placed correctly without overlap. Optimization steps focus on congestion minimization rather than timing constraints at this stage.
 
 Once placement is completed, we can visualize the results using tools like **Magic** or **KLayout**. Below are the visualizations of the placement process:
 
-![Zoomed-in Layout](placement_layout.png)
+![Zoomed-in Layout](Day2/placement_layout.png)
 
 Zooming in on the placement layout reveals buffers, gates, flip-flops, multiplexers, and inverters.
 
-![Detailed Standard Cells](placement_layout2.png)
+![Detailed Standard Cells](Day2/placement_layout2.png)
 
