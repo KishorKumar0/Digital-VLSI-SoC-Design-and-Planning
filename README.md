@@ -927,24 +927,15 @@ The layout images illustrate how the standard cells, power rails, and decoupling
 - The complete block of standard cells forms the **4:1 MUX**.
 
 
-Here's a refined explanation for your GitHub README:
-
----
 
 ####  Congestion aware placement using RePlAce
 
-Here's a refined explanation for your GitHub README:
-
----
-
-## Placement in OpenLANE
-
 Placement in the ASIC flow is done in multiple stages to ensure an optimized layout for routing. It is primarily divided into:
 
-    1. **Global Placement** – The goal is to determine approximate locations for standard cells while optimizing wire length and reducing congestion.
-    2. **Legalization & Detailed Placement** – After global placement, cell locations are adjusted to ensure they align with the placement grid and obey design rules.
+1. **Global Placement** – The goal is to determine approximate locations for standard cells while optimizing wire length and reducing congestion.
+2. **Legalization & Detailed Placement** – After global placement, cell locations are adjusted to ensure they align with the placement grid and obey design rules.
 
-1. **Placement in OpenLANE**
+**Placement in OpenLANE**
 
 In OpenLANE, placement is executed using the `run_placement` command. It follows a similar two-stage approach:
 
