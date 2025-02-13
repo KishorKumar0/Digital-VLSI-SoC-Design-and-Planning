@@ -1042,9 +1042,6 @@ You should see a folder named `vsdstdcelldesign` inside the OpenLane directory.
     ```bash
     cd vsdstdcelldesign
     ```
-
-![Files](Day3/file_review2.png)
-
 **Step 5: List the Files in the Repository**
     To check the contents of the cloned repository, run:
 
@@ -1052,7 +1049,7 @@ You should see a folder named `vsdstdcelldesign` inside the OpenLane directory.
     ls -ltr
     ```
 
-![Files](Day3/files_review.png)
+![Files](Day3/file_review2.png)
 
 You should see various files and directories, including:
 - **README.md** – Documentation file
