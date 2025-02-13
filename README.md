@@ -962,7 +962,7 @@ Floorplanning is a crucial step in the ASIC design flow. It involves defining th
 
 1. **Default Pin Placement**
 
-![tcl_file](Day3/flooeplan_tcl.png)
+![tcl_file](Day3/floorplan_tcl.png)
 
 By default, OpenLane places pins at equal distances around the perimeter of the design. This behavior is controlled by the configuration variable:
 
@@ -984,7 +984,7 @@ This will instruct OpenLane to relocate the pins such that they are not evenly d
 
 3. **Running Floorplanning with Modified Pin Placement**
 
-![Layout](Day3/flooeplan.png)
+![Layout](Day3/floorplan.png)
    
     To apply the new pin placement, follow these steps:
 
