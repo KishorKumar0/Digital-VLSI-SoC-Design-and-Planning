@@ -986,7 +986,7 @@ This will instruct OpenLane to relocate the pins such that they are not evenly d
 
 ![Layout](Day3/floorplan.png)
    
-    To apply the new pin placement, follow these steps:
+To apply the new pin placement, follow these steps:
 
     1. Open the configuration file where `FP_IO_MODE` is defined.
     2. Change its value from `1` to `2`.
