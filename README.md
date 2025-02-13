@@ -988,16 +988,16 @@ This will instruct OpenLane to relocate the pins such that they are not evenly d
    
 To apply the new pin placement, follow these steps:
 
-    1. Open the configuration file where `FP_IO_MODE` is defined.
-    2. Change its value from `1` to `2`.
-    3. Re-run the floorplanning step in OpenLane:
-       ```sh
-       run_floorplan
-       ```
-    4. Verify the changes using `magic`:
-       ```sh
-       magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.floorplan.def &
-       ```
+1. Open the configuration file where `FP_IO_MODE` is defined.
+2. Change its value from `1` to `2`.
+3. Re-run the floorplanning step in OpenLane:
+   ```sh
+   run_floorplan
+   ```
+4. Verify the changes using `magic`:
+   ```sh
+   magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.floorplan.def &
+   ```
 
 4. **Observing the Changes**
 
