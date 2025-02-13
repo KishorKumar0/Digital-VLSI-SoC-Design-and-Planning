@@ -1121,5 +1121,59 @@ If needed, you can make modifications and save the updated `.mag` file:
   gds write sky130_inv.gds
   ```
 
+### Lab Introduction to Sky130 Basic Layers Layout and LEF Using Inverter
+
+This document provides an introduction to the Sky130 technology, focusing on the basic layers layout and the Layout Exchange Format (LEF) using an inverter design.
+
+#### Layer Representation in Sky130
+
+In Sky130, each color represents a different layer:
+
+- **Local Interconnect**: Blue-purple
+- **Metal 1**: Light purple
+- **Metal 2**: Pink
+- **N-Well**: Solid dashed line
+- **N-Diffusion Region**: Green
+- **P-Diffusion Region**: Brown
+- **Polysilicon Gate**: Red
+
+#### CMOS Inverter Layout
+The provided layout represents a CMOS inverter using both NMOS and PMOS transistors. The identification of these components can be done using the `tkcon` console in the Magic layout tool.
+
+#### Verification Process
+
+<p align="left">
+    <img src="Day3/nmos.png" width="500" />
+    <img src="Day3/pmos.png" width="500" />
+</p>
+
+1. Open the inverter layout in Magic.
+2. Use the `tkcon` terminal to check specific layers.
+3. Enter `% what` to identify the selected mask layers.
+4. If NMOS is selected, it will be displayed as `nmos (Topmost cell in the window)`.
+5. Similarly, selecting PMOS will display `pmos (Topmost cell in the window)`.
+
+#### Layout Connectivity Verification
+
+This guide explains how to verify the connectivity of ports, metals, and contacts in a layout using a specific tool or software. Additionally, it covers how to check if the source of the PMOS is connected to the ground and how to perform a similar check for the NMOS.
+
+#### Steps to Verify Connectivity
+
+<p align="left">
+    <img src="Day3/yport.png" width="500" />
+    <img src="Day3/Aport.png" width="500" />
+    <img src="Day3/vpwr.png" width="500" />
+    <img src="Day3/vgnd.png" width="500" />
+</p>
+    
+1. **Select the Region of Interest:**
+   - Navigate to the layout and identify the region where you want to check the connectivity.
+   - Double press the 'S' key on the same region to inspect the connectivity. This action will highlight the connected components and display relevant information.
+
+2. **Check Attached Labels:**
+   - Observe the labels attached to the components. For example, you might see that "Y" is attached to `locali` in the cell definition `sky130_inv`.
+
+
+
 
 
