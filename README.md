@@ -952,3 +952,57 @@ Zooming in on the placement layout reveals buffers, gates, flip-flops, multiplex
 
 ![Detailed Standard Cells](Day2/placement_layout2.png)
 
+---
+
+## Labs for CMOS inverter ngspice simulations
+
+### IO placer revision
+
+Floorplanning is a crucial step in the ASIC design flow. It involves defining the dimensions of the core and the standard cell placement. This document provides an overview of how to control pin placement during floorplanning using OpenLane.
+
+1. **Default Pin Placement**
+
+![tcl_file](Day3/flooeplan_tcl.png)
+
+By default, OpenLane places pins at equal distances around the perimeter of the design. This behavior is controlled by the configuration variable:
+
+```tcl
+set ::env(FP_IO_MODE) 1
+```
+
+With this setting, the pins are evenly distributed around the core area.
+
+2. **Modifying Pin Placement**
+
+If you want to modify the default behavior, for example, by placing all the pins in the lower half of the core, you need to change the value of `FP_IO_MODE` in the floorplanning configuration file:
+
+```tcl
+set ::env(FP_IO_MODE) 2
+```
+
+This will instruct OpenLane to relocate the pins such that they are not evenly distributed but instead occupy specific regions.
+
+3. **Running Floorplanning with Modified Pin Placement**
+
+![Layout](Day3/flooeplan.png)
+   
+    To apply the new pin placement, follow these steps:
+
+    1. Open the configuration file where `FP_IO_MODE` is defined.
+    2. Change its value from `1` to `2`.
+    3. Re-run the floorplanning step in OpenLane:
+       ```sh
+       run_floorplan
+       ```
+    4. Verify the changes using `magic`:
+       ```sh
+       magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.floorplan.def &
+       ```
+
+4. **Observing the Changes**
+
+    After making the changes and running the modified floorplanning, you can observe the new pin locations using `magic`.
+
+    For example, in the modified layout, all pins are positioned in the lower half of the core, leaving the upper half empty.
+
+    This approach provides flexibility in defining the pin locations based on design constraints and requirements.
