@@ -1160,7 +1160,7 @@ This guide explains how to verify the connectivity of ports, metals, and contact
 #### Steps to Verify Connectivity
 
 <p align="left">
-    <img src="Day3/yport.png" width="500" />
+    <img src="Day3/y_port.png" width="500" />
     <img src="Day3/Aport.png" width="500" />
     <img src="Day3/vpwr.png" width="500" />
     <img src="Day3/vgnd.png" width="500" />
