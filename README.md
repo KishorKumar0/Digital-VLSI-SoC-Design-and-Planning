@@ -1012,7 +1012,7 @@ To apply the new pin placement, follow these steps:
 
 The **vsdstdcelldesign** repository contains standard cell designs used for ASIC design and OpenLane-based digital flows. This guide provides step-by-step instructions to clone and set up the repository within the OpenLane environment.
 
-#### Cloning the Repository**
+#### 1. Cloning the Repository**
 Follow these steps to clone the repository and navigate into the project folder:
 
 **Step 1: Open Terminal**
@@ -1057,6 +1057,69 @@ You should see various files and directories, including:
 - **images/** – Relevant design images
 - **extra/** – Additional design files
 - **sky130_inv.mag** – Magic layout file for the inverter design
+
+
+#### 2. **Copy the Required Tech File**
+Before opening the `.mag` file, we need to ensure that the required technology file (`sky130A.tech`) is available in the working directory. Follow these steps:
+
+- Navigate to the `magic` directory where the tech file is stored:
+  ```sh
+  cd ~/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/
+  ```
+- List the files to verify the presence of the `sky130A.tech` file:
+  ```sh
+  ls -ltr
+  ```
+- Copy the tech file to the required folder (`vsdstdcelldesign`):
+  ```sh
+  cp sky130A.tech ~/Desktop/work/tools/openlane_working_dir/openlane/vsdstdcelldesign
+  ```
+- Verify the copied file in the `vsdstdcelldesign` directory:
+  ```sh
+  cd ~/Desktop/work/tools/openlane_working_dir/openlane/vsdstdcelldesign
+  ls -ltr
+  ```
+  
+<p align="left">
+    <img src="Day3/copy_tech_folder.png" width="500" />
+    <img src="Day1/file_review3.png" width="500" />
+</p>
+
+
+#### 3. **Open the .mag File in Magic Layout Editor**
+With the `sky130A.tech` file in place, we can now open the `.mag` file in Magic:
+
+- Open Magic from the terminal with the required tech file:
+  ```sh
+  magic -T sky130A.tech sky130_inv.mag
+  ```
+- This will open the layout of the inverter, allowing us to inspect the different layers used.
+
+![Inverter Layout](Day3/inv_layout.png)
+
+#### 4. **Analyze the Layers in Magic**
+Once the layout is open, follow these steps to explore the layers used:
+
+- Use the **Layers Panel** on the left side to enable or disable different layers.
+- Identify key layers such as:
+  - **Metal layers** (M1, M2, etc.)
+  - **Poly** (used for gate formation)
+  - **Diffusion** (active area for transistors)
+  - **Contacts & Vias** (for interconnections)
+- Verify the **transistor connections** forming the inverter logic.
+- Use zoom (`z` key) and selection tools to inspect details.
+
+#### 5. **Modify or Export the Layout**
+If needed, you can make modifications and save the updated `.mag` file:
+
+- To save changes:
+  ```sh
+  save sky130_inv.mag
+  ```
+- To export as GDSII:
+  ```sh
+  gds write sky130_inv.gds
+  ```
 
 
 
