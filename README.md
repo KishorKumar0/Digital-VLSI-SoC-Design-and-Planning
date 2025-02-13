@@ -1006,3 +1006,60 @@ To apply the new pin placement, follow these steps:
     For example, in the modified layout, all pins are positioned in the lower half of the core, leaving the upper half empty.
 
     This approach provides flexibility in defining the pin locations based on design constraints and requirements.
+   
+
+### Lab steps to git clone vsdstdcelldesign
+
+The **vsdstdcelldesign** repository contains standard cell designs used for ASIC design and OpenLane-based digital flows. This guide provides step-by-step instructions to clone and set up the repository within the OpenLane environment.
+
+#### Cloning the Repository**
+Follow these steps to clone the repository and navigate into the project folder:
+
+**Step 1: Open Terminal**
+        Open a terminal window in your OpenLane working directory.
+
+**Step 2: Clone the Repository**
+    Run the following command to clone the `vsdstdcelldesign` repository from GitHub:
+
+    ```bash
+    git clone https://github.com/nickson-jose/vsdstdcelldesign.git
+    ```
+    ![Cloning](Day3/clone.png)
+    
+**Step 3: Verify the Cloned Repository**
+    Once cloning is complete, list the contents of the OpenLane directory to confirm the repository has been cloned successfully:
+
+    ```bash
+    ls -ltr
+    ```
+    ![Files](Day3/file_review.png)
+
+You should see a folder named `vsdstdcelldesign` inside the OpenLane directory.
+
+**Step 4: Navigate into the Repository**
+    Change into the newly cloned `vsdstdcelldesign` directory:
+
+    ```bash
+    cd vsdstdcelldesign
+    ```
+
+    ![Files](Day3/file_review2.png)
+
+**Step 5: List the Files in the Repository**
+    To check the contents of the cloned repository, run:
+
+    ```bash
+    ls -ltr
+    ```
+
+    ![Files](Day3/files_review.png)
+
+You should see various files and directories, including:
+- **README.md** – Documentation file
+- **libs/** – Contains standard cell libraries
+- **images/** – Relevant design images
+- **extra/** – Additional design files
+- **sky130_inv.mag** – Magic layout file for the inverter design
+
+
+
