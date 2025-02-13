@@ -1082,7 +1082,7 @@ Before opening the `.mag` file, we need to ensure that the required technology f
   
 <p align="left">
     <img src="Day3/copy_tech_folder.png" width="500" />
-    <img src="Day1/file_review3.png" width="500" />
+    <img src="Day3/file_review3.png" width="500" />
 </p>
 
 
