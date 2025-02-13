@@ -1024,7 +1024,7 @@ Follow these steps to clone the repository and navigate into the project folder:
     ```bash
     git clone https://github.com/nickson-jose/vsdstdcelldesign.git
     ```
-    ![Cloning](Day3/clone.png)
+![Cloning](Day3/clone.png)
     
 **Step 3: Verify the Cloned Repository**
     Once cloning is complete, list the contents of the OpenLane directory to confirm the repository has been cloned successfully:
@@ -1032,7 +1032,7 @@ Follow these steps to clone the repository and navigate into the project folder:
     ```bash
     ls -ltr
     ```
-    ![Files](Day3/file_review.png)
+![Files](Day3/file_review.png)
 
 You should see a folder named `vsdstdcelldesign` inside the OpenLane directory.
 
@@ -1043,7 +1043,7 @@ You should see a folder named `vsdstdcelldesign` inside the OpenLane directory.
     cd vsdstdcelldesign
     ```
 
-    ![Files](Day3/file_review2.png)
+![Files](Day3/file_review2.png)
 
 **Step 5: List the Files in the Repository**
     To check the contents of the cloned repository, run:
@@ -1052,7 +1052,7 @@ You should see a folder named `vsdstdcelldesign` inside the OpenLane directory.
     ls -ltr
     ```
 
-    ![Files](Day3/files_review.png)
+![Files](Day3/files_review.png)
 
 You should see various files and directories, including:
 - **README.md** – Documentation file
