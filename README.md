@@ -1259,7 +1259,7 @@ To perform the simulation, we need to modify the SPICE file to match the CMOS in
    - Define the input waveform for simulation.
    - Example of a pulse input:
      ```spice
-     V_A A VGND PULSE(0 3.3V 0 0.1ns 0.1ns 2ns 4ns)
+     Va A VGND PULSE(0 3.3V 0 0.1ns 0.1ns 2ns 4ns)
      ```
    - This defines a periodic pulse from `0V` to `3.3V` with a period of `4ns`.
 
