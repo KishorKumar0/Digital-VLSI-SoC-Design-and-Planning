@@ -1032,7 +1032,7 @@ Follow these steps to clone the repository and navigate into the project folder:
     ```bash
     ls -ltr
     ```
-![Files](Day3/file_review.png)
+![Files](Day3/file_review1.png)
 
 You should see a folder named `vsdstdcelldesign` inside the OpenLane directory.
 
@@ -1186,7 +1186,7 @@ To determine the logical function of the layout, we need to extract and create t
     ```
     <p align="left">
         <img src="Day3/extract.png" width="500" />
-        <img src="Day3/file_review1.png" width="500" />
+        <img src="Day3/file_review4.png" width="500" />
     </p>
 
 This will create a `.ext` file that represents the extracted circuit information.
@@ -1205,7 +1205,7 @@ This ensures all capacitances and resistances are included without any threshold
     ```
     <p align="left">
         <img src="Day3/create_spice.png" width="500" />
-        <img src="Day3/file_review2.png" width="500" />
+        <img src="Day3/file_review5.png" width="500" />
     </p>
 
 This will create a `.spice` file in your working directory.
