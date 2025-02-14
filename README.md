@@ -1240,7 +1240,6 @@ To perform the simulation, we need to modify the SPICE file to match the CMOS in
 
 3. **Comment Out `.subckt` and `.ends`**
    - Since we are providing direct input controls in the SPICE file, we do not need the `.subckt` and `.ends` lines.
-   - Comment them out using `*` to avoid conflicts.
 
 4. **Specify the Supply Voltage**
    - Define the power supply voltage explicitly.
