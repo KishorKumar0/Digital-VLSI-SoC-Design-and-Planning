@@ -1173,6 +1173,53 @@ This guide explains how to verify the connectivity of ports, metals, and contact
 2. **Check Attached Labels:**
    - Observe the labels attached to the components. For example, you might see that "Y" is attached to `locali` in the cell definition `sky130_inv`.
 
+### Lab steps to create std cell layout and extract spice netlist
+
+To determine the logical function of the layout, we need to extract and create the SPICE file from the layout using the Magic layout tool.
+
+#### Steps to Create and Extract a SPICE Netlist
+
+1. **Extract the Layout**
+    Run the following command inside the Magic console to generate the extracted file:
+    ```sh
+    extract all
+    ```
+    <p align="left">
+        <img src="Day3/extract.png" width="500" />
+        <img src="Day3/file_review1.png" width="500" />
+    </p>
+
+This will create a `.ext` file that represents the extracted circuit information.
+
+2. **Convert Extracted File to SPICE Format**
+    To generate a SPICE netlist from the extracted file, run:
+    ```sh
+    ext2spice cthresh 0 rthresh 0
+    ```
+This ensures all capacitances and resistances are included without any threshold filtering.
+
+3. **Generate SPICE Netlist**
+    Run the `ext2spice` command again in the Tkcon (Magic’s Tcl console):
+    ```sh
+    ext2spice
+    ```
+    <p align="left">
+        <img src="Day3/create_spice.png" width="500" />
+        <img src="Day3/file_review2.png" width="500" />
+    </p>
+
+This will create a `.spice` file in your working directory.
+
+4. **Verify the Generated SPICE File**
+    Use Vim or any text editor to inspect the generated SPICE file:
+    ```sh
+    vim sky130_inv.spice
+    ```
+    ![Spice File](Day3/spice_file.png)
+The file should contain transistor-level netlists describing the circuit.
+
+
+
 
 
 
