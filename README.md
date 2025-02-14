@@ -1218,6 +1218,70 @@ This will create a `.spice` file in your working directory.
     ![Spice File](Day3/spice_file.png)
 The file should contain transistor-level netlists describing the circuit.
 
+Here's a README file documenting the necessary modifications for the SPICE file:
+
+---
+
+### Lab steps to create final SPICE deck using Sky130 tech
+
+ ![CMOS](Day3/cmos.png)
+ 
+To perform the simulation, we need to modify the SPICE file to match the CMOS inverter circuit. These modifications ensure proper scaling, voltage definitions, and simulation setup.
+
+#### Required Modifications
+
+1. **Set Proper Scaling**
+
+     ![Grid Size](Day3/box_size.png)
+   
+   - The `scale` value in the SPICE file should match the grid value from the Magic layout tool.
+   - The grid value can be obtained from the `tkcon` window after running the Magic layout.
+   - Example: `0.01u` should be set as the scaling factor.
+
+3. **Comment Out `.subckt` and `.ends`**
+   - Since we are providing direct input controls in the SPICE file, we do not need the `.subckt` and `.ends` lines.
+   - Comment them out using `*` to avoid conflicts.
+
+4. **Specify the Supply Voltage**
+   - Define the power supply voltage explicitly.
+   - Example for a 3.3V power supply:
+     ```spice
+     VDD VPWR 0 3.3V
+     ```
+
+5. **Define Ground Connection**
+   - Ensure the voltage source for ground is specified.
+   - Example:
+     ```spice
+     VS VGND 0 0V
+     ```
+
+6. **Specify the Input Pulse**
+   - Define the input waveform for simulation.
+   - Example of a pulse input:
+     ```spice
+     V_A A VGND PULSE(0 3.3V 0 0.1ns 0.1ns 2ns 4ns)
+     ```
+   - This defines a periodic pulse from `0V` to `3.3V` with a period of `4ns`.
+
+7. **Include Simulation Analysis**
+   - Define the type of analysis to be performed.
+   - Example: **Transient Analysis**
+     ```spice
+     .tran 1n 20n
+     ```
+   - This runs a transient analysis with a step of `1ns` up to `20ns`.
+
+8. **Run Simulation**
+   - Include control commands to execute the simulation.
+   - Example:
+     ```spice
+     .control
+     run
+     .endc
+     ```
+ ![Spice File](Day3/spice_file2.png)
+
 
 
 
