@@ -1282,6 +1282,74 @@ To perform the simulation, we need to modify the SPICE file to match the CMOS in
  ![Spice File](Day3/spice_file2.png)
 
 
+### Inverter Characterization using SKY130 Model Files
+
+The characterization involves analyzing the inverter's behavior through SPICE simulations using Ngspice. The key aspects studied include rise and fall transitions, cell delays, and the effect of parasitic capacitance on output signals.
+
+#### Steps for Characterization
+1. **Running the SPICE File in Ngspice**
+
+![Running Spice file](Day3/run_ngspice.png)
+
+- The inverter circuit is simulated using Ngspice.
+- The SPICE netlist includes the SKY130 technology models.
+- The transient analysis results are examined.
+- Output voltage values are extracted from the simulation.
+
+2. **Plotting Output vs Time Waveform**
+- The output (Y) is plotted against time to analyze its response.
+  ```spice
+  plot y vs time a
+  ```
+  ![Plot](Day3/plot.png)
+
+ 4. **Effect of Parasitic Capacitance**
+- Initial simulation showed small spikes around peaks due to parasitic capacitances and ringing effects due to rapid transitions at the inverter output
+- reduce noise and smoothen the waveform, you can increase the load capacitor (C3) between output Y and ground to 2fF.
+
+![Plot](Day3/plot2.png)
+
+#### Measurement Results
+1. **Rise Transition Time**
+The rise transition time is defined as the time when the output switches from 20% to 80% of the maximum value.
+
+- **Measurement:**
+  - `y20 = 2.156076e-09` (20% point)
+  - `y80 = 2.184160e-09` (80% point)
+  - **Rise Transition Time:** `2.808400e-11` sec
+
+![Rise Transition](Day3/rise_time.png)
+
+2. **Fall Transition Time**
+The fall transition time is defined as the time when the output switches from 80% to 20% of the maximum value.
+
+- **Measurement:**
+  - `y80 = 4.090746e-09` (80% point)
+  - `y20 = 4.103197e-09` (20% point)
+  - **Fall Transition Time:** `1.245100e-11` sec
+
+![Fall Transition](Day3/fall_time.png)
+
+3. **Rise Cell Delay**
+The rise cell delay is the delay when the output transitions from low to high.
+
+- **Measurement:**
+  - `y50 = 2.207139e-09` (Output @ 50%)
+  - `a50 = 2.150000e-09` (Input @ 50%)
+  - **Rise Cell Delay:** `5.713900e-11` sec
+
+![Rise Cell Delay](Day3/rise_cell_delay.png)
+
+4. **Fall Cell Delay**
+The fall cell delay is the delay when the output transitions from high to low.
+
+- **Measurement:**
+  - `y50_fall = 4.073500e-09` (Output @ 50%)
+  - `a50_rise = 4.050000e-09` (Input @ 50%)
+  - **Fall Cell Delay:** `2.535000e-11` sec
+
+![Fall Cell Delay](Day3/fall_cell_delay.png)
+
 
 
 
