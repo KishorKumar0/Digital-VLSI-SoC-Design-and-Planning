@@ -1301,7 +1301,7 @@ The characterization involves analyzing the inverter's behavior through SPICE si
   ```spice
   plot y vs time a
   ```
-  ![Plot](Day3/plot.png)
+![Plot](Day3/plot.png)
 
  4. **Effect of Parasitic Capacitance**
 - Initial simulation showed small spikes around peaks due to parasitic capacitances and ringing effects due to rapid transitions at the inverter output
