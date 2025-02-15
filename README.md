@@ -1279,7 +1279,7 @@ To perform the simulation, we need to modify the SPICE file to match the CMOS in
      run
      .endc
      ```
- ![Spice File](Day3/spice_file2.png)
+ ![Spice File](Day3/updated_spice_file.png)
 
 
 
