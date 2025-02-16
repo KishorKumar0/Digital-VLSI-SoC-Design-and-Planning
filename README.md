@@ -1381,15 +1381,18 @@ To get started with DRC testing, you need to download and extract the required l
    ```bash
    tar xfz drc_tests.tgz
    ```
+
+   ![DRC Tests](Day3/drc_tests_filder.png)
+
    This command extracts all the files into a new directory named `drc_tests`.
 
-4. **Change into the extracted lab folder:**
+5. **Change into the extracted lab folder:**
    Move into the newly extracted directory to access the test files:
    ```bash
    cd drc_tests
    ```
 
-5. **List all files and directories:**
+6. **List all files and directories:**
    Verify the contents of the directory to ensure that the required files have been extracted:
    ```bash
    ls -al
@@ -1438,6 +1441,87 @@ After setting up the necessary files, follow these steps to perform a DRC check 
 
 4. **View and correct violations:**
    If any errors are detected, Magic will mark the areas that need correction. You can interactively edit and fix these violations within the Magic interface.
+
+
+### Lab introduction to Magic and steps to load Sky130 tech-rules
+
+#### Steps to Open the `met3` Layout File in Magic
+
+1. **Navigate to the Extracted Folder:**
+   Once extracted, go into the `drc_tests` directory:
+   ```sh
+   cd drc_tests
+   ```
+
+2. **Open the `met3` Layout in Magic:**
+   Use the following command to open the `met3` layout file in Magic:
+   ```sh
+   magic -T sky130A.tech met3.mag
+   ```
+   - `-T sky130A.tech` specifies the technology file for the SkyWater 130nm process.
+   - `met3.mag` is the Magic layout file for Metal 3 (Met3).
+
+     ![Metal3.mg layout](Day3/met3.png)
+
+Once the command is executed, the Magic layout tool will launch and display the `met3` layout for editing and verification.
+
+#### Steps to Perform DRC Check
+1. **Open the Layout File**: Load the layout file in Magic VLSI.
+2. **Enable DRC**: Ensure that DRC is enabled in Magic VLSI by selecting `Options > DRC`.
+3. **Select a Layout Area**: Choose any region of interest in the layout that needs verification.
+4. **Check DRC Violations**: Open the `tkcon` terminal and execute:
+   ```
+   drc why
+   ```
+   ![Metal3.mg layout](Day3/drc_check.png)
+   
+   This command will report any design rule violations and reference the rule numbers from the Google SkyWater PDK.
+5. **Cross-check with SkyWater Documentation**:
+   - Refer to the **Google SkyWater PDK documentation** to understand the reported rule violations.
+   - Compare the reported rule numbers with the defined constraints in `periphery_rules.png`.
+
+    ![Metal3.mg layout](Day3/periphery_rules.png)
+   
+#### Example
+For instance, selecting a layout area with a spacing issue may return:
+```
+Metal3 spacing < 0.3um (m3.2)
+```
+According to the SkyWater documentation, rule `m3.2` states that the minimum spacing between Metal3 layers must be at least `0.3μm`. If the spacing is below this value, it is flagged as a DRC violation.
+
+#### Filling a Selected Area with Metal 3 and Creating a VIA2 Mask using Magic Layout Tool
+
+This guide demonstrates how to fill a selected area with Metal 3 and create a VIA2 mask using the Magic layout tool.
+
+
+1. **Select an Area and Fill with Metal 3:**
+    1. Open the **Magic** GUI.
+    2. Select the desired area on your layout.
+    3. Guide the pointer to the **Metal 3 (m3)** layer.
+    4. Press **P** to fill the selected region with **Metal 3**.
+
+    
+2. **Create the VIA2 Mask:**
+    1. Open the **tkcon terminal** within Magic.
+    2. Type the following command:
+   
+       ```
+       cif see VIA2
+       ```
+    <p align="left">
+        <img src="Day3/cif" width="500" />
+        <img src="Day3/met3_mask.png" width="500" />
+        <img src="Day3/mask_drc_check.png" width="500" />
+    </p>
+
+3. The Metal 3-filled area will now be associated with the **VIA2 mask**.
+4. Upon executing this command, you will notice a **black box** appearing on the **M3 contact**. These are **contact cuts**, which do not physically exist in the drawn layout but represent the **mask layer for VIA2**.
+5. These contact cuts will appear in the **output GDS layout file** (`layout.gds`).
+
+#### How Contact Cuts are Generated
+The contact cuts are not explicitly drawn in the layout but are created based on the **output section rules** defined in the **technology file**. The **tech file** includes a special command instructing Magic on how to draw contact cuts inside a drawn contact area.
+
+This ensures that when exporting the layout to **GDS format**, the contact cuts for **VIA2** are properly included, even though they are not explicitly drawn in the layout view.
 
 
 
