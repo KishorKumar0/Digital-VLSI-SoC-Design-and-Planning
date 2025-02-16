@@ -1509,7 +1509,7 @@ This guide demonstrates how to fill a selected area with Metal 3 and create a VI
        cif see VIA2
        ```
     <p align="left">
-        <img src="Day3/cif" width="500" />
+        <img src="Day3/cif.png" width="500" />
         <img src="Day3/met3_mask.png" width="500" />
         <img src="Day3/mask_drc_check.png" width="500" />
     </p>
