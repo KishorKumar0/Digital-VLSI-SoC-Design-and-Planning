@@ -1350,6 +1350,96 @@ The fall cell delay is the delay when the output transitions from high to low.
 
 ![Fall Cell Delay](Day3/fall_cell_delay.png)
 
+### Lab introduction to Magic tool options and DRC rules
+
+Design Rule Check (DRC) is an essential step in the IC design process to ensure that the layout adheres to specific fabrication constraints. This repository provides a comprehensive guide on running DRC tests using the Magic VLSI Layout tool and the Sky130 Process Design Kit (PDK). The steps below detail the setup required to perform DRC corrections and verify designs before fabrication.
+
+#### Resources
+To understand more about DRC and Magic, refer to the following resources:
+- **Magic DRC Documentation:** [Magic DRC Manual](http://opencircuitdesign.com/magic/Technologyfiles/TheMagicTechnologyFileManual/DrcSection) – This provides detailed documentation on the design rule check features within the Magic tool.
+- **Skywater 130 PDK Design Rules:** [Skywater PDK Rules](https://skywater-pdk.readthedocs.io/en/main/rules/periphery.html) – This contains the design rules that layouts must comply with when using the Sky130 process.
+- **Google Skywater PDK GitHub Repository:** [Skywater PDK Repo](https://github.com/google/skywater-pdk) – The official GitHub repository for the Sky130 PDK, containing technology files, rule definitions, and reference designs.
+
+#### Steps to Download and Extract Lab Files
+To get started with DRC testing, you need to download and extract the required lab files.
+
+1. **Navigate to the home directory:**
+   Open a terminal and change to your home directory to ensure a clean working environment:
+   ```bash
+   cd ~
+   ```
+
+2. **Download the lab files:**
+   The DRC test files are hosted on Open Circuit Design’s website. Use the following command to download the archive:
+   ```bash
+   wget http://opencircuitdesign.com/open_pdks/archive/drc_tests.tgz
+   ```
+   This command retrieves the compressed tar file (`.tgz`), which contains the required test files.
+
+3. **Extract the downloaded files:**
+   Once the download is complete, extract the archive using:
+   ```bash
+   tar xfz drc_tests.tgz
+   ```
+   This command extracts all the files into a new directory named `drc_tests`.
+
+4. **Change into the extracted lab folder:**
+   Move into the newly extracted directory to access the test files:
+   ```bash
+   cd drc_tests
+   ```
+
+5. **List all files and directories:**
+   Verify the contents of the directory to ensure that the required files have been extracted:
+   ```bash
+   ls -al
+   ```
+   ![DRC Tests](Day3/drc_tests.png)
+
+   This will display all files, including hidden files, which might be necessary for configuration.
+
+#### Magic Tool Configuration
+Magic requires a configuration file called `.magicrc` to function correctly. This file helps the tool locate the necessary technology files.
+
+6. **View and modify the `.magicrc` file:**
+   To inspect the `.magicrc` file, use the following command:
+   ```bash
+   gvim .magicrc
+   ```
+   If you do not have `gvim`, you can use `vim` or `nano` instead:
+   ```bash
+   vim .magicrc
+   ```
+   This file specifies the startup configurations for Magic, including paths to the Sky130 technology files. If necessary, make adjustments to point Magic to the correct technology file.
+
+#### Running DRC Checks in Magic
+After setting up the necessary files, follow these steps to perform a DRC check in Magic:
+
+1. **Open Magic:**
+   Start the Magic tool with the Sky130 technology file by running:
+   ```bash
+   magic -T sky130A.tech
+   ```
+   This command initializes Magic with the correct process design kit.
+
+2. **Load a design layout:**
+   To analyze a specific layout file, load it into Magic using:
+   ```bash
+   load met3.mag
+   ```
+   Replace `my_design.mag` with the actual layout file name.
+
+3. **Run a DRC check:**
+   Once the layout is loaded, perform a design rule check using:
+   ```bash
+   drc check
+   ```
+   This command checks the layout against the defined design rules and highlights any violations.
+
+4. **View and correct violations:**
+   If any errors are detected, Magic will mark the areas that need correction. You can interactively edit and fix these violations within the Magic interface.
+
+
 
 
 
