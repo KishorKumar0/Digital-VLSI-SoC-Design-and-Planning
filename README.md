@@ -1382,7 +1382,7 @@ To get started with DRC testing, you need to download and extract the required l
    tar xfz drc_tests.tgz
    ```
 
-   ![DRC Tests](Day3/drc_tests_filder.png)
+   ![DRC Tests](Day3/drc_tests_folder.png)
 
    This command extracts all the files into a new directory named `drc_tests`.
 
