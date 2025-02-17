@@ -1576,8 +1576,8 @@ This ensures that when exporting the layout to **GDS format**, the contact cuts 
    - In `vi`, press `Esc` to ensure you are in command mode, then type `:wq` and press `Enter` to save and quit.
 
      <p align="left">
-        <img src="Day3/erroe_1" width="500" />
-        <img src="Day3/sol_1" width="500" />
+        <img src="Day3/erroe_1.png" width="500" />
+        <img src="Day3/sol_1.png" width="500" />
         <img src="Day3/error_2.png" width="500" />
         <img src="Day3/sol_2.png" width="500" />
     </p>
