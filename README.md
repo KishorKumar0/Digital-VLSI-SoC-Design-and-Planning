@@ -1547,7 +1547,7 @@ This ensures that when exporting the layout to **GDS format**, the contact cuts 
         <img src="Day3/poly.9.png" width="500" />
         <img src="Day3/poly.9_1.png" width="500" />
         <img src="Day3/poly.9_2.png" width="500" />
-        <img src="Day3/poly.9_rules.png" width="500" />
+        <img src="Day3/poly_rules.png" width="500" />
     </p>
     
    - Verify that the spacing between poly resistors and other poly layers or diff/tap regions adheres to the minimum spacing of 0.480 μm. This ensures that the design meets the required specifications and avoids potential issues during fabrication.
