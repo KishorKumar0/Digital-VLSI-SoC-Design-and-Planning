@@ -1542,7 +1542,7 @@ This ensures that when exporting the layout to **GDS format**, the contact cuts 
 3. **Check for `poly.9` Rules:**
    - Navigate to the specific layer or section where `poly.9` is implemented.
    - Refer to the rule description for `poly.9` from the provided documentation or website. The rule states:
-   - 
+     
     <p align="left">
         <img src="Day3/poly.9.png" width="500" />
         <img src="Day3/poly.9_1.png" width="500" />
