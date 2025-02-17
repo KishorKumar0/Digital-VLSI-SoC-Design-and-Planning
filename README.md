@@ -1523,7 +1523,34 @@ The contact cuts are not explicitly drawn in the layout but are created based on
 
 This ensures that when exporting the layout to **GDS format**, the contact cuts for **VIA2** are properly included, even though they are not explicitly drawn in the layout view.
 
+### Lab exercise to fix poly.9 error in Sky130 tech-file
 
+#### Steps to Load and Check Poly Rules
+
+1. **Load the `.mag` File:**
+   In the `tkcon` window, type the following command to load the `poly.mag` file:
+   ```tcl
+   load poly
+   ```
+   This command reads the `poly.mag` file from the current working directory. Ensure that the file is in the correct directory or provide the full path to the file.
+
+1. **Verify the Loaded Cell:**
+   After loading the file, ensure that the cell `poly` is loaded correctly. You should see the layout of the `poly` cell in the main window. This layout represents the physical design of the poly layer in the integrated circuit.
+
+   ![Poly.mg layout](Day3/poly_layout.png)
+
+3. **Check for `poly.9` Rules:**
+   - Navigate to the specific layer or section where `poly.9` is implemented.
+   - Refer to the rule description for `poly.9` from the provided documentation or website. The rule states:
+   - 
+    <p align="left">
+        <img src="Day3/poly.9.png" width="500" />
+        <img src="Day3/poly.9_1.png" width="500" />
+        <img src="Day3/poly.9_2.png" width="500" />
+        <img src="Day3/poly.9_rules.png" width="500" />
+    </p>
+    
+   - Verify that the spacing between poly resistors and other poly layers or diff/tap regions adheres to the minimum spacing of 0.480 μm. This ensures that the design meets the required specifications and avoids potential issues during fabrication.
 
 
 
