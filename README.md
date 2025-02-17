@@ -1551,8 +1551,35 @@ This ensures that when exporting the layout to **GDS format**, the contact cuts 
     </p>
     
    - Verify that the spacing between poly resistors and other poly layers or diff/tap regions adheres to the minimum spacing of 0.480 μm. This ensures that the design meets the required specifications and avoids potential issues during fabrication.
+    - A Design Rule Check (DRC) error related to the spacing between a poly resistor and poly in the Magic Layout Tool. The error occurs because the distance between the poly resistor and poly is less than the minimum distance specified in the rule description. To correct this, we need to modify the `sky130A.tech` file.
 
+#### Steps to Correct the DRC Error
 
+1. **Open the `sky130A.tech` File:**
+   - Open a terminal and navigate to the directory containing the `sky130A.tech` file.
+   - Use a text editor to open the file. For example, using `vi`:
+     ```bash
+     vi sky130A.tech
+     ```
 
+2. **Search for `poly.9` Rule:**
+   - In the editor, press `/` to start a search.
+   - Type `poly.9` and press `Enter`. This will search for the `poly.9` rule in the file.
+   - If there are multiple occurrences, press `n` to navigate to the next occurrence.
 
+3. **Implement the Missing Spacing Rule:**
+   - Locate the section where the `poly.9` rule is defined.
+   - Add or modify the spacing rule to ensure it meets the minimum distance requirement.
+
+4. **Save and Exit the Editor:**
+   - After making the necessary changes, save the file and exit the editor.
+   - In `vi`, press `Esc` to ensure you are in command mode, then type `:wq` and press `Enter` to save and quit.
+
+     <p align="left">
+        <img src="Day3/erroe_1" width="500" />
+        <img src="Day3/sol_1" width="500" />
+        <img src="Day3/error_2.png" width="500" />
+        <img src="Day3/sol_2.png" width="500" />
+    </p>
+    
 
