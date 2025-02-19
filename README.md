@@ -1755,7 +1755,7 @@ Before extracting the LEF file, certain properties must be set. These properties
 
 3. **Verify the LEF File:**
 
-    ![LEF File](Day4/cstm_lef_file.png)
+   ![LEF File](Day4/cstm_lef_file.png)
 
    - Navigate to the directory and check if the LEF file has been successfully generated.
    - Open the LEF file and confirm that it contains the correct macro and pin definitions.
