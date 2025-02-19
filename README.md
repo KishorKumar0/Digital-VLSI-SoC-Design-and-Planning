@@ -1760,3 +1760,104 @@ Before extracting the LEF file, certain properties must be set. These properties
    - Navigate to the directory and check if the LEF file has been successfully generated.
    - Open the LEF file and confirm that it contains the correct macro and pin definitions.
 
+### Introduction to Timing Libraries and Adding a New Cell in Synthesis
+
+This guide explais how to set up timing libraries and include a new cell in the synthesis process using OpenLane for the `picorv32a` design.
+
+#### Setting Up the Environment
+To ensure a smooth workflow, we will keep all the required files in a single directory called `src`.
+
+##### Step 1: Copy the Extracted LEF File**
+The extracted LEF file must be placed inside the `src` directory. Run the following command to copy the LEF file:
+
+```sh
+cp /openlane/vsdstdcelldesign/libs/sky130_myinverter.lef home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src
+```
+
+This command copies the custom inverter LEF file from its original location to the `src` directory inside the `picorv32a` design folder.
+
+##### Step 2: Copy Required Libraries**
+We need different types of `.lib` files (fast, slow, typical) for synthesis and timing analysis. Copy all required `.lib` files to the `src` directory using the `cp` command.
+
+```sh
+cp /path/to/library_files/*.lib home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src
+```
+
+This command ensures that all required liberty files for synthesis and timing analysis are placed inside the `src` directory.
+
+##### tep 3: Modify the `config.tcl` File**
+To use the newly added library files, modify the `config.tcl` file inside the `picorv32a` design directory. Add the following lines:
+
+```tcl
+set ::env(LIB_SYNTH) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__typical.lib"
+set ::env(LIB_FASTEST) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__fast.lib"
+set ::env(LIB_SLOWEST) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__slow.lib"
+set ::env(LIB_TYPICAL) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__typical.lib"
+
+set ::env(EXTRA_LEFS) [glob $::env(OPENLANE_ROOT)/designs/$::env(DESIGN_NAME)/src/*.lef]
+```
+
+##### Explanation of Configurations**
+- `LIB_SYNTH`: Specifies the liberty file used for ABC mapping during synthesis.
+- `LIB_FASTEST`: Specifies the fastest corner library for static timing analysis (STA).
+- `LIB_SLOWEST`: Specifies the slowest corner library for STA.
+- `LIB_TYPICAL`: Specifies the typical corner library for STA.
+- `EXTRA_LEFS`: Includes additional LEF files, such as the customized inverter cell.
+
+These settings ensure that OpenLane properly recognizes the required libraries and custom cells during synthesis and timing analysis.
+
+#### Running the OpenLane Flow with Custom Inverter
+After making the necessary adjustments, we need to run the OpenLane flow again for `picorv32a` while integrating the custom inverter.
+
+##### Step 4: Run OpenLane Flow**
+Use the following OpenLane commands to run synthesis:
+
+1. **Start the OpenLane Docker Container**
+```sh
+docker run -it --rm -v $(pwd):/openlane openlane:latest /bin/bash
+```
+This command runs the OpenLane Docker container interactively:
+- `-it`: Runs the container in interactive mode.
+- `--rm`: Automatically removes the container after it exits.
+- `-v $(pwd):/openlane`: Mounts the current working directory to the container.
+- `openlane:latest`: Specifies the OpenLane Docker image to use.
+- `/bin/bash`: Opens a bash shell inside the container.
+
+2. **Enter Interactive Mode in OpenLane**
+```tcl
+flow.tcl -interactive
+```
+This command starts OpenLane in interactive mode, allowing you to manually execute commands for synthesis and other design steps.
+
+3. **Load OpenLane Package**
+```tcl
+package require openlane 0.9
+```
+This ensures that the required OpenLane package is loaded and ready for use.
+
+4. **Prepare the Design**
+```tcl
+prep -design picorv32a -tag 24-03_10-03 -overwrite
+```
+This command prepares the design environment:
+- `-design picorv32a`: Specifies the design name.
+- `-tag 24-03_10-03`: Assigns a unique tag for this run.
+- `-overwrite`: Ensures that synthesis runs in the same folder as the initial setup without creating a new one.
+
+5. **Add the Custom LEF File to OpenLane Flow**
+```tcl
+set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+add_lefs -src $lefs
+```
+These commands:
+- Use `glob` to collect all LEF files in the `src` directory.
+- Use `add_lefs -src $lefs` to include them in the OpenLane flow.
+
+6. **Run Synthesis**
+```tcl
+run_synthesis
+```
+This command initiates the synthesis process, integrating the custom inverter into the design.
+
+You have successfully set up the necessary timing libraries, included a new cell, and re-run synthesis with OpenLane. This configuration ensures accurate timing analysis and smooth integration of custom standard cells into the OpenLane flow.
+
