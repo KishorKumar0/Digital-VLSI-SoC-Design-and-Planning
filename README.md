@@ -1674,7 +1674,7 @@ To convert the grid into tracks, follow these steps:
      grid 0.46um 0.34um  0.23um 0.17um
      ```
 
-     ![Track Layout](Day4/track_layout.png)
+     ![Track Layout](Day4/tracks_layout.png)
    - This ensures that ports align with track intersections, improving routing efficiency and reducing design rule violations.
 
 4. **Verification**
