@@ -1598,7 +1598,7 @@ These tables help estimate signal arrival times and ensure proper timing closure
 - These tables guide placement and routing tools to optimize signal paths for meeting timing constraints.
 - They play a key role in ensuring that signals arrive at their destinations within the required timing constraints.
 
-#### **Track-to-Grid Conversion in Physical Design using Sky130 PDK**
+#### Lab steps to convert grid info to track info
 
 **Overview**
 
@@ -1683,4 +1683,79 @@ To convert the grid into tracks, follow these steps:
    - Run **DRC checks** to confirm that the tracks and grids are correctly aligned.
 
 Track-to-grid conversion is a fundamental step in physical design that ensures efficient routing and seamless connectivity between standard cells. By aligning ports and tracks according to the Sky130 PDK guidelines, designers can optimize routing, reduce design rule violations, and enhance manufacturability. Following these best practices improves design efficiency and simplifies integration into larger ASIC projects.
+
+
+
+#### Lab steps to convert magic layout to standard cell LEF
+1. **Creating Port Definitions**
+
+Once the layout is ready, the next step is extracting the LEF file for the cell. However, certain properties and definitions need to be set for the pins of the cell, which aid the placer and router tool. For LEF files, a cell that contains ports is written as a **macro cell**, and the ports are the declared **PINs** of the macro.
+
+Our objective is to extract a LEF file from a given layout (here, a simple CMOS inverter) in standard format. Defining ports and setting correct **class** and **use** attributes to each port is the first step.
+
+**Defining Ports in Magic Layout**
+
+1. **Load the .mag File:**
+   - Open the Magic Layout window and source the `.mag` file for the design (here, an inverter).
+   - Navigate to **Edit > Text** to open a text dialog box.
+
+    ![Deefining Ports](Day4/Port_definition.png)
+   
+3. **Define Ports:**
+   - For each layer (to be turned into a port), create a box on that particular layer.
+   - Input a label name and add a sticky label with the layer name.
+   - Ensure that the **Port Enable** checkbox is checked and the **Default** checkbox is unchecked.
+
+4. **Port Placement:**
+   - Port **A** (input port) and port **Y** (output port) are placed on the **locali (local interconnect) layer**.
+   - The number in the **Enable** checkbox defines the order in which the ports will be written in the LEF file (0 being the first).
+
+5. **Power and Ground Ports:**
+   - Power and ground connections are typically placed on **metal1**.
+   - Assign the correct labels to these layers to differentiate them from signal layers.
+
+6. **Save the Custom Inverter:**
+   - Use the command:
+     ```
+     save file_name
+     ```
+
+     <p align="left">
+        <img src="Day3/naming" width="500" />
+        <img src="Day3/review_file" width="500" />
+    </p>
+     
+   - This command automatically saves the file in `.mag` format.
+   - Check the directory to confirm that the file has been saved.
+
+**Defining LEF Properties and Extracting the LEF File**
+
+Before extracting the LEF file, certain properties must be set. These properties help the **placer** and **router** determine where a cell needs to be placed and how it should be routed. In **Magic**, macro cell properties common to the LEF/DEF definition but without direct database interpretation are retained using the **cell property** method.
+
+**Steps to Extract the LEF File:**
+1. **Set the LEF Properties:**
+   - Define attributes such as:
+     - **CLASS:** Whether the cell is a **CORE** cell.
+     - **USE:** Specifies whether it’s a **SIGNAL** or **POWER** pin.
+     - **SITE:** The grid constraints for standard cell placement.
+
+2. **Extract the LEF File:**
+   - Run the command:
+     ```
+     lef write
+     ```
+
+     <p align="left">
+        <img src="Day3/create_lef" width="500" />
+        <img src="Day3/review_file2" width="500" />
+    </p>
+     
+   - The LEF file is saved with the **same name** as the layout (.mag file).
+
+3. **Verify the LEF File:**
+
+    ![LEF File](Day4/cst_lef_file.png)
+
+   - Navigate to the directory and check if the LEF file has been successfully generated.
+   - Open the LEF file and confirm that it contains the correct macro and pin definitions.
 
