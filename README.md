@@ -1675,6 +1675,7 @@ To convert the grid into tracks, follow these steps:
      ```
 
      ![Track Layout](Day4/tracks_layout.png)
+     
    - This ensures that ports align with track intersections, improving routing efficiency and reducing design rule violations.
 
 4. **Verification**
@@ -1699,7 +1700,7 @@ Our objective is to extract a LEF file from a given layout (here, a simple CMOS 
    - Open the Magic Layout window and source the `.mag` file for the design (here, an inverter).
    - Navigate to **Edit > Text** to open a text dialog box.
 
-    ![Deefining Ports](Day4/Port_definition.png)
+    ![Defining Ports](Day4/port_definition.png)
    
 3. **Define Ports:**
    - For each layer (to be turned into a port), create a box on that particular layer.
@@ -1721,8 +1722,8 @@ Our objective is to extract a LEF file from a given layout (here, a simple CMOS 
      ```
 
      <p align="left">
-        <img src="Day4/naming" width="500" />
-        <img src="Day4/review_file" width="500" />
+        <img src="Day4/naming.png" width="500" />
+        <img src="Day4/review_file.png" width="500" />
     </p>
      
    - This command automatically saves the file in `.mag` format.
@@ -1746,8 +1747,8 @@ Before extracting the LEF file, certain properties must be set. These properties
      ```
 
      <p align="left">
-        <img src="Day4/create_lef" width="500" />
-        <img src="Day4/review_file2" width="500" />
+        <img src="Day4/create_lef.png" width="500" />
+        <img src="Day4/review_file2.png" width="500" />
     </p>
      
    - The LEF file is saved with the **same name** as the layout (.mag file).
