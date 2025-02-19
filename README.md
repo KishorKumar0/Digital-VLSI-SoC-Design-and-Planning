@@ -1721,8 +1721,8 @@ Our objective is to extract a LEF file from a given layout (here, a simple CMOS 
      ```
 
      <p align="left">
-        <img src="Day3/naming" width="500" />
-        <img src="Day3/review_file" width="500" />
+        <img src="Day4/naming" width="500" />
+        <img src="Day4/review_file" width="500" />
     </p>
      
    - This command automatically saves the file in `.mag` format.
@@ -1746,15 +1746,15 @@ Before extracting the LEF file, certain properties must be set. These properties
      ```
 
      <p align="left">
-        <img src="Day3/create_lef" width="500" />
-        <img src="Day3/review_file2" width="500" />
+        <img src="Day4/create_lef" width="500" />
+        <img src="Day4/review_file2" width="500" />
     </p>
      
    - The LEF file is saved with the **same name** as the layout (.mag file).
 
 3. **Verify the LEF File:**
 
-    ![LEF File](Day4/cst_lef_file.png)
+    ![LEF File](Day4/cstm_lef_file.png)
 
    - Navigate to the directory and check if the LEF file has been successfully generated.
    - Open the LEF file and confirm that it contains the correct macro and pin definitions.
