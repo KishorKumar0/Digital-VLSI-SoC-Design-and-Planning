@@ -1582,4 +1582,105 @@ This ensures that when exporting the layout to **GDS format**, the contact cuts 
         <img src="Day3/sol_2.png" width="500" />
     </p>
     
+---
+## Pre-layout timing analysis and importance of good clock tree
+### Timing modelling using delay tables
+**Delay Tables:**
+Delay tables provide crucial information about the delay (propagation time) of signals as they travel through various components, such as:
+- Logic gates
+- Wires
+- Interconnects
+
+These tables help estimate signal arrival times and ensure proper timing closure in the design.
+
+ **Usage:**
+- During the physical design process, delay tables are used to model the behavior of standard cells, macros, and other circuit components.
+- These tables guide placement and routing tools to optimize signal paths for meeting timing constraints.
+- They play a key role in ensuring that signals arrive at their destinations within the required timing constraints.
+
+#### **Track-to-Grid Conversion in Physical Design using Sky130 PDK**
+
+**Overview**
+
+In physical design, converting grid information (rows and columns) into track information is crucial for routing automation in the place-and-route (PNR) process. Tracks represent predefined horizontal and vertical paths on each metal layer, ensuring proper alignment of standard cell ports and facilitating efficient routing.
+
+
+**Standard Cell Design Considerations**
+
+When designing standard cells, the following guidelines should be followed:
+
+1. **Port Alignment:**
+   - Input and output ports should align with the intersection of vertical and horizontal tracks to facilitate seamless connectivity during routing.
+   - Misaligned ports can cause Design Rule Check (DRC) violations and increase the complexity of the routing process.
+   
+2. **Cell Dimensions:**
+   - The standard cell's width should be an odd multiple of the horizontal track pitch. This ensures that pins can align with track positions.
+   - The standard cell's height should be an odd multiple of the vertical track pitch, maintaining uniformity across cells in the library.
+   - Proper track-based cell height and width allow better placement and routing efficiency in automated design tools.
+
+**Understanding Tracks in Sky130 PDK**
+
+Tracks are predefined routing paths in each metal layer that guide signal and power distribution. In the Sky130 PDK, tracks play a crucial role in ensuring predictable and consistent routing patterns.
+
+**Track Placement for Sky130_fd_sc_hd PDK**
+
+The track file for Sky130 is located at:
+```
+pdk/sky130/libs.tech/openlane/sky130_fd_sc_hd/track.info
+```
+![Tracks File](Day4/tracks_file.png)
+
+This file contains predefined track locations for different metal layers.
+
+Each track is positioned as follows:
+- **Horizontal Tracks:** `(0.23, 0.46) µm` for `li1`, `metal1`, and `metal2` layers.
+- **Vertical Tracks:** `(0.17, 0.34) µm` for `li1`, `metal1`, and `metal2` layers.
+
+**Importance of Track Alignment**
+- **Ensures compatibility with routing tools:** Proper track alignment simplifies automatic routing and reduces congestion.
+- **Standardization:** Makes sure all standard cells follow the same placement guidelines.
+- **Avoids manufacturing errors:** Ensures that metal layers align correctly during fabrication.
+
+In the layout, ports reside on the **li1** layer, which is a lower metal interconnect layer. To ensure alignment with higher-level routing layers, the grid must be converted into track coordinates.
+
+**Converting Grid to Tracks**
+
+To convert the grid into tracks, follow these steps:
+
+1. **Open the `tracks.info` File**
+   - Navigate to the track file directory and open `tracks.info` to review the predefined track placements.
+
+2. **Launch the Tkcon Window**
+   - Open a terminal and enter the **tkcon** window, which is a Tcl-based interactive console for Magic VLSI.
+   - Use the command:
+     ```
+     help grid
+     ```
+     ![Track File Informations](Day4/tracks_info.png)
+     
+     This command provides information about the grid settings and helps in aligning tracks correctly.
+
+3. **Open the Inverter Layout in Magic**
+    - Open the inverter layout in Magic.
+    - Press 'g' on the layout to enable the grid view.
+  
+        ![Grid Layout](Day4/grid_layout.png)
+   
+    This helps visualize the alignment of tracks with the design grid.
+
+3. **Define Tracks According to the `tracks.info` File**
+   - Set the appropriate track pitch and offset values using the command:
+     ```
+     grid 0.46um 0.34um  0.23um 0.17um
+     ```
+
+     ![Track Layout](Day4/track_layout.png)
+   - This ensures that ports align with track intersections, improving routing efficiency and reducing design rule violations.
+
+4. **Verification**
+   - After conversion, verify that the ports are correctly placed at the track intersections.
+   - Ensure the boundary constraints are satisfied, e.g., covering at least three track boxes between cell boundaries to allow seamless routing.
+   - Run **DRC checks** to confirm that the tracks and grids are correctly aligned.
+
+Track-to-grid conversion is a fundamental step in physical design that ensures efficient routing and seamless connectivity between standard cells. By aligning ports and tracks according to the Sky130 PDK guidelines, designers can optimize routing, reduce design rule violations, and enhance manufacturability. Following these best practices improves design efficiency and simplifies integration into larger ASIC projects.
 
