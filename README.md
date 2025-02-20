@@ -1937,9 +1937,9 @@ To optimize synthesis and improve slack, we check and update key synthesis param
 ```tcl
 run_synthesis
 ```
-    <p align="left">
-        <img src="Day4/synthesis2.png" width="500" />
-    </p>
+<p align="left">
+    <img src="Day4/synthesis2.png" width="500" />
+</p>
 
 This command re-runs the synthesis process with the updated settings, incorporating the modifications to improve timing performance and fix slack issues.
 
