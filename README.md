@@ -1773,7 +1773,10 @@ The extracted LEF file must be placed inside the `src` directory. Run the follow
 ```sh
 cp /openlane/vsdstdcelldesign/libs/sky130_myinverter.lef home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src
 ```
-
+<p align="left">
+        <img src="Day4/.png" width="500" />
+        <img src="Day4/review_file2.png" width="500" />
+</p>
 This command copies the custom inverter LEF file from its original location to the `src` directory inside the `picorv32a` design folder.
 
 ##### Step 2: Copy Required Libraries**
