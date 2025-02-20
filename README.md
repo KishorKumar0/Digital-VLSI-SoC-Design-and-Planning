@@ -1774,8 +1774,8 @@ The extracted LEF file must be placed inside the `src` directory. Run the follow
 cp /openlane/vsdstdcelldesign/libs/sky130_myinverter.lef home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src
 ```
 <p align="left">
-        <img src="Day4/.png" width="500" />
-        <img src="Day4/review_file2.png" width="500" />
+    <img src="Day4/copying_cstminv.lef.png" width="500" />
+    <img src="Day4/review_file3.png" width="500" />
 </p>
 This command copies the custom inverter LEF file from its original location to the `src` directory inside the `picorv32a` design folder.
 
@@ -1785,7 +1785,10 @@ We need different types of `.lib` files (fast, slow, typical) for synthesis and 
 ```sh
 cp /path/to/library_files/*.lib home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src
 ```
-
+<p align="left">
+    <img src="Day4/copying_library_files.png" width="500" />
+    <img src="Day4/review_file3.png" width="500" />
+</p>
 This command ensures that all required liberty files for synthesis and timing analysis are placed inside the `src` directory.
 
 ##### tep 3: Modify the `config.tcl` File**
@@ -1799,6 +1802,10 @@ set ::env(LIB_TYPICAL) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc
 
 set ::env(EXTRA_LEFS) [glob $::env(OPENLANE_ROOT)/designs/$::env(DESIGN_NAME)/src/*.lef]
 ```
+<p align="left">
+    <img src="Day4/config.tcl.png" width="500" />
+    <img src="Day4/config.tcl2.png" width="500" />
+</p>
 
 ##### Explanation of Configurations**
 - `LIB_SYNTH`: Specifies the liberty file used for ABC mapping during synthesis.
@@ -1817,30 +1824,25 @@ Use the following OpenLane commands to run synthesis:
 
 1. **Start the OpenLane Docker Container**
 ```sh
-docker run -it --rm -v $(pwd):/openlane openlane:latest /bin/bash
+docker 
 ```
 This command runs the OpenLane Docker container interactively:
-- `-it`: Runs the container in interactive mode.
-- `--rm`: Automatically removes the container after it exits.
-- `-v $(pwd):/openlane`: Mounts the current working directory to the container.
-- `openlane:latest`: Specifies the OpenLane Docker image to use.
-- `/bin/bash`: Opens a bash shell inside the container.
 
 2. **Enter Interactive Mode in OpenLane**
-```tcl
-flow.tcl -interactive
+```bash
+./flow.tcl -interactive
 ```
 This command starts OpenLane in interactive mode, allowing you to manually execute commands for synthesis and other design steps.
 
 3. **Load OpenLane Package**
-```tcl
+```bash
 package require openlane 0.9
 ```
 This ensures that the required OpenLane package is loaded and ready for use.
 
 4. **Prepare the Design**
-```tcl
-prep -design picorv32a -tag 24-03_10-03 -overwrite
+```bash
+prep -design picorv32a -tag 20-02_05-29 -overwrite
 ```
 This command prepares the design environment:
 - `-design picorv32a`: Specifies the design name.
@@ -1848,16 +1850,20 @@ This command prepares the design environment:
 - `-overwrite`: Ensures that synthesis runs in the same folder as the initial setup without creating a new one.
 
 5. **Add the Custom LEF File to OpenLane Flow**
-```tcl
+```bash
 set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
 add_lefs -src $lefs
 ```
+<p align="left">
+    <img src="Day4/docker.png" width="500" />
+    <img src="Day4/synthesis.png" width="500" />
+</p>
 These commands:
 - Use `glob` to collect all LEF files in the `src` directory.
 - Use `add_lefs -src $lefs` to include them in the OpenLane flow.
 
 6. **Run Synthesis**
-```tcl
+```bash
 run_synthesis
 ```
 This command initiates the synthesis process, integrating the custom inverter into the design.
