@@ -1870,3 +1870,79 @@ This command initiates the synthesis process, integrating the custom inverter in
 
 You have successfully set up the necessary timing libraries, included a new cell, and re-run synthesis with OpenLane. This configuration ensures accurate timing analysis and smooth integration of custom standard cells into the OpenLane flow.
 
+### Configuring Synthesis Settings to Fix Slack and Include VSDINV
+
+After running the synthesis process, we observed negative slack in timing analysis. To fix this issue, we need to modify the parameters of our cell. We will use the `README.md` file in the OpenLane configuration directory to reference the necessary adjustments.
+
+#### Step 1: Check and Modify Synthesis Settings
+
+1. **Prepare the Design Environment Again**
+```tcl
+prep -design picorv32a -tag 24-03_10-03 -overwrite
+```
+This command prepares the design again with the same tag and overwrites the previous configuration.
+
+2. **Add Custom LEF Files**
+```tcl
+set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+add_lefs -src $lefs
+```
+- `set lefs [glob $::env(DESIGN_DIR)/src/*.lef]`: Collects all LEF files in the `src` directory.
+- `add_lefs -src $lefs`: Adds these LEF files to the OpenLane flow.
+
+3. **Check and Modify Synthesis Variables**
+To optimize synthesis and improve slack, we check and update key synthesis parameters:
+
+    a. **Check Current Synthesis Strategy**
+    ```tcl
+    echo $::env(SYNTH_STRATEGY)
+    ```
+    This command prints the current synthesis strategy.
+
+    b. **Update Synthesis Strategy**
+    ```tcl
+    set ::env(SYNTH_STRATEGY) "DELAY 3"
+    ```
+    This modifies the synthesis strategy to prioritize delay optimization.
+
+    c. **Check SYNTH_BUFFERING Status**
+    ```tcl
+    echo $::env(SYNTH_BUFFERING)
+    ```
+    This command checks if buffering is enabled during synthesis.
+
+    d. **Check SYNTH_SIZING Status**
+    ```tcl
+    echo $::env(SYNTH_SIZING)
+    ```
+    This command displays the current value of `SYNTH_SIZING`.
+
+    e. **Enable SYNTH_SIZING**
+    ```tcl
+    set ::env(SYNTH_SIZING) 1
+    ```
+    Setting this variable to `1` enables sizing optimizations, which can improve timing performance.
+
+    f. **Check Current Synthesis Driving Cell**
+    ```tcl
+    echo $::env(SYNTH_DRIVING_CELL)
+    ```
+    This command prints the current driving cell used in synthesis, ensuring it is set correctly.
+
+   <p align="left">
+        <img src="Day4/readme_file.png" width="500" />
+    </p>
+
+5. **Run Synthesis Again**
+```tcl
+run_synthesis
+```
+    <p align="left">
+        <img src="Day4/synthesis2.png" width="500" />
+    </p>
+
+This command re-runs the synthesis process with the updated settings, incorporating the modifications to improve timing performance and fix slack issues.
+
+## Conclusion
+By making these adjustments, we improve the synthesis process and address negative slack, ensuring better design performance. These changes optimize delay, enable cell sizing, and fine-tune synthesis strategies to achieve a more timing-accurate design.
+
