@@ -1987,9 +1987,7 @@ cd openlane/designs/picorv32a/runs/23-03_10-48/results/placement
 8. **Open Placement Layout in Magic**
 To visualize the placement layout in Magic, use the following command:
 ```sh
-magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech \
-      lef read ../../tmp/merged.lef \
-      def read picorv32a.placement.def &
+magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech led read ../../tmp/merged.lef def read picorv32a.floorplan.def &
 ```
 <p align="left">
     <img src="Day4/magic_layout.png" width="500" />
