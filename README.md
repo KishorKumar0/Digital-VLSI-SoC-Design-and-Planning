@@ -2381,7 +2381,7 @@ exit
 </p>
 
 ---
-## Final step for RTL2GDS using tritinRoute and openSTA
+## Power Distribution Network and routing
 ### Lab steps to build power distribution network
 
 This section documents the process of generating the Power Distribution Network (PDN) and exploring its layout using the OpenLane flow. The PDN ensures stable power delivery to all parts of the circuit by distributing power (VDD) and ground (VSS) efficiently.
@@ -2403,7 +2403,7 @@ To generate the PDN, execute the following command within the OpenLane interacti
 run_pdn
 ```
 <p align="left">
-    <img src="Day4/pdn.png" width="500" />
+    <img src="Day5/pdn.png" width="500" />
 </p>
 
 This command automatically creates the power and ground distribution network across the design. The PDN is typically designed using multiple metal layers, with wider tracks for power distribution to minimize resistance and voltage drop.
@@ -2429,8 +2429,113 @@ Once the PDN is generated, we can visualize it using the Magic VLSI tool. Follow
          def read 14-pdn.def &
    ```
 <p align="left">
-    <img src="Day4/pdn_layout.png" width="500" />
-    <img src="Day4/pdn_layout2.png" width="500" />
-    <img src="Day4/pdn_layout3.png" width="500" />
+    <img src="Day5/pdn_layout.png" width="500" />
+    <img src="Day5/pdn_layout2.png" width="500" />
+    <img src="Day5/pdn_layout3.png" width="500" />
 </p>
+
+
+### Basics of global and detail routing and configure TritonRoute
+
+The final stage in the OpenLane flow is **Routing**. Routing determines the interconnections between the various components while ensuring minimal interference and violations. 
+
+#### Routing Process
+By executing specific commands, we can determine the type of global and detailed routing that will be performed. If needed, we can modify the routing type using the `set` command with the appropriate parameters found in the `README.md` file located in the OpenLane configuration folder.
+
+<p align="left">
+    <img src="Day5/routing_switches.png" width="500" />
+</p>
+
+In this instance, the default routing types have been used. To initiate routing, execute:
+```sh
+run_routing
+```
+<p align="left">
+    <img src="Day5/routing.png" width="500" />
+</p>
+Upon successful routing, the following outputs are expected:
+```
+routing_done
+no_violations
+```
+From the above, we confirm that routing is completed with **zero violations**. However, there is negative slack present, which needs to be eliminated for a fully successful physical design flow.
+
+### Viewing the Routed DEF in Magic
+To visualize the routed design in Magic:
+
+1. Navigate to the directory containing the routed DEF file:
+   ```sh
+   cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/20-02_05-29/results/routing/
+   ```
+
+2. Load the routed DEF file in Magic:
+   ```sh
+   magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech \
+         lef read ../../tmp/merged.lef \
+         def read picorv32a.def &
+   ```
+<p align="left">
+    <img src="Day5/routing_layout.png" width="500" />
+    <img src="Day5/routing_layout2.png" width="500" />
+    <img src="Day5/routing_layout3.png" width="500" />
+</p>
+
+
+#### Post-Route OpenSTA Timing Analysis
+
+After routing, we perform **OpenSTA timing analysis** with the extracted parasitics of the route. Below are the commands to execute OpenROAD timing analysis using the integrated OpenSTA in OpenROAD.
+
+**Commands to Run in OpenLANE Flow**
+
+```sh
+# Command to run OpenROAD tool
+openroad
+
+# Reading lef file
+read_lef /openLANE_flow/designs/picorv32a/runs/20-02_05-29/tmp/merged.lef
+
+# Reading def file
+read_def /openLANE_flow/designs/picorv32a/runs/20-02_05-29/results/routing/picorv32a.def
+
+# Creating an OpenROAD database to work with
+write_db pico_route.db
+
+# Loading the created database in OpenROAD
+read_db pico_route.db
+
+# Read netlist post CTS
+read_verilog /openLANE_flow/designs/picorv32a/runs/20-02_05-29/results/synthesis/picorv32a.synthesis_preroute.v
+
+# Read library for design
+read_liberty $::env(LIB_SYNTH_COMPLETE)
+
+# Link design and library
+link_design picorv32a
+
+# Read in the custom sdc we created
+read_sdc /openLANE_flow/designs/picorv32a/src/my_base.sdc
+
+# Setting all clocks as propagated clocks
+set_propagated_clock [all_clocks]
+
+# Read SPEF
+read_spef /openLANE_flow/designs/picorv32a/runs/20-02_05-29/results/routing/picorv32a.spef
+
+# Generating custom timing report
+report_checks -path_delay min_max -fields {slew trans net cap input_pins} -format full_clock_expanded -digits 4
+
+report_clock_skew -hold
+
+report_clock_skew -setup
+
+# Exit to OpenLANE flow
+exit
+```
+<p align="left">
+    <img src="Day5/timing_report1.png" width="500" />
+    <img src="Day5/timing_report2.png" width="500" />
+    <img src="Day5/timing_report3.png" width="500" />
+    <img src="Day5/timing_report4.png" width="500" />
+</p>
+
 
