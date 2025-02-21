@@ -2120,7 +2120,7 @@ Copy the optimized netlist to replace the old one:
 cp picorv32a.synthesis_optimized.v picorv32a.synthesis.v
 ```
 <p align="left">
-    <img src="Day4/sythesis_files.png" width="500" />
+    <img src="Day4/synthesis_files.png" width="500" />
 </p>
 
 #### 2. Run CTS
