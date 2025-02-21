@@ -2136,3 +2136,227 @@ run_cts
 
 Runs Clock Tree Synthesis (CTS) to distribute the clock signal effectively.
 
+### Clock Tree Synthesis (CTS) Verification in OpenROAD
+
+This document provides step-by-step instructions on verifying Clock Tree Synthesis (CTS) runs in OpenROAD using LEF and DEF files. By following these steps, you will create an OpenROAD database to analyze the CTS results.
+
+#### Steps to Verify CTS Runs in OpenROAD
+
+1. **Navigate to the Directory**
+Make sure you are in the directory where the required LEF and DEF files are located. The paths used below are for reference and may need adjustments based on your setup.
+
+2. **Launch OpenROAD**
+Run the following command in your terminal to start OpenROAD:
+```sh
+openroad
+```
+
+3. **Read the LEF File**
+Load the LEF file to define the technology and cell layout information:
+```tcl
+read_lef /openLANE_flow/designs/picorv32a/runs/02-04_05-27/tmp/merged.lef
+```
+
+4. **Read the DEF File**
+Load the DEF file containing the design's placement and routing information after CTS:
+```tcl
+read_def /openLANE_flow/designs/picorv32a/runs/02-04_05-27/results/cts/picorv32a.cts.def
+```
+
+5. **Create an OpenROAD Database**
+Generate an OpenROAD database file (`pico_cts.db`) for further analysis:
+```tcl
+write_db pico_cts.db
+```
+
+6. **Verify the Generated Database**
+After executing the above commands, verify that `pico_cts.db` is successfully created in the OpenLane directory.
+
+#### Additional Notes
+- The generated database can be used for further analysis, such as timing checks and routing verification.
+- If there are errors in reading files, check the file paths and ensure they exist in the specified locations.
+
+### Timing Analysis with Real Clocks using OpenSTA
+
+This document provides step-by-step instructions for analyzing timing with real clocks using OpenSTA within the OpenROAD framework.
+
+#### Steps to Analyze Timing with Real Clocks
+
+1. Load the Created Database in OpenROAD
+```tcl
+read_db pico_cts.db
+```
+This command loads the database file (`pico_cts.db`) that was generated as part of the Clock Tree Synthesis (CTS) step.
+
+2. Read the Netlist Post-CTS
+```tcl
+read_verilog /openLANE_flow/designs/picorv32a/runs/02-04_05-27/results/synthesis/picorv32a.synthesis_cts.v
+```
+This loads the synthesized Verilog netlist (`picorv32a.synthesis_cts.v`), which includes the clock tree modifications applied during CTS.
+
+3. Read the Liberty Library for the Design
+```tcl
+read_liberty $::env(LIB_SYNTH_COMPLETE)
+```
+This reads the liberty file, which contains information about timing, power, and area for the synthesized standard cell library.
+
+4. Link the Design and Library
+```tcl
+link_design picorv32a
+```
+This command links the design with the corresponding library, ensuring that the tool recognizes the available standard cells and timing models.
+
+5. Read the Custom SDC File
+```tcl
+read_sdc /openLANE_flow/designs/picorv32a/src/my_base.sdc
+```
+This reads the custom SDC file (`my_base.sdc`), which defines the clock constraints, input/output delays, and other timing constraints.
+
+6. Set All Clocks as Propagated Clocks
+```tcl
+set_propagated_clock [all_clocks]
+```
+This ensures that clock propagation is considered during the timing analysis, allowing for more accurate timing calculations.
+
+7. Generate the Custom Timing Report
+```tcl
+report_checks -path_delay min_max -fields {slew trans net cap input_pins} -format full_clock_expanded -digits 4
+```
+This generates a detailed timing report, including information on:
+- Slew rate (signal transition time)
+- Transition delay
+- Net capacitance
+- Input pin delays
+
+8. Exit OpenSTA/OpenROAD
+```tcl
+exit
+```
+This exits the OpenSTA session after completing the timing analysis.
+
+#### Conclusion
+Following these steps allows for a thorough analysis of timing with real clocks, helping ensure that the design meets timing constraints and operates correctly under real-world conditions. These steps are critical for validating the clock tree and optimizing the performance of the synthesized design.
+
+
+### OpenSTA Execution Guide with CTS Timing Analysis
+
+This guide provides step-by-step instructions to execute OpenSTA with the correct timing libraries and clock tree synthesis (CTS) assignments. It also explains how to observe the impact of different CTS buffers on setup and hold timing.
+
+#### Removing `sky130_fd_sc_hd__clkbuf_1` from the CTS Buffer List
+To remove the specific clock buffer from the list, execute the following command:
+```tcl
+set ::env(CTS_CLK_BUFFER_LIST) [lreplace $::env(CTS_CLK_BUFFER_LIST) 0 0]
+```
+
+To verify the current value of `CTS_CLK_BUFFER_LIST`, run:
+```tcl
+echo $::env(CTS_CLK_BUFFER_LIST)
+```
+
+#### Checking the CURRENT_DEF Environment Variable
+CURRENT_DEF is an environment variable that holds the path to the current placement DEF file.
+To check its value, use:
+```tcl
+echo $::env(CURRENT_DEF)
+```
+
+#### Setting the DEF File for Placement
+To set the DEF file for placement, update `CURRENT_DEF` with the correct path:
+```tcl
+set ::env(CURRENT_DEF) /openLANE_flow/designs/picorv32a/runs/02-04_05-27/results/placement/picorv32a.placement.def
+```
+
+#### Running CTS (Clock Tree Synthesis)
+Execute the CTS process using:
+```tcl
+run_cts
+```
+
+After running CTS, verify the updated buffer list:
+```tcl
+echo $::env(CTS_CLK_BUFFER_LIST)
+```
+
+#### Observing the Impact of Larger CTS Buffers on Timing
+To analyze timing variations caused by larger CTS buffers, follow these steps:
+
+1. **Launch OpenROAD**
+```sh
+openroad
+```
+
+2. **Read the LEF and DEF Files**
+Load the merged LEF file:
+```tcl
+read_lef /openLANE_flow/designs/picorv32a/runs/02-04_05-27/tmp/merged.lef
+```
+
+Load the post-CTS DEF file:
+```tcl
+read_def /openLANE_flow/designs/picorv32a/runs/02-04_05-27/results/cts/picorv32a.cts.def
+```
+
+3. **Save and Reload the Database**
+Save the database:
+```tcl
+write_db pico_cts1.db
+```
+
+Read the saved database:
+```tcl
+read_db pico_cts.db
+```
+
+4. **Load the Verilog and Liberty Files**
+Load the synthesized Verilog file:
+```tcl
+read_verilog /openLANE_flow/designs/picorv32a/runs/02-04_05-27/results/synthesis/picorv32a.synthesis_cts.v
+```
+
+Load the complete liberty timing file:
+```tcl
+read_liberty $::env(LIB_SYNTH_COMPLETE)
+```
+
+Link the design:
+```tcl
+link_design picorv32a
+```
+
+5. **Load Timing Constraints**
+Read the SDC file:
+```tcl
+read_sdc /openLANE_flow/designs/picorv32a/src/my_base.sdc
+```
+
+6. **Perform Timing Analysis**
+Propagate clock information:
+```tcl
+set_propagated_clock [all_clocks]
+```
+
+Generate a detailed timing report:
+```tcl
+report_checks -path_delay min_max -fields {slew trans net cap input_pins} -format full_clock_expanded -digits 4
+```
+
+7. **Analyze Clock Skew**
+Report hold-time clock skew:
+```tcl
+report_clock_skew -hold
+```
+
+Report setup-time clock skew:
+```tcl
+report_clock_skew -setup
+```
+
+8. **Exit OpenROAD**
+```tcl
+exit
+```
+
+
+
+
+
