@@ -2198,42 +2198,72 @@ This document provides step-by-step instructions for analyzing timing with real 
 ```tcl
 read_db pico_cts.db
 ```
+<p align="left">
+    <img src="Day4/load_db.png" width="500" />
+</p>
+
 This command loads the database file (`pico_cts.db`) that was generated as part of the Clock Tree Synthesis (CTS) step.
 
 2. Read the Netlist Post-CTS
 ```tcl
 read_verilog /openLANE_flow/designs/picorv32a/runs/20-02_05-29/results/synthesis/picorv32a.synthesis_cts.v
 ```
+<p align="left">
+    <img src="Day4/read_netlist.png" width="500" />
+</p>
+
 This loads the synthesized Verilog netlist (`picorv32a.synthesis_cts.v`), which includes the clock tree modifications applied during CTS.
 
 3. Read the Liberty Library for the Design
 ```tcl
 read_liberty $::env(LIB_SYNTH_COMPLETE)
 ```
+<p align="left">
+    <img src="Day4/read_library.png" width="500" />
+</p>
+
 This reads the liberty file, which contains information about timing, power, and area for the synthesized standard cell library.
 
 4. Link the Design and Library
 ```tcl
 link_design picorv32a
 ```
+<p align="left">
+    <img src="Day4/link_design.png" width="500" />
+</p>
+
 This command links the design with the corresponding library, ensuring that the tool recognizes the available standard cells and timing models.
 
 5. Read the Custom SDC File
 ```tcl
 read_sdc /openLANE_flow/designs/picorv32a/src/my_base.sdc
 ```
+<p align="left">
+    <img src="Day4/read_sdc.png" width="500" />
+</p>
+
 This reads the custom SDC file (`my_base.sdc`), which defines the clock constraints, input/output delays, and other timing constraints.
 
 6. Set All Clocks as Propagated Clocks
 ```tcl
 set_propagated_clock [all_clocks]
 ```
+<p align="left">
+    <img src="Day4/set_clock.png" width="500" />
+</p>
+
 This ensures that clock propagation is considered during the timing analysis, allowing for more accurate timing calculations.
 
 7. Generate the Custom Timing Report
 ```tcl
 report_checks -path_delay min_max -fields {slew trans net cap input_pins} -format full_clock_expanded -digits 4
 ```
+<p align="left">
+    <img src="Day4/generate_report.png" width="500" />
+    <img src="Day4/report2.png" width="500" />
+    <img src="Day4/report3.png" width="500" />
+</p>
+
 This generates a detailed timing report, including information on:
 - Slew rate (signal transition time)
 - Transition delay
@@ -2244,6 +2274,10 @@ This generates a detailed timing report, including information on:
 ```tcl
 exit
 ```
+<p align="left">
+    <img src="Day4/exit.png" width="500" />
+</p>
+
 This exits the OpenSTA session after completing the timing analysis.
 
 #### Conclusion
