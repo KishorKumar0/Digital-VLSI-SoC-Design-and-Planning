@@ -1933,7 +1933,7 @@ To optimize synthesis and improve slack, we check and update key synthesis param
         <img src="Day4/readme_file.png" width="500" />
     </p>
 
-5. **Run Synthesis Again**
+4. **Run Synthesis Again**
 ```tcl
 run_synthesis
 ```
@@ -1942,6 +1942,57 @@ run_synthesis
 </p>
 
 This command re-runs the synthesis process with the updated settings, incorporating the modifications to improve timing performance and fix slack issues.
+
+5. **Perform Floorplanning**
+After successfully running synthesis without any negative slack, we now proceed to floorplanning using the following commands:
+
+    i. **Initialize Floorplan**
+        ```tcl
+        init_floorplan
+        ```
+    This initializes the floorplan setup for the design.
+
+    ii. **Place IO Pins**
+    ```tcl
+    place_io
+    ```
+    This places the IO pads correctly within the design layout.
+
+    iii. Add Tap and Decap Cells
+    ```tcl
+    tap_decap_or
+    ```
+    <p align="left">
+         <img src="Day4/floorplan.png" width="500" />
+    </p>
+    This step ensures proper power distribution by placing tap cells and decap cells within the design.
+
+6. **Run Placement**
+```tcl
+run_placement
+```
+<p align="left">
+    <img src="Day4/placement.png" width="500" />
+</p>
+This step performs the standard cell placement after floorplanning.
+
+7. **View Placement Results**
+Navigate to the placement results directory:
+```sh
+cd openlane/designs/picorv32a/runs/23-03_10-48/results/placement
+```
+
+8. **Open Placement Layout in Magic**
+To visualize the placement layout in Magic, use the following command:
+```sh
+magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech \
+      lef read ../../tmp/merged.lef \
+      def read picorv32a.placement.def &
+```
+This opens the design layout with the placed cells in Magic for further inspection.
+
+
+
 
 ## Conclusion
 By making these adjustments, we improve the synthesis process and address negative slack, ensuring better design performance. These changes optimize delay, enable cell sizing, and fine-tune synthesis strategies to achieve a more timing-accurate design.
