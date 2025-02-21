@@ -1787,7 +1787,7 @@ cp /path/to/library_files/*.lib home/vsduser/Desktop/work/tools/openlane_working
 ```
 <p align="left">
     <img src="Day4/copying_library_files.png" width="500" />
-    <img src="Day4/review_file3.png" width="500" />
+    <img src="Day4/review_file4.png" width="500" />
 </p>
 This command ensures that all required liberty files for synthesis and timing analysis are placed inside the `src` directory.
 
