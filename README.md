@@ -1024,7 +1024,7 @@ Follow these steps to clone the repository and navigate into the project folder:
     ```sh
     git clone https://github.com/nickson-jose/vsdstdcelldesign.git
     ```
-![Cloning](Day3/clone.png)
+![Cloning](Day3/clone_vsdcelldesign.png)
     
 **Step 3: Verify the Cloned Repository**
     Once cloning is complete, list the contents of the OpenLane directory to confirm the repository has been cloned successfully:
@@ -1384,7 +1384,7 @@ To get started with DRC testing, you need to download and extract the required l
    tar xfz drc_tests.tgz
    ```
 
-   ![DRC Tests](Day3/drc_tests_folder.png)
+   ![DRC Tests](Day3/drc_tests.png)
 
    This command extracts all the files into a new directory named `drc_tests`.
 
@@ -1399,7 +1399,7 @@ To get started with DRC testing, you need to download and extract the required l
    ```bash
    ls -al
    ```
-   ![DRC Tests](Day3/drc_tests.png)
+   ![DRC Tests](Day3/drc_tests_folder.png)
 
    This will display all files, including hidden files, which might be necessary for configuration.
 
