@@ -1880,7 +1880,7 @@ After running the synthesis process, we observed negative slack in timing analys
 
 1. **Prepare the Design Environment Again**
 ```tcl
-prep -design picorv32a -tag 24-03_10-03 -overwrite
+prep -design picorv32a -tag 20-02_05-29 -overwrite
 ```
 This command prepares the design again with the same tag and overwrites the previous configuration.
 
@@ -1981,7 +1981,7 @@ This step performs the standard cell placement after floorplanning.
 7. **View Placement Results**
 Navigate to the placement results directory:
 ```sh
-cd openlane/designs/picorv32a/runs/23-03_10-48/results/placement
+cd openlane/designs/picorv32a/runs/20-02_05-29/results/placement
 ```
 
 8. **Open Placement Layout in Magic**
@@ -2014,14 +2014,14 @@ Copy and paste the following content:
 ```tcl
 set_cmd_units -time ns -capacitance pF -current mA -voltage V -resistance kOhm -distance um
 
-read_liberty -min /home/abhinavprakash1999/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/sky130_fd_sc_hd__slow.lib
-read_liberty -max /home/abhinavprakash1999/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/sky130_fd_sc_hd__fast.lib
+read_liberty -min /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/sky130_fd_sc_hd__slow.lib
+read_liberty -max /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/sky130_fd_sc_hd__fast.lib
 
-read_verilog /home/abhinavprakash1999/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/29-01_16-21/results/synthesis/picorv32a.synthesis_cts.v
+read_verilog /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/20-02_05-29/results/synthesis/picorv32a.synthesis_cts.v
 
 link_design picorv32a
 
-read_sdc /home/abhinavprakash1999/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/my_base.sdc
+read_sdc /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/my_base.sdc
 
 report_checks -path_delay min_max -fields {slew trans net cap input_pin}
 report_tns
@@ -2036,7 +2036,7 @@ report_wns
 The `my_base.sdc` file defines the environment variables and constraints required for timing analysis.
 
 ```sh
-vim /home/abhinavprakash1999/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/my_base.sdc
+vim /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/my_base.sdc
 ```
 
 Copy and paste the following content:
@@ -2105,7 +2105,7 @@ After reducing slack, we must replace the old netlist with the newly generated n
 Navigate to the synthesis directory:
 
 ```sh
-cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/02-04_05-27/results/synthesis/
+cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/20-02_05-29/results/synthesis/
 ```
 
 List the contents to verify files:
@@ -2154,13 +2154,13 @@ openroad
 3. **Read the LEF File**
 Load the LEF file to define the technology and cell layout information:
 ```tcl
-read_lef /openLANE_flow/designs/picorv32a/runs/02-04_05-27/tmp/merged.lef
+read_lef /openLANE_flow/designs/picorv32a/runs/20-02_05-29tmp/merged.lef
 ```
 
 4. **Read the DEF File**
 Load the DEF file containing the design's placement and routing information after CTS:
 ```tcl
-read_def /openLANE_flow/designs/picorv32a/runs/02-04_05-27/results/cts/picorv32a.cts.def
+read_def /openLANE_flow/designs/picorv32a/runs/20-02_05-29/results/cts/picorv32a.cts.def
 ```
 
 5. **Create an OpenROAD Database**
@@ -2190,7 +2190,7 @@ This command loads the database file (`pico_cts.db`) that was generated as part 
 
 2. Read the Netlist Post-CTS
 ```tcl
-read_verilog /openLANE_flow/designs/picorv32a/runs/02-04_05-27/results/synthesis/picorv32a.synthesis_cts.v
+read_verilog /openLANE_flow/designs/picorv32a/runs/20-02_05-29/results/synthesis/picorv32a.synthesis_cts.v
 ```
 This loads the synthesized Verilog netlist (`picorv32a.synthesis_cts.v`), which includes the clock tree modifications applied during CTS.
 
@@ -2263,7 +2263,7 @@ echo $::env(CURRENT_DEF)
 #### Setting the DEF File for Placement
 To set the DEF file for placement, update `CURRENT_DEF` with the correct path:
 ```tcl
-set ::env(CURRENT_DEF) /openLANE_flow/designs/picorv32a/runs/02-04_05-27/results/placement/picorv32a.placement.def
+set ::env(CURRENT_DEF) /openLANE_flow/designs/picorv32a/runs/20-02_05-29/results/placement/picorv32a.placement.def
 ```
 
 #### Running CTS (Clock Tree Synthesis)
@@ -2288,12 +2288,12 @@ openroad
 2. **Read the LEF and DEF Files**
 Load the merged LEF file:
 ```tcl
-read_lef /openLANE_flow/designs/picorv32a/runs/02-04_05-27/tmp/merged.lef
+read_lef /openLANE_flow/designs/picorv32a/runs/20-02_05-29/tmp/merged.lef
 ```
 
 Load the post-CTS DEF file:
 ```tcl
-read_def /openLANE_flow/designs/picorv32a/runs/02-04_05-27/results/cts/picorv32a.cts.def
+read_def /openLANE_flow/designs/picorv32a/runs/20-02_05-29/results/cts/picorv32a.cts.def
 ```
 
 3. **Save and Reload the Database**
@@ -2310,7 +2310,7 @@ read_db pico_cts.db
 4. **Load the Verilog and Liberty Files**
 Load the synthesized Verilog file:
 ```tcl
-read_verilog /openLANE_flow/designs/picorv32a/runs/02-04_05-27/results/synthesis/picorv32a.synthesis_cts.v
+read_verilog /openLANE_flow/designs/picorv32a/runs/20-02_05-29/results/synthesis/picorv32a.synthesis_cts.v
 ```
 
 Load the complete liberty timing file:
