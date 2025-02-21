@@ -2150,24 +2150,36 @@ Run the following command in your terminal to start OpenROAD:
 ```sh
 openroad
 ```
+<p align="left">
+    <img src="Day4/openroad.png" width="500" />
+</p>
 
 3. **Read the LEF File**
 Load the LEF file to define the technology and cell layout information:
 ```tcl
 read_lef /openLANE_flow/designs/picorv32a/runs/20-02_05-29tmp/merged.lef
 ```
+<p align="left">
+    <img src="Day4/read_lef.png" width="500" />
+</p>
 
 4. **Read the DEF File**
 Load the DEF file containing the design's placement and routing information after CTS:
 ```tcl
 read_def /openLANE_flow/designs/picorv32a/runs/20-02_05-29/results/cts/picorv32a.cts.def
 ```
+<p align="left">
+    <img src="Day4/read_def.png" width="500" />
+</p>
 
 5. **Create an OpenROAD Database**
 Generate an OpenROAD database file (`pico_cts.db`) for further analysis:
 ```tcl
 write_db pico_cts.db
 ```
+<p align="left">
+    <img src="Day4/create_db.png" width="500" />
+</p>
 
 6. **Verify the Generated Database**
 After executing the above commands, verify that `pico_cts.db` is successfully created in the OpenLane directory.
