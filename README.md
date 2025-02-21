@@ -1217,8 +1217,7 @@ This will create a `.spice` file in your working directory.
     ```
    <p align="left">
         <img src="Day3/spice_file.png" width="500" />
-        <img src="Day3/spice_file2.png" width="500" />
-    </p>
+   </p>
 The file should contain transistor-level netlists describing the circuit.
 
 Here's a README file documenting the necessary modifications for the SPICE file:
