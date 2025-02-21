@@ -1995,3 +1995,102 @@ magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs
 
 This opens the design layout with the placed cells in Magic for further inspection.
 
+### OpenSTA Configuration for Post-Synthesis Timing Analysis
+
+This guide provides step-by-step instructions to configure OpenSTA for post-synthesis timing analysis on the `picorv32a` design. The process involves setting up a configuration file (`pre_sta.conf`) and defining timing constraints in an SDC file (`my_base.sdc`).
+
+#### Steps to Configure OpenSTA
+
+1. **Create the `pre_sta.conf` File**
+
+The `pre_sta.conf` file contains the necessary commands to set up OpenSTA for timing analysis. You can create it using `vim` or any text editor.
+
+```sh
+vim pre_sta.conf
+```
+
+Copy and paste the following content:
+
+```tcl
+set_cmd_units -time ns -capacitance pF -current mA -voltage V -resistance kOhm -distance um
+
+read_liberty -min /home/abhinavprakash1999/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/sky130_fd_sc_hd__slow.lib
+read_liberty -max /home/abhinavprakash1999/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/sky130_fd_sc_hd__fast.lib
+
+read_verilog /home/abhinavprakash1999/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/29-01_16-21/results/synthesis/picorv32a.synthesis_cts.v
+
+link_design picorv32a
+
+read_sdc /home/abhinavprakash1999/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/my_base.sdc
+
+report_checks -path_delay min_max -fields {slew trans net cap input_pin}
+report_tns
+report_wns
+```
+<p align="left">
+    <img src="Day4/pre_sta.png" width="500" />
+</p>
+
+2. **Create the `my_base.sdc` File**
+
+The `my_base.sdc` file defines the environment variables and constraints required for timing analysis.
+
+```sh
+vim /home/abhinavprakash1999/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/my_base.sdc
+```
+
+Copy and paste the following content:
+
+```tcl
+set ::env(CLOCK_PORT) clk
+set ::env(CLOCK_PERIOD) 12.000
+set ::env(SYNTH_DRIVING_CELL) sky130_fd_sc_hd__inv_8
+set ::env(SYNTH_DRIVING_CELL_PIN) Y
+set ::env(SYNTH_CAP_LOAD) 17.65
+
+create_clock [get_ports $::env(CLOCK_PORT)] -name $::env(CLOCK_PORT) -period $::env(CLOCK_PERIOD)
+
+set IO_PCT  0.2
+set input_delay_value [expr $::env(CLOCK_PERIOD) * $IO_PCT]
+set output_delay_value [expr $::env(CLOCK_PERIOD) * $IO_PCT]
+
+puts "[INFO]: Setting output delay to: $output_delay_value"
+puts "[INFO]: Setting input delay to: $input_delay_value"
+
+set clk_indx [lsearch [all_inputs] [get_port $::env(CLOCK_PORT)]]
+set all_inputs_wo_clk [lreplace [all_inputs] $clk_indx $clk_indx]
+set all_inputs_wo_clk_rst $all_inputs_wo_clk
+
+set_input_delay $input_delay_value -clock [get_clocks $::env(CLOCK_PORT)] $all_inputs_wo_clk_rst
+set_output_delay $output_delay_value -clock [get_clocks $::env(CLOCK_PORT)] [all_outputs]
+
+set_driving_cell -lib_cell $::env(SYNTH_DRIVING_CELL) -pin $::env(SYNTH_DRIVING_CELL_PIN) [all_inputs]
+set cap_load [expr $::env(SYNTH_CAP_LOAD) / 1000.0]
+puts "[INFO]: Setting load to: $cap_load"
+set_load  $cap_load [all_outputs]
+```
+<p align="left">
+    <img src="Day4/my_sdc.png" width="500" />
+</p>
+
+3. **Run OpenSTA**
+
+Once the configuration files are created, execute OpenSTA with the `pre_sta.conf` script in openlane directory:
+
+```sh
+sta pre_sta.conf
+```
+<p align="left">
+    <img src="Day4/pre_sta_result.png" width="500" />
+</p>
+
+4. **Analyze Timing Reports**
+
+After running OpenSTA, check the generated reports:
+- **`report_checks`**: Displays detailed path delay information.
+- **`report_tns`**: Reports total negative slack.
+- **`report_wns`**: Reports worst negative slack.
+
+Address any timing violations by adjusting constraints or optimizing the design.
+
+
