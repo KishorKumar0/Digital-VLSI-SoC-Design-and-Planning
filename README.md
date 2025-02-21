@@ -2094,3 +2094,45 @@ After running OpenSTA, check the generated reports:
 Address any timing violations by adjusting constraints or optimizing the design.
 
 
+### Running CTS using Triton
+
+Clock Tree Synthesis (CTS) is an essential step in the physical design flow, ensuring that the clock signal is distributed effectively with minimal skew.
+
+#### 1. Replace the Old Netlist
+
+After reducing slack, we must replace the old netlist with the newly generated netlist.
+
+Navigate to the synthesis directory:
+
+```sh
+cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/02-04_05-27/results/synthesis/
+```
+
+List the contents to verify files:
+
+```sh
+ls -ltr
+```
+
+Copy the optimized netlist to replace the old one:
+
+```sh
+cp picorv32a.synthesis_optimized.v picorv32a.synthesis.v
+```
+<p align="left">
+    <img src="Day4/sythesis_folder.png" width="500" />
+</p>
+
+#### 2. Run CTS
+
+Once the updated netlist is in place, execute the following commands in the OpenLANE directory:
+
+```sh
+run_cts
+```
+<p align="left">
+    <img src="Day4/cts.png" width="500" />
+</p>
+
+Runs Clock Tree Synthesis (CTS) to distribute the clock signal effectively.
+
