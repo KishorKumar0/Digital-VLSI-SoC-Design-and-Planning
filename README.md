@@ -2229,7 +2229,7 @@ This reads the liberty file, which contains information about timing, power, and
 link_design picorv32a
 ```
 <p align="left">
-    <img src="Day4/link_design.png" width="500" />
+    <img src="Day4/link_design_lib.png" width="500" />
 </p>
 
 This command links the design with the corresponding library, ensuring that the tool recognizes the available standard cells and timing models.
