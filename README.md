@@ -1991,11 +1991,9 @@ magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs
       lef read ../../tmp/merged.lef \
       def read picorv32a.placement.def &
 ```
+<p align="left">
+    <img src="Day4/magic_layout.png" width="500" />
+</p>
+
 This opens the design layout with the placed cells in Magic for further inspection.
-
-
-
-
-## Conclusion
-By making these adjustments, we improve the synthesis process and address negative slack, ensuring better design performance. These changes optimize delay, enable cell sizing, and fine-tune synthesis strategies to achieve a more timing-accurate design.
 
