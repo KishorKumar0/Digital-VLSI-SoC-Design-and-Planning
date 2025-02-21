@@ -2380,6 +2380,57 @@ exit
     <img src="Day4/final_report.png" width="500" />
 </p>
 
+---
+## Final step for RTL2GDS using tritinRoute and openSTA
+### Lab steps to build power distribution network
 
+This section documents the process of generating the Power Distribution Network (PDN) and exploring its layout using the OpenLane flow. The PDN ensures stable power delivery to all parts of the circuit by distributing power (VDD) and ground (VSS) efficiently.
 
+#### Prerequisites
+Before generating the PDN, the following stages in the OpenLane flow must be completed:
+1. **Synthesis**
+2. **Floorplanning**
+3. **Placement**
+4. **Clock Tree Synthesis (CTS)**
+
+Since CTS has already been completed, we can proceed with the PDN generation.
+
+#### Generating the Power Distribution Network
+The PDN generation involves creating power (VDD) and ground (VSS) rails and straps across the design to ensure reliable power distribution. This process helps in minimizing IR drop and electromigration issues. The PDN also defines the metal layers and their widths used for power routing.
+
+To generate the PDN, execute the following command within the OpenLane interactive shell:
+```sh
+run_pdn
+```
+<p align="left">
+    <img src="Day4/pdn.png" width="500" />
+</p>
+
+This command automatically creates the power and ground distribution network across the design. The PDN is typically designed using multiple metal layers, with wider tracks for power distribution to minimize resistance and voltage drop.
+
+### Key Components of PDN
+1. **Power Rings** - Encircle the core of the design and connect to power sources.
+2. **Power Straps** - Horizontal and vertical metal lines that distribute power across the chip.
+3. **Power Rails** - Run through standard cells, providing local power delivery.
+4. **VIAs** - Connections between different metal layers for better conductivity.
+
+## Viewing the PDN Layout in Magic
+Once the PDN is generated, we can visualize it using the Magic VLSI tool. Follow these steps:
+
+1. Navigate to the directory containing the generated PDN DEF file:
+   ```sh
+   cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/20-02_05-29/tmp/floorplan/
+   ```
+
+2. Load the PDN DEF file in Magic:
+   ```sh
+   magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech \
+         lef read ../../tmp/merged.lef \
+         def read 14-pdn.def &
+   ```
+<p align="left">
+    <img src="Day4/pdn_layout.png" width="500" />
+    <img src="Day4/pdn_layout2.png" width="500" />
+    <img src="Day4/pdn_layout3.png" width="500" />
+</p>
 
