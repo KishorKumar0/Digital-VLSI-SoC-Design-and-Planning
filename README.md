@@ -1216,7 +1216,7 @@ This will create a `.spice` file in your working directory.
     vim sky130_inv.spice
     ```
    <p align="left">
-        <img src="Day3/spice_file" width="500" />
+        <img src="Day3/spice_file.png" width="500" />
         <img src="Day3/spice_file2.png" width="500" />
     </p>
 The file should contain transistor-level netlists describing the circuit.
