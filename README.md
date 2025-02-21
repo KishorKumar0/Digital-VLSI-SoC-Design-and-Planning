@@ -2302,7 +2302,7 @@ To verify the current value of `CTS_CLK_BUFFER_LIST`, run:
 echo $::env(CTS_CLK_BUFFER_LIST)
 ```
 <p align="left">
-    <img src="Day4/verify_buffer.png" width="500" />
+    <img src="Day4/verify_value.png" width="500" />
 </p>
 
 #### Checking the CURRENT_DEF Environment Variable
@@ -2373,7 +2373,12 @@ report_clock_skew -setup
 
 exit
 ```
-
+<p align="left">
+    <img src="Day4/openroad2.png" width="500" />
+    <img src="Day4/report4.png" width="500" />
+    <img src="Day4/report5.png" width="500" />
+    <img src="Day4/final_report.png" width="500" />
+</p>
 
 
 
