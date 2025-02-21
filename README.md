@@ -2293,11 +2293,17 @@ To remove the specific clock buffer from the list, execute the following command
 ```tcl
 set ::env(CTS_CLK_BUFFER_LIST) [lreplace $::env(CTS_CLK_BUFFER_LIST) 0 0]
 ```
+<p align="left">
+    <img src="Day4/clk_buffer.png" width="500" />
+</p>
 
 To verify the current value of `CTS_CLK_BUFFER_LIST`, run:
 ```tcl
 echo $::env(CTS_CLK_BUFFER_LIST)
 ```
+<p align="left">
+    <img src="Day4/verify_buffer.png" width="500" />
+</p>
 
 #### Checking the CURRENT_DEF Environment Variable
 CURRENT_DEF is an environment variable that holds the path to the current placement DEF file.
@@ -2305,100 +2311,66 @@ To check its value, use:
 ```tcl
 echo $::env(CURRENT_DEF)
 ```
+<p align="left">
+    <img src="Day4/check_def.png" width="500" />
+</p>
 
 #### Setting the DEF File for Placement
 To set the DEF file for placement, update `CURRENT_DEF` with the correct path:
 ```tcl
 set ::env(CURRENT_DEF) /openLANE_flow/designs/picorv32a/runs/20-02_05-29/results/placement/picorv32a.placement.def
 ```
+<p align="left">
+    <img src="Day4/set_def.png" width="500" />
+</p>
 
 #### Running CTS (Clock Tree Synthesis)
 Execute the CTS process using:
 ```tcl
 run_cts
 ```
+<p align="left">
+    <img src="Day4/run_cts.png" width="500" />
+</p>
 
 After running CTS, verify the updated buffer list:
 ```tcl
 echo $::env(CTS_CLK_BUFFER_LIST)
 ```
+<p align="left">
+    <img src="Day4/updated_def.png" width="500" />
+</p>
 
 #### Observing the Impact of Larger CTS Buffers on Timing
 To analyze timing variations caused by larger CTS buffers, follow these steps:
 
-1. **Launch OpenROAD**
 ```sh
 openroad
-```
 
-2. **Read the LEF and DEF Files**
-Load the merged LEF file:
-```tcl
 read_lef /openLANE_flow/designs/picorv32a/runs/20-02_05-29/tmp/merged.lef
-```
 
-Load the post-CTS DEF file:
-```tcl
 read_def /openLANE_flow/designs/picorv32a/runs/20-02_05-29/results/cts/picorv32a.cts.def
-```
 
-3. **Save and Reload the Database**
-Save the database:
-```tcl
 write_db pico_cts1.db
-```
 
-Read the saved database:
-```tcl
 read_db pico_cts.db
-```
 
-4. **Load the Verilog and Liberty Files**
-Load the synthesized Verilog file:
-```tcl
 read_verilog /openLANE_flow/designs/picorv32a/runs/20-02_05-29/results/synthesis/picorv32a.synthesis_cts.v
-```
 
-Load the complete liberty timing file:
-```tcl
 read_liberty $::env(LIB_SYNTH_COMPLETE)
-```
 
-Link the design:
-```tcl
 link_design picorv32a
-```
 
-5. **Load Timing Constraints**
-Read the SDC file:
-```tcl
 read_sdc /openLANE_flow/designs/picorv32a/src/my_base.sdc
-```
 
-6. **Perform Timing Analysis**
-Propagate clock information:
-```tcl
 set_propagated_clock [all_clocks]
-```
 
-Generate a detailed timing report:
-```tcl
 report_checks -path_delay min_max -fields {slew trans net cap input_pins} -format full_clock_expanded -digits 4
-```
 
-7. **Analyze Clock Skew**
-Report hold-time clock skew:
-```tcl
 report_clock_skew -hold
-```
 
-Report setup-time clock skew:
-```tcl
 report_clock_skew -setup
-```
 
-8. **Exit OpenROAD**
-```tcl
 exit
 ```
 
