@@ -681,7 +681,36 @@ Physical verification ensures that the designed layout follows manufacturing rul
 
 By using **Magic** and **Netgen**, designers can validate their layouts before fabrication, reducing errors and ensuring correct functionality.
 
----
+## Get familiar to open-source EDA tools
+### OpenLane Directory Structure in detail
+
+To effectively work with the OpenLane tool, familiarity with some basic Linux commands is essential. Below is a list of commonly used commands:
+
+### Basic Linux Commands
+
+- **`pwd`**  
+  Displays the present working directory and its full path.
+
+- **`cd`**  
+  Navigates through the directory tree. You can move both forward and backward.
+
+- **`ls`**  
+  Lists all files and sub-directories in the current directory.
+
+- **`mkdir`**  
+  Creates a new directory.
+
+- **`rmdir`**  
+  Deletes an existing, empty directory.
+
+- **`rm`**  
+  Deletes files. Use with caution, especially with options like `-r` (recursive).
+
+- **`help`**  
+  Provides information about how a command works.
+
+- **`clear`**  
+  Clears the terminal screen for better readability.
 
 ### Design Preparation Step
 
@@ -690,42 +719,92 @@ By using **Magic** and **Netgen**, designers can validate their layouts before f
 - OpenLANE repository cloned
 - Required PDKs (e.g., Sky130) available
 
-#### Initial Setup
+#### Step 1: Entering the OpenLane Environment via Docker
+
+OpenLane operates within a Docker container for consistency and isolation from your host environment. To enter the OpenLane bash shell:
+
+1. Open a terminal.
+2. Navigate to your OpenLane installation directory:
+   ```bash
+   cd ~/Desktop/work/tools/openlane_working_dir/openlane
+   ```
+3. Run the following command to enter the Docker container:
+   ```bash
+   docker
+   ```
+
+    You’ll know you're inside the container when your command prompt changes to something like:
+    ```
+    bash-4.2#
+    ```
+
+This container comes pre-configured with all the necessary tools like Yosys, OpenROAD, Magic, KLayout, Netgen, etc., that OpenLane uses during the flow.
+
+
+
+#### Step 2: Launching OpenLane Flow Script in Interactive Mode
+
+Once inside the Docker environment, launch the OpenLane flow control script with the following command:
+
+```bash
+./flow.tcl -interactive
+```
+
+**Why `-interactive`?**
+- The `flow.tcl` script is a Tcl-based controller that orchestrates the entire ASIC design flow.
+- By using the `-interactive` flag, **you retain control** over each step of the process (e.g., synthesis, floorplanning, placement, etc.).
+- If you run `./flow.tcl` **without** `-interactive`, the entire flow from RTL to GDSII will be executed in one go. This is useful for final runs but not recommended during development or learning.
+
+#### Step 3: Loading Required OpenLane Package
+
+Before using OpenLane commands inside the interactive shell, you must load the correct version of the OpenLane package:
+
+```tcl
+package require openlane 0.9
+```
+
+This command ensures that all the necessary procedures, variables, and APIs related to OpenLane version `0.9` are available in your session.
+
+
+#### Step 4: Selecting the Target Design
+
+OpenLane includes several example designs stored in the `designs/` directory. These examples are useful for testing or learning purposes. For this flow, we will be working with the `picorv32a` design.
+
+The `picorv32a` is a compact RISC-V core, ideal for integration into small or mid-sized SoCs.
+
+To begin working with this design, we need to prepare it.
+
+
+#### Step 5: Preparing the Design Environment
+
+The preparation step sets up everything OpenLane needs to process the selected design.
+
+Run the following command inside the interactive OpenLane shell:
+
+```tcl
+prep -design picorv32a
+```
+
+**What happens during this step:**
+- **Configuration Sourcing:** It loads the design’s `config.tcl` (located at `designs/picorv32a/config.tcl`), which contains paths to Verilog files, technology settings, constraints, etc.
+- **PDK Setup:** It sets up the paths to your installed PDK (Sky130A in this case), and links the necessary standard cell libraries (like `sky130_fd_sc_hd`).
+- **LEF/DEF Preparation:** The technology LEF files are parsed and merged. These contain physical information about the standard cells (like dimensions and metal layers).
+- **Directory Creation:** A new run directory is created (e.g., `runs/20-02_05-29`) where OpenLane stores all generated output, logs, and reports.
+- **Layer Configuration:** Determines the available metal layers (e.g., met1 to met5).
+- **Validation:** Checks for valid site definitions, macro availability, and fills any exclusions or missing parts of the design.
+
+Once this is complete, you will see:
+```
+[INFO]: Preparation complete
+```
+This means the design environment is fully set up and ready for the next step—**synthesis**.
 
 <p align="left">
     <img src="Day1/file_config.png" width="500" />
     <img src="Day1/preparation.png" width="500" />
 </p>
 
-1. **Configure `config.tcl`**
-Before running the OpenLANE flow, ensure the `config.tcl` script is correctly set up with:
-- Verilog source file locations
-- Library (.lib) files for standard cells
-- Layout Exchange Format (.lef) files for physical design
-
-These files are essential for synthesis, placement, and routing.
-
-2. **Start OpenLANE in Interactive Mode**
-Run the following command from the OpenLANE directory:
-```sh
-./flow.tcl -interactive
- ```
-This will launch OpenLANE in interactive mode, setting up all required tools with default configurations.
-
-3. **Prepare the Design Environment**
-Once inside the interactive session, configure the design name and database folder where results, logs, and error reports will be stored for the current run.
-```sh
-prep -design <design_name>
-```
-Example:
-```sh
-prep -design picorv32a
-```
-This step ensures the setup of necessary files and directories before proceeding with further ASIC flow steps.
-
-Here's a section you can add to your GitHub README file:  
-
-#### Review files after design prep and run synthesis
+### Review files after design prep and run synthesis
 
 Once the preparation process is complete, a new directory will be automatically generated within the `runs` folder. This directory will be named based on the current date and will contain all the necessary subdirectories for storing various results, reports, and intermediate files.  
 
